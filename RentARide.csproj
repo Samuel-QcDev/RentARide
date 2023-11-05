@@ -64,7 +64,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Models\" />
+	  <PackageReference Include="Syncfusion.Maui.DataForm" Version="23.1.43" />
 	</ItemGroup>
 
 </Project>
