@@ -10,24 +10,21 @@
         <Image  Source="rentaride_logo.png"
                 Aspect="AspectFit"
                 />
-        <Button x:Name="CounterBtn"
+        <Button x:Name="Reservation"
                 Text="Faire une Réservation"
                 WidthRequest="300"
                 HeightRequest="100"
                 Margin="20"
-                SemanticProperties.Hint="Navigate to Reservation page"
-                Clicked="OnCounterClicked"
-                                      
-            />
-        <Button WidthRequest="300"
+                SemanticProperties.Hint="Navigate to Create Reservation page"
+                Clicked="CreateReservation_Clicked"/>
+        
+        <Button x:Name="Historique"
+                Text="Consulter les Réservations"
+                WidthRequest="300"
                 HeightRequest="100"
                 Margin="20"
-                x:Name="Historique"
-                Text="Consulter les Réservations"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-              
-            />
+                SemanticProperties.Hint="Navigates to Reservation history page"
+                Clicked="History_Clicked"/>
     </VerticalStackLayout>
 
 </ContentPage>

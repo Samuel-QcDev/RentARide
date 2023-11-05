@@ -5,8 +5,8 @@
              Title="HistoriqueReservationPage">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
+            Text="Réservations"
+            VerticalOptions="Start" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>
