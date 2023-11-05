@@ -1,4 +1,4 @@
-namespace RentARide;
+namespace RentARide.Views;
 
 public partial class HistoriqueReservationPage : ContentPage
 {

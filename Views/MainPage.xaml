@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RentARide.MainPage">
+             x:Class="RentARide.Views.MainPage">
 
     <VerticalStackLayout Padding="10"
                          Spacing="10"
                          VerticalOptions="Center">
 
-        <Image
-                Source="rentaride_logo.png"
+        <Image  Source="rentaride_logo.png"
                 Aspect="AspectFit"
                 />
-        <Button WidthRequest="300"
-                HeightRequest="100"
-                Margin="50"
-                x:Name="CounterBtn"
+        <Button x:Name="CounterBtn"
                 Text="Faire une Réservation"
-                SemanticProperties.Hint="Counts the number of times you click"
+                WidthRequest="300"
+                HeightRequest="100"
+                Margin="20"
+                SemanticProperties.Hint="Navigate to Reservation page"
                 Clicked="OnCounterClicked"
                                       
             />
         <Button WidthRequest="300"
                 HeightRequest="100"
+                Margin="20"
                 x:Name="Historique"
                 Text="Consulter les Réservations"
                 SemanticProperties.Hint="Counts the number of times you click"
