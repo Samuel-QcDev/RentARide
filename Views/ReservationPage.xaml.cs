@@ -7,8 +7,8 @@ public partial class ReservationPage : ContentPage
         InitializeComponent();
     }
 
-private void Search_Clicked(object sender, EventArgs e)
-{
-    Navigation.PushAsync(new ResultPage());
-}
+    private void Search_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new ResultPage());
+    }
 }

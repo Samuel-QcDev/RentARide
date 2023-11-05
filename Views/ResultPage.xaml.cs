@@ -6,4 +6,8 @@ public partial class ResultPage : ContentPage
 	{
 		InitializeComponent();
 	}
+    private void Submit_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new HistoriqueReservationPage());
+    }
 }
