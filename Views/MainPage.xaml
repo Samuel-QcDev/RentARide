@@ -4,25 +4,25 @@
              x:Class="RentARide.Views.MainPage">
 
     <VerticalStackLayout Padding="10"
-                         Spacing="10"
-                         VerticalOptions="Center">
+                         Spacing="50">
 
-        <Image  Source="rentaride_logo.png"
-                Aspect="AspectFit"
-                />
+        <Image  Source="rentaride_logo.png"/>
+        
         <Button x:Name="Reservation"
                 Text="Faire une Réservation"
-                WidthRequest="300"
+                FontSize="Medium"
+                CornerRadius="15"
+                WidthRequest="320"
                 HeightRequest="100"
-                Margin="20"
                 SemanticProperties.Hint="Navigate to Create Reservation page"
                 Clicked="CreateReservation_Clicked"/>
         
         <Button x:Name="Historique"
                 Text="Consulter les Réservations"
-                WidthRequest="300"
+                FontSize="Medium"
+                CornerRadius="15"
+                WidthRequest="320"
                 HeightRequest="100"
-                Margin="20"
                 SemanticProperties.Hint="Navigates to Reservation history page"
                 Clicked="History_Clicked"/>
     </VerticalStackLayout>
