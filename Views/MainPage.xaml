@@ -7,7 +7,7 @@
                          Spacing="50">
 
         <Image  Source="rentaride_logo.png"/>
-        
+
         <Button x:Name="Reservation"
                 Text="Faire une Réservation"
                 FontSize="Medium"
@@ -15,8 +15,15 @@
                 WidthRequest="320"
                 HeightRequest="100"
                 SemanticProperties.Hint="Navigate to Create Reservation page"
-                Clicked="CreateReservation_Clicked"/>
-        
+                Clicked="CreateReservation_Clicked">
+            <Button.Shadow>
+                <Shadow Brush="Black"
+                Offset="20,20"
+                Radius="40"
+                Opacity="0.8" />
+            </Button.Shadow>
+        </Button>
+
         <Button x:Name="Historique"
                 Text="Consulter les Réservations"
                 FontSize="Medium"
@@ -24,7 +31,14 @@
                 WidthRequest="320"
                 HeightRequest="100"
                 SemanticProperties.Hint="Navigates to Reservation history page"
-                Clicked="History_Clicked"/>
+                Clicked="History_Clicked">
+                    <Button.Shadow>
+                <Shadow Brush="Black"
+                Offset="20,20"
+                Radius="40"
+                Opacity="0.8" />
+            </Button.Shadow> 
+        </Button>
     </VerticalStackLayout>
 
 </ContentPage>
