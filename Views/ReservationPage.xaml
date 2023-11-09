@@ -20,15 +20,16 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="5"
                     HorizontalOptions="Center"
+                    BackgroundColor="LightGreen"
                     FontSize="Medium"/> 
         
         <Label Text="Période : "
                FontSize="Medium"
-               Grid.Row="1"
+               Grid.Row="2"
                Grid.Column="0"
                Grid.ColumnSpan="2"/>
 
-        <Picker Grid.Row="1" 
+        <Picker Grid.Row="2" 
                 Grid.RowSpan="1"
                 BackgroundColor="LightGreen"
                 Grid.Column="2" 
@@ -37,6 +38,7 @@
                 FontSize="Medium"
                 HorizontalTextAlignment="Center">
             <Picker.Items>
+                <x:String>00</x:String>
                 <x:String>01</x:String>
                 <x:String>02</x:String>
                 <x:String>03</x:String>
@@ -49,18 +51,29 @@
                 <x:String>10</x:String>
                 <x:String>11</x:String>
                 <x:String>12</x:String>
+                <x:String>13</x:String>
+                <x:String>14</x:String>
+                <x:String>15</x:String>
+                <x:String>16</x:String>
+                <x:String>17</x:String>
+                <x:String>18</x:String>
+                <x:String>19</x:String>
+                <x:String>20</x:String>
+                <x:String>21</x:String>
+                <x:String>22</x:String>
+                <x:String>23</x:String>
             </Picker.Items>
         </Picker>
         <Label Text="H"
                FontSize="Medium"
                HorizontalTextAlignment="Center"
-               Grid.Row="1" 
+               Grid.Row="2" 
                Grid.Column="3"
                Margin="0,10,0,5"/>
         <Picker FontSize="Medium"
                 BackgroundColor="LightGreen"
                 HorizontalTextAlignment="Center"
-                Grid.Row="1" 
+                Grid.Row="2" 
                 Grid.RowSpan="1"
                 Grid.Column="4" 
                 Grid.ColumnSpan="1"
@@ -70,7 +83,7 @@
                 <x:String>30</x:String>
             </Picker.Items>
         </Picker>
-        <Picker FontSize="Medium"
+        <!--<Picker FontSize="Medium"
                 BackgroundColor="LightGreen"
                 HorizontalTextAlignment="Center"
                 Grid.Row="1" 
@@ -83,20 +96,21 @@
                 <x:String>AM</x:String>
                 <x:String>PM</x:String>
             </Picker.Items>
-        </Picker>
+        </Picker>-->
         <Label Text="À"
                FontSize="Medium"
                HorizontalTextAlignment="Center"
-               Grid.Row="2"
+               Grid.Row="3"
                Grid.Column="3"
                Margin="0,10,0,5"/>
-        <Picker Grid.Row="3" Grid.RowSpan="1"
+        <Picker Grid.Row="4" Grid.RowSpan="1"
                 BackgroundColor="LightGreen"
                 Grid.Column="2" Grid.ColumnSpan="1"
                 Margin="0,0,0,0"
                 FontSize="Medium"
                 HorizontalTextAlignment="Center">
             <Picker.Items>
+                <x:String>00</x:String>
                 <x:String>01</x:String>
                 <x:String>02</x:String>
                 <x:String>03</x:String>
@@ -109,18 +123,29 @@
                 <x:String>10</x:String>
                 <x:String>11</x:String>
                 <x:String>12</x:String>
+                <x:String>13</x:String>
+                <x:String>14</x:String>
+                <x:String>15</x:String>
+                <x:String>16</x:String>
+                <x:String>17</x:String>
+                <x:String>18</x:String>
+                <x:String>19</x:String>
+                <x:String>20</x:String>
+                <x:String>21</x:String>
+                <x:String>22</x:String>
+                <x:String>23</x:String>
             </Picker.Items>
         </Picker>
         <Label Text="H"
                FontSize="Medium"
                HorizontalTextAlignment="Center"
-               Grid.Row="3"
+               Grid.Row="4"
                Grid.Column="3"
                Margin="0,10,0,5"/>
         <Picker FontSize="Medium"
                 HorizontalTextAlignment="Center"
                 BackgroundColor="LightGreen"
-                Grid.Row="3" Grid.RowSpan="1"
+                Grid.Row="4" Grid.RowSpan="1"
                 Grid.Column="4" Grid.ColumnSpan="1"
                 Margin="0,0,0,0">
             <Picker.Items>
@@ -128,7 +153,8 @@
                 <x:String>30</x:String>
             </Picker.Items>
         </Picker>
-        <Picker FontSize="Medium"
+ 
+        <!--<Picker FontSize="Medium"
                 BackgroundColor="LightGreen"
                 HorizontalTextAlignment="Center"
                 Grid.Row="3" Grid.RowSpan="1"
@@ -138,8 +164,8 @@
                 <x:String>AM</x:String>
                 <x:String>PM</x:String>
             </Picker.Items>
-        </Picker>
-
+        </Picker>-->
+    
         <Label Text="Type de Véhicule : "
                FontSize="Medium"
                VerticalTextAlignment="Center"
