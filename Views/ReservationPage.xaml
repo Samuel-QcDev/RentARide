@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RentARide.Views.ReservationPage"
+             xmlns:viewmodel="clr-namespace:RentARide.ViewModel"
+             x:DataType="viewmodel:ReservationViewModel"
              Title="Réservation">
     <Grid ColumnDefinitions="*,*,*,*,*,*,*,*"
           RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*"
@@ -29,7 +31,8 @@
                Grid.Column="0"
                Grid.ColumnSpan="2"/>
 
-        <Picker Grid.Row="2" 
+        <Picker SelectedItem="{Binding Time}"
+                Grid.Row="2" 
                 Grid.RowSpan="1"
                 BackgroundColor="LightGreen"
                 Grid.Column="2" 
@@ -191,17 +194,19 @@
                FontSize="Medium"
                Grid.Row="7" Grid.RowSpan="1"
                Grid.Column="0" Grid.ColumnSpan="2"/>
-        <RadioButton Content="À essence"
+        <RadioButton x:Name="radioButtGas"
+                    Content="À essence"
                      GroupName="TypeVehicule"
                      Grid.Row="7" 
                      Grid.Column="2" 
                      Grid.ColumnSpan="3"
                      HorizontalOptions="Start"/>
-        <RadioButton Content="Électrique"
-                     GroupName="TypeVehicule"
-                     Grid.Row="7" 
-                     Grid.Column="5"
-                     Grid.ColumnSpan="3"/>
+        <RadioButton x:Name="radioButtElectric"
+                    Content="Électrique"
+                    GroupName="TypeVehicule"
+                    Grid.Row="7" 
+                    Grid.Column="5"
+                    Grid.ColumnSpan="3"/>
         <CheckBox x:Name="Mp3" 
                   Grid.Row="8" 
                   Grid.Column="0" 
