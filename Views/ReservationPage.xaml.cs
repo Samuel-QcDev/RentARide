@@ -25,15 +25,17 @@ public partial class ReservationPage : ContentPage
         StationId = station;
         Options = options;
 
-
-
     }
 
     public ReservationPage()
     {
         InitializeComponent();
     }
-
+    public DateTime GetStartTime()
+    {
+        return StartTime;
+    }
+    public DateTime GetEndTime() { return EndTime;}
     private void Search_Clicked(object sender, EventArgs e)
     {
         Navigation.PushAsync(new ResultPage());

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentARide
+namespace RentARide.ViewModel
 {
-    public static class Constants
+    public partial class LoginViewModel
     {
-
     }
 }
