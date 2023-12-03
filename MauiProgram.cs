@@ -1,5 +1,4 @@
-﻿using Syncfusion.Maui.Core.Hosting;
-namespace RentARide;
+﻿namespace RentARide;
 
 public static class MauiProgram
 {
@@ -7,7 +6,6 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder
-            .ConfigureSyncfusionCore()
             .UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
 			{
