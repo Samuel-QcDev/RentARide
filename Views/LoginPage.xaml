@@ -43,11 +43,17 @@
             <Button
 
                 Margin="5"
-                Text="Create Account" />
+                Text="Create Account"
+                Clicked="Create_Clicked"/>
+            
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Margin="10,10,10,0" HorizontalOptions="Center">
             <Button
       
                 Margin="5"
                 Text="Forgot Password" />
+
+
         </HorizontalStackLayout>
 
 

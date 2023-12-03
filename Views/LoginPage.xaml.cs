@@ -23,4 +23,13 @@ public partial class LoginPage : ContentPage
     {
         Navigation.PushAsync(new MainPage());
     }
+    private async void Create_Clicked(object sender, EventArgs e)
+    {
+        CancellationTokenSource cancellationTokenSource  = new CancellationTokenSource();
+        var message = $"Welcome {vm.Name}. Your account was created!";
+        ToastDuration duration = ToastDuration.Short;
+        var fontSize = 14;
+        var toast = Toast.Make(message, duration, fontSize);
+        await toast.Show(cancellationTokenSource.Token);
+    }
 }
