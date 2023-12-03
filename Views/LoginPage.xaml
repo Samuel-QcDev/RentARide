@@ -1,9 +1,57 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:RentARide"
-             x:Class="RentARide.Views.LoginPage"
-             Title="LoginPage">
+<ContentPage
+    x:Class="RentARide.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModel="clr-namespace:RentARide.ViewModel"
+    Title="Login Page"
+    x:DataType="viewModel:LoginViewModel">
+
+    <VerticalStackLayout x:Name="LoginStackLayout" Margin="0,20,0,10">
+        <HorizontalStackLayout WidthRequest="300">
+            <Label
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                Text="User Name : "
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+            <Entry
+                HorizontalOptions="End"
+                Placeholder="User Name"
+                Text="{Binding Name}"
+                WidthRequest="150" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout WidthRequest="300">
+            <Label
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                Text="Password : "
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+            <Entry
+                HorizontalOptions="End"
+                IsPassword="True"
+                Placeholder="Password"
+                Text="{Binding Password}"
+                WidthRequest="150" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Margin="10,10,10,0" HorizontalOptions="Center">
+            <Button Margin="5"
+                Text="Submit"
+                Clicked="Submit_Clicked"/>
+            <Button
+
+                Margin="5"
+                Text="Create Account" />
+            <Button
+      
+                Margin="5"
+                Text="Forgot Password" />
+        </HorizontalStackLayout>
+
+
+</VerticalStackLayout>
 
 
 

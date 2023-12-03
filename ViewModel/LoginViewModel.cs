@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using System.Windows.Input;
+using RentARide.Views;
 
-namespace RentARide.ViewModel
+namespace RentARide.ViewModel;
+
+[ObservableObject]
+public partial class LoginViewModel
 {
-    public partial class LoginViewModel
-    {
+        [ObservableProperty] private string name;
+        [ObservableProperty] private string password;
     }
-}
