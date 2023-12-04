@@ -1,43 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RentARide.Views.MainPage">
+<ContentPage
+    x:Class="RentARide.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <VerticalStackLayout Padding="10"
-                         Spacing="50">
+    <VerticalStackLayout Padding="10" Spacing="50">
 
-        <Image  Source="rentaride_logo.png"/>
+        <Image Source="rentaride_logo.png" />
 
-        <Button x:Name="Reservation"
-                Text="Faire une Réservation"
-                FontSize="Medium"
-                CornerRadius="15"
-                WidthRequest="320"
-                HeightRequest="100"
-                SemanticProperties.Hint="Navigate to Create Reservation page"
-                Clicked="CreateReservation_Clicked">
+        <Button
+            x:Name="Reservation"
+            Clicked="CreateReservation_Clicked"
+            CornerRadius="15"
+            FontSize="Medium"
+            HeightRequest="100"
+            SemanticProperties.Hint="Navigate to Create Reservation page"
+            Text="Faire une Réservation"
+            WidthRequest="320">
             <Button.Shadow>
-                <Shadow Brush="Black"
-                Offset="20,20"
-                Radius="40"
-                Opacity="0.8" />
+                <Shadow
+                    Brush="Black"
+                    Opacity="0.8"
+                    Radius="40"
+                    Offset="20,20" />
             </Button.Shadow>
         </Button>
 
-        <Button x:Name="Historique"
-                Text="Consulter les Réservations"
-                FontSize="Medium"
-                CornerRadius="15"
-                WidthRequest="320"
-                HeightRequest="100"
-                SemanticProperties.Hint="Navigates to Reservation history page"
-                Clicked="History_Clicked">
-                    <Button.Shadow>
-                <Shadow Brush="Black"
-                Offset="20,20"
-                Radius="40"
-                Opacity="0.8" />
-            </Button.Shadow> 
+        <Button
+            x:Name="Historique"
+            Clicked="History_Clicked"
+            CornerRadius="15"
+            FontSize="Medium"
+            HeightRequest="100"
+            SemanticProperties.Hint="Navigates to Reservation history page"
+            Text="Consulter les Réservations"
+            WidthRequest="320">
+            <Button.Shadow>
+                <Shadow
+                    Brush="Black"
+                    Opacity="0.8"
+                    Radius="40"
+                    Offset="20,20" />
+            </Button.Shadow>
         </Button>
     </VerticalStackLayout>
 

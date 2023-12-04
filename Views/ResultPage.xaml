@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RentARide.Views.ResultPage"
-             Title="Résultats">
-    <Grid ColumnDefinitions="*,*,*,*,*"
-          RowDefinitions="*,*,*,*,*"
-          ColumnSpacing="5"
-          RowSpacing="5"
-          Padding="10">
-        <Label 
-            Text="Véhicules disponibles"
-            FontSize="Medium"
-            Grid.Row="0"
-            Grid.Column="1"
-            Grid.ColumnSpan="3"
-            HorizontalTextAlignment="Center"/>
-
-
-
-
-
-
-        <Button x:Name="Submit"
-                Text="Soumettre"
+<ContentPage
+    x:Class="RentARide.Views.ResultPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Résultats">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label
                 FontSize="Medium"
-                CornerRadius="15"
-                Grid.Row="5"
-                Grid.Column="2"
-                WidthRequest="200"
-                SemanticProperties.Hint="Submit a Reservation"
-                Clicked="Submit_Clicked"/>
+                HorizontalTextAlignment="Center"
+                Text="Véhicules disponibles" />
+            <CollectionView Margin="30,20,0,0" SelectionMode="Single">
+                <!--  Add Binding later  -->
+                <!--  ItemsSource="{Binding Results}"  -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
-    </Grid>
+            </CollectionView>
+
+            <Button
+                x:Name="Submit"
+                Clicked="Submit_Clicked"
+                CornerRadius="15"
+                FontSize="Medium"
+                Text="Soumettre"
+                WidthRequest="200" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -37,22 +37,21 @@
                 WidthRequest="150" />
         </HorizontalStackLayout>
         <HorizontalStackLayout Margin="10,10,10,0" HorizontalOptions="Center">
-            <Button Margin="5"
-                Text="Submit"
-                Command="{Binding SubmitCommand}"
-                />
             <Button
-
                 Margin="5"
-                Text="Create Account"
-                Clicked="Create_Clicked"/>
-            
+                Command="{Binding SubmitCommand}"
+                Text="Submit" />
+            <Button
+                Margin="5"
+                Clicked="Create_Clicked"
+                Text="Create Account" />
+
         </HorizontalStackLayout>
         <HorizontalStackLayout Margin="10,10,10,0" HorizontalOptions="Center">
             <Button
                 Margin="5"
-                Text="Forgot Password"
-                Clicked="Forgot_Clicked"/>
+                Clicked="Forgot_Clicked"
+                Text="Forgot Password" />
 
 
 
