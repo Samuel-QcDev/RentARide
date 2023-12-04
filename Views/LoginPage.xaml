@@ -39,7 +39,8 @@
         <HorizontalStackLayout Margin="10,10,10,0" HorizontalOptions="Center">
             <Button Margin="5"
                 Text="Submit"
-                Clicked="Submit_Clicked"/>
+                Command="{Binding SubmitCommand}"
+                />
             <Button
 
                 Margin="5"
@@ -49,16 +50,14 @@
         </HorizontalStackLayout>
         <HorizontalStackLayout Margin="10,10,10,0" HorizontalOptions="Center">
             <Button
-      
                 Margin="5"
-                Text="Forgot Password" />
+                Text="Forgot Password"
+                Clicked="Forgot_Clicked"/>
+
 
 
         </HorizontalStackLayout>
 
-
-</VerticalStackLayout>
-
-
+    </VerticalStackLayout>
 
 </ContentPage>
