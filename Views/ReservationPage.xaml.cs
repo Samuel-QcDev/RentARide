@@ -1,3 +1,6 @@
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Alerts;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 namespace RentARide.Views;
@@ -38,6 +41,21 @@ public partial class ReservationPage : ContentPage
     public DateTime GetEndTime() { return EndTime;}
     private void Search_Clicked(object sender, EventArgs e)
     {
+        // OptionsLayout.IsVisible = false;
+
         Navigation.PushAsync(new ResultPage());
+    }
+
+
+    private void VehicleType_OnSelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (VehicleType.SelectedItem.ToString() == "Auto")
+        {
+            OptionsLayout.IsVisible = false;
+        }
+        else
+        {
+            OptionsLayout.IsVisible = true;
+        }
     }
 }

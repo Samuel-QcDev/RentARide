@@ -8,6 +8,6 @@ public partial class ResultPage : ContentPage
 	}
     private void Submit_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new HistoriqueReservationPage());
+        Navigation.PushAsync(new MainPage());
     }
 }

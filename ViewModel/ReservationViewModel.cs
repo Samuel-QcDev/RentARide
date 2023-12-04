@@ -2,19 +2,28 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
+using RentARide.Views;
 
 namespace RentARide.ViewModel;
 
-public partial class ReservationViewModel : ObservableObject
+[ObservableObject]
+public partial class ReservationViewModel
 {
-    [ObservableProperty]
-    string time;
+    
+
+    [ObservableProperty] private string vehicleType;
+
+    [ObservableProperty] private bool optionsVisible;
+    
+
+    // [ObservableProperty] private string time;
+
 
     [RelayCommand]
     void SetTime()
     {
         // Select the int for hour
-        Time = string.Empty;
+       
     }
 
 }

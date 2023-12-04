@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using RentARide.Views;
 
-namespace RentARide.ViewModel
-{
-    public partial class MainViewModel
+namespace RentARide.ViewModel;
+
+
+[ObservableObject]
+public partial class MainViewModel
     {
     }
-}
+
