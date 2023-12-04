@@ -51,11 +51,11 @@ public partial class ReservationPage : ContentPage
     {
         if (VehicleType.SelectedItem.ToString() == "Auto")
         {
-            OptionsLayout.IsVisible = false;
+            OptionsLayout.IsVisible = true;
         }
         else
         {
-            OptionsLayout.IsVisible = true;
+            OptionsLayout.IsVisible = false;
         }
     }
 }

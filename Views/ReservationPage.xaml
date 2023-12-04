@@ -222,7 +222,7 @@
             Padding="10"
             ColumnDefinitions="*,*,*,*,*,*,*,*"
             ColumnSpacing="1"
-            IsVisible="True"
+            IsVisible="False"
             RowDefinitions="*,*,*,*,*,*,*"
             RowSpacing="10">
             <Label
