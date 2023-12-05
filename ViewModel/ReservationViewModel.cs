@@ -1,8 +1,15 @@
 ﻿
+using RentARide.ViewModel;
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using System.Runtime.Intrinsics.X86;
+using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.ComponentModel;
-using RentARide.Views;
+
 
 namespace RentARide.ViewModel;
 
@@ -14,10 +21,14 @@ public partial class ReservationViewModel
     [ObservableProperty] private string vehicleType;
 
     [ObservableProperty] private bool optionsVisible;
-    
+
 
     // [ObservableProperty] private string time;
-
+    [RelayCommand]
+    private async void Search()
+    {
+        await Shell.Current.GoToAsync("Resultpage");
+    }
 
     [RelayCommand]
     void SetTime()

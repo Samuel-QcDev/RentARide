@@ -14,16 +14,19 @@ public partial class LoginViewModel
 
     [RelayCommand]
     private async void Submit()
-        {
-            for (var i = 0.0; i < 1.0; i += 0.1)
-            {
-                await LoginPage.LoginProgressBar.ProgressTo(i, 500, Easing.Linear);
-            }
+    {
 
-            await Application.Current.MainPage.DisplayAlert(
-
-                "Submit",
-                $"You entered {Name} and {Password}",
-                "OK");
-        }
+        await Shell.Current.GoToAsync("Mainpage");
     }
+    //    for (var i = 0.0; i < 1.0; i += 0.1)
+        //    {
+        //        await LoginPage.LoginProgressBar.ProgressTo(i, 500, Easing.Linear);
+        //    }
+
+        //    await Application.Current.MainPage.DisplayAlert(
+
+        //        "Submit",
+        //        $"You entered {Name} and {Password}",
+        //        "OK");
+    
+}

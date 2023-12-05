@@ -2,7 +2,9 @@
 <ContentPage
     x:Class="RentARide.Views.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModel="clr-namespace:RentARide.ViewModel"
+    x:DataType="viewModel:MainViewModel">
 
     <VerticalStackLayout Padding="10" Spacing="50">
 
@@ -10,7 +12,7 @@
 
         <Button
             x:Name="Reservation"
-            Clicked="CreateReservation_Clicked"
+            Command="{Binding ReservationCommand}"
             CornerRadius="15"
             FontSize="Medium"
             HeightRequest="100"
@@ -28,7 +30,7 @@
 
         <Button
             x:Name="Historique"
-            Clicked="History_Clicked"
+            Command="{Binding ConsultHistoryCommand}"
             CornerRadius="15"
             FontSize="Medium"
             HeightRequest="100"

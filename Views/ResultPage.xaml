@@ -3,7 +3,10 @@
     x:Class="RentARide.Views.ResultPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Résultats">
+    xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModel="clr-namespace:RentARide.ViewModel"
+    Title="Résultats"
+    x:DataType="viewModel:ResultViewModel">
     <ScrollView>
         <VerticalStackLayout>
             <Label
@@ -23,10 +26,10 @@
 
             <Button
                 x:Name="Submit"
-                Clicked="Submit_Clicked"
+                Command="{Binding ReserveCommand}"
                 CornerRadius="15"
                 FontSize="Medium"
-                Text="Soumettre"
+                Text="Reserve"
                 WidthRequest="200" />
         </VerticalStackLayout>
     </ScrollView>

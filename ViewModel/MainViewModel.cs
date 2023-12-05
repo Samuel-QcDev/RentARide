@@ -15,5 +15,17 @@ namespace RentARide.ViewModel;
 [ObservableObject]
 public partial class MainViewModel
     {
-    }
+        [RelayCommand]
+        private async void Reservation()
+        {
+
+            await Shell.Current.GoToAsync("Reservationpage");
+        }
+        [RelayCommand]
+        private async void ConsultHistory()
+        {
+
+            await Shell.Current.GoToAsync("Historiquereservationpage");
+        }
+}
 

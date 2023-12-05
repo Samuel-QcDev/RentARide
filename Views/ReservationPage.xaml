@@ -3,6 +3,7 @@
     x:Class="RentARide.Views.ReservationPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:RentARide.ViewModel"
     Title="Réservation"
     x:DataType="viewmodel:ReservationViewModel">
@@ -201,12 +202,11 @@
                 Grid.RowSpan="1"
                 Grid.Column="4"
                 Grid.ColumnSpan="3"
-                SelectedIndexChanged="VehicleType_OnSelectedIndexChanged"
-                
                 Margin="0,5,0,0"
                 BackgroundColor="LightGreen"
                 FontSize="Medium"
                 HorizontalTextAlignment="Center"
+                SelectedIndexChanged="VehicleType_OnSelectedIndexChanged"
                 VerticalTextAlignment="Center">
                 <Picker.Items>
                     <x:String>Auto</x:String>
@@ -304,7 +304,7 @@
         <Button
             x:Name="Search"
             Margin="0,20,0,0"
-            Clicked="Search_Clicked"
+            Command="{Binding SearchCommand}"
             CornerRadius="15"
             FontSize="Medium"
             HorizontalOptions="Center"
