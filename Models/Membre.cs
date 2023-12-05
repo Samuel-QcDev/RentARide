@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RentARide
+namespace RentARide.Models
 {
-    public class Membre
+    [ObservableObject]
+    public partial class Membre
     {
-        public string MembreId { get; set; }
-        public string Name { get; set; }
-        public string Categorie { get; set; }
+        [ObservableProperty] private int membreId;
+        [ObservableProperty]private string name;
+        [ObservableProperty] private string categorie;
         public Membre()
         {
-            
+
         }
         public static void CreerMembre(string membreId, string name, string categorie)
         {

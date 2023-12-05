@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RentARide
+namespace RentARide.Models
+
 {
-    public static class Constants
+    public partial class Velo : Vehicule
     {
-
     }
 }
