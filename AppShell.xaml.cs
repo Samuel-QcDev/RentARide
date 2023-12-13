@@ -10,7 +10,7 @@ public partial class AppShell : Shell
 
         Routing.RegisterRoute("Loginpage", typeof(LoginPage));
         Routing.RegisterRoute("Mainpage", typeof(MainPage));
-        Routing.RegisterRoute("Reservationpage", typeof(ReservationPage));
+        Routing.RegisterRoute("Reservationpage", typeof(ReservationSearchPage));
         Routing.RegisterRoute("Historiquereservationpage", typeof(HistoriqueReservationPage));
         Routing.RegisterRoute("Resultpage", typeof(ResultPage));
         

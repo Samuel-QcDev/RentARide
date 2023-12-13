@@ -10,11 +10,10 @@ using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-
 namespace RentARide.ViewModel;
 
 [ObservableObject]
-public partial class ReservationViewModel
+public partial class ReservationSearchViewModel
 {
     
 
@@ -25,7 +24,7 @@ public partial class ReservationViewModel
 
     // [ObservableProperty] private string time;
     [RelayCommand]
-    private async void Search()
+    private async Task Search()
     {
         await Shell.Current.GoToAsync("Resultpage");
     }

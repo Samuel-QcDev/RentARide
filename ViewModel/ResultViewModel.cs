@@ -15,7 +15,7 @@ namespace RentARide.ViewModel;
 public partial class ResultViewModel
 {
     [RelayCommand]
-    private async void Reserve()
+    private async Task Reserve()
     {
 
         await Shell.Current.GoToAsync("Mainpage");

@@ -12,17 +12,16 @@ using RentARide.Views;
 namespace RentARide.ViewModel;
 
 
-[ObservableObject]
-public partial class MainViewModel
+public partial class MainViewModel : LocalBaseViewModel
     {
         [RelayCommand]
-        private async void Reservation()
+        private async Task Reservation()
         {
 
             await Shell.Current.GoToAsync("Reservationpage");
         }
         [RelayCommand]
-        private async void ConsultHistory()
+        private async Task ConsultHistory()
         {
 
             await Shell.Current.GoToAsync("Historiquereservationpage");

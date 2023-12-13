@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RentARide.Models
+namespace RentARide.DbContext
 {
-    [ObservableObject]
+    
     public partial class Vehicule
     {
-        [ObservableProperty] private string vehiculeId;
-        [ObservableProperty] private string type;
+        private string vehiculeId;
+        private string type;
         public Vehicule()
         {
         }

@@ -1,4 +1,4 @@
-﻿namespace RentARide.Database
+﻿namespace RentARide.DbContext
 {
     public static class Constants
     {

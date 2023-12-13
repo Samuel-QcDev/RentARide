@@ -13,13 +13,13 @@
             <Label
                 FontSize="Medium"
                 HorizontalOptions="Start"
-                Text="User Name : "
+                Text="Email Address : "
                 VerticalOptions="Center"
                 VerticalTextAlignment="Center" />
             <Entry
                 HorizontalOptions="End"
                 Placeholder="User Name"
-                Text="{Binding Name}"
+                Text="{Binding LoginDetails.EmailAddress}"
                 WidthRequest="150" />
         </HorizontalStackLayout>
         <HorizontalStackLayout WidthRequest="300">
@@ -33,7 +33,7 @@
                 HorizontalOptions="End"
                 IsPassword="True"
                 Placeholder="Password"
-                Text="{Binding Password}"
+                Text="{Binding LoginDetails.Password}"
                 WidthRequest="150" />
         </HorizontalStackLayout>
         <HorizontalStackLayout Margin="10,10,10,0" HorizontalOptions="Center">
@@ -52,8 +52,6 @@
                 Margin="5"
                 Clicked="Forgot_Clicked"
                 Text="Forgot Password" />
-
-
 
         </HorizontalStackLayout>
 

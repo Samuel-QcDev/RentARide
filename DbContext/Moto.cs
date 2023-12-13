@@ -5,12 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RentARide.Models
-{
-    
-    public partial class Auto : Vehicule
+namespace RentARide.DbContext{
+
+    public partial class Moto : Vehicule
     {
-        [ObservableProperty] private string categorieAuto;
-        public Auto() { }
     }
 }

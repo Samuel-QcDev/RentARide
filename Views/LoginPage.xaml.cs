@@ -7,6 +7,7 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Runtime.Intrinsics.X86;
+using RentARide.DbContext;
 
 namespace RentARide.Views;
 
@@ -15,11 +16,11 @@ public partial class LoginPage : ContentPage
     private double LoginProgress { get; set; }
     public static ProgressBar LoginProgressBar;
 
-    LoginViewModel vm = new LoginViewModel();
-    public LoginPage()
+    private LoginViewModel vm;
+    public LoginPage(LoginViewModel model)
 	{
         LoginProgressBar = new ProgressBar();
-        BindingContext = vm;
+        this.BindingContext = vm = model;
         InitializeComponent();
         LoginStackLayout.Children.Add(LoginProgressBar);
     }
@@ -31,7 +32,7 @@ public partial class LoginPage : ContentPage
     private async void Create_Clicked(object sender, EventArgs e)
     {
         CancellationTokenSource cancellationTokenSource  = new CancellationTokenSource();
-        var message = $"Welcome {vm.Name}. Your account was created!";
+        var message = "Your account was created!";
         ToastDuration duration = ToastDuration.Short;
         var fontSize = 14;
         var toast = Toast.Make(message, duration, fontSize);

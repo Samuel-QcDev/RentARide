@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using RentARide.ViewModel;
 using RentARide.Views;
+using RentARide.DbContext;
 
 namespace RentARide;
 
@@ -17,17 +18,25 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
-        builder.Services.AddTransient<HistoriqueReservationViewModel>();
-        builder.Services.AddTransient<LoginViewModel>();
-        builder.Services.AddTransient<MainViewModel>();
-        builder.Services.AddTransient<ReservationViewModel>();
-        builder.Services.AddTransient<ResultViewModel>();
 
+        // Services
+        builder.Services.AddSingleton<ApplicationDbContext>();
+
+        // Views
+        builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<HistoriqueReservationPage>();
         builder.Services.AddTransient<LoginPage>();
-        builder.Services.AddTransient<MainPage>();
-        builder.Services.AddTransient<ReservationPage>();
+        builder.Services.AddTransient<ReservationSearchPage>();
         builder.Services.AddTransient<ResultPage>();
+
+        // View Models
+        builder.Services.AddTransient<MainViewModel>();
+        builder.Services.AddTransient<HistoriqueReservationViewModel>();
+        builder.Services.AddTransient<LoginViewModel>();
+
+        builder.Services.AddTransient<ReservationSearchViewModel>();
+        builder.Services.AddTransient<ResultViewModel>();
+        
         return builder.Build();
 	}
 }

@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RentARide.Models
+namespace RentARide.DbContext
+
 {
-    
-    public partial class Moto : Vehicule
+    public partial class Velo : Vehicule
     {
     }
 }

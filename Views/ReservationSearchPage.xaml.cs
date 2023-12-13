@@ -11,7 +11,7 @@ using RentARide.ViewModel;
 
 namespace RentARide.Views;
 
-public partial class ReservationPage : ContentPage
+public partial class ReservationSearchPage : ContentPage
 {
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
@@ -20,8 +20,8 @@ public partial class ReservationPage : ContentPage
     public string StationId { get; set; }
     public Enum Options { get; set; }
 
-    ReservationViewModel vm = new ReservationViewModel();
-    public ReservationPage(DateTime date, int hreDebut, int minsDebut,
+    ReservationSearchViewModel vm = new ReservationSearchViewModel();
+    public ReservationSearchPage(DateTime date, int hreDebut, int minsDebut,
             int hreFin, int minsFin, string type, string station,
             [Optional] string categorie, [Optional] Enum options)
     {
@@ -37,7 +37,7 @@ public partial class ReservationPage : ContentPage
 
     }
 
-    public ReservationPage()
+    public ReservationSearchPage()
     {
         BindingContext = vm;
         InitializeComponent();
