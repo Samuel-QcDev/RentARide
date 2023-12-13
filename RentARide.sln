@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentARide", "RentARide.csproj", "{FF7F6757-5EA1-4547-88EC-132AA46DBFEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentARide.Tests", "RentARide.Tests\RentARide.Tests.csproj", "{73EFBE25-82FA-48FF-9C83-D739A36F463C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentARide.Tests", "RentARide.Tests\RentARide.Tests.csproj", "{73EFBE25-82FA-48FF-9C83-D739A36F463C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

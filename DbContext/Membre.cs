@@ -4,30 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using SQLite;
 
 namespace RentARide.DbContext
 {
-    [ObservableObject]
-    public partial class Membre
+    
+    public class Membre
     {
-        [ObservableProperty] private int membreId;
-        [ObservableProperty] private string name;
-        [ObservableProperty] private string categorie;
-        public Membre(int id, string name, string categorie)
-        {
-            id = membreId;
-            name = name;
-            categorie = categorie;
-        }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        [Unique]
+        public string Email { get; set; }
 
-        public Membre()
-        {
-            
-        }
-
-        public static void CreerMembre(string membreId, string name, string categorie)
-        {
-
-        }
     }
 }

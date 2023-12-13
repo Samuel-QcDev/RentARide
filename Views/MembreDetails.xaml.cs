@@ -4,11 +4,11 @@ namespace RentARide.Views;
 
 public partial class MembreDetails : ContentPage
 {
-    private MembreDetailsViewModel vm = new MembreDetailsViewModel();
+    private MembreDetailsViewModel vm;
 
-    public MembreDetails()
+    public MembreDetails(MembreDetailsViewModel model)
 	{
-        BindingContext = vm;
+        this.BindingContext = vm = model;
         InitializeComponent();
 	}
 }
