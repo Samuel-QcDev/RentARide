@@ -5,6 +5,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using System.Windows.Input;
 using RentARide.Views;
 using RentARide.DbContext;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 
 namespace RentARide.ViewModel;
 
@@ -35,5 +37,17 @@ public partial class LoginViewModel : LocalBaseViewModel
         await Shell.Current.GoToAsync("Mainpage");
     }
 
-    
+    [RelayCommand]
+    private async Task CreateAccount()
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        var message = "Your account was created!";
+        ToastDuration duration = ToastDuration.Short;
+        var fontSize = 14;
+        var toast = Toast.Make(message, duration, fontSize);
+        await toast.Show(cancellationTokenSource.Token);
+        await Shell.Current.GoToAsync("MembreDetailspage");
+    }
+
+
 }

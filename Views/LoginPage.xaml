@@ -43,7 +43,7 @@
                 Text="Submit" />
             <Button
                 Margin="5"
-                Clicked="Create_Clicked"
+                Command="{Binding CreateAccountCommand}"
                 Text="Create Account" />
 
         </HorizontalStackLayout>
