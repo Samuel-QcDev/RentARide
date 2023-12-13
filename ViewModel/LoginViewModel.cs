@@ -32,7 +32,7 @@ public partial class LoginViewModel : LocalBaseViewModel
         await Application.Current.MainPage.DisplayAlert(
 
             "Submit",
-            $"You entered {LoginDetails.FullName} and {LoginDetails.Password}",
+            $"You entered {LoginDetails.EmailAddress} and {LoginDetails.Password}",
             "OK");
         await Shell.Current.GoToAsync("Mainpage");
     }

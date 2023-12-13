@@ -18,7 +18,7 @@
                 VerticalTextAlignment="Center" />
             <Entry
                 HorizontalOptions="End"
-                Placeholder="User Name"
+                Placeholder="Email Address"
                 Text="{Binding LoginDetails.EmailAddress}"
                 WidthRequest="150" />
         </HorizontalStackLayout>
