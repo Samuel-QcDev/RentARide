@@ -39,6 +39,11 @@ namespace RentARide.DbContext
             return await Database.InsertAsync(entity);
         }
 
+        public async Task<int> AddorUpdateAsync<TEntity>(TEntity entity) where TEntity : class
+        {
+            return await Database.InsertOrReplaceAsync(entity);
+        }
+
         public async Task<int> UpdateAsync<TEntity>(TEntity entity) where TEntity : class
         {
             return await Database.UpdateAsync(entity);
