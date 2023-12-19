@@ -18,9 +18,7 @@ public partial class LoginViewModel : LocalBaseViewModel
         LoginDetails = new Login();
     }
     public Login LoginDetails { get; set; }
-   //  public string Name;
-    // public string Password;
-
+   
     [RelayCommand]
     private async Task Submit()
     {

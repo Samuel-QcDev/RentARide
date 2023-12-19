@@ -9,19 +9,13 @@ using System.Runtime.Intrinsics.X86;
 using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using RentARide.DbContext;
 
 namespace RentARide.ViewModel;
 
-[ObservableObject]
-public partial class ReservationSearchViewModel
+public partial class ReservationSearchViewModel: LocalBaseViewModel
 {
     
-
-    [ObservableProperty] private string vehicleType;
-
-    [ObservableProperty] private bool optionsVisible;
-
-
     // [ObservableProperty] private string time;
     [RelayCommand]
     private async Task Search()

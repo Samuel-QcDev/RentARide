@@ -16,12 +16,20 @@ public partial class LoginPage : ContentPage
     private double LoginProgress { get; set; }
     public static ProgressBar LoginProgressBar;
 
-    private LoginViewModel vm;
-    public LoginPage(LoginViewModel model)
+    LoginViewModel vm;
+    public LoginPage()
 	{
         LoginProgressBar = new ProgressBar();
-        this.BindingContext = vm = model;
-        InitializeComponent();
+        try
+        {
+            InitializeComponent();
+        }
+        catch(Exception ex)
+
+        {
+            Debug.WriteLine(ex);
+        }
+        BindingContext = vm;
         LoginStackLayout.Children.Add(LoginProgressBar);
     }
     // Temporary method for Submit button, will be changed to a command

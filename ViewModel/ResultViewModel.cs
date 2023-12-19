@@ -11,8 +11,8 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace RentARide.ViewModel;
 
-[ObservableObject]
-public partial class ResultViewModel
+
+public partial class ResultViewModel : LocalBaseViewModel
 {
     [RelayCommand]
     private async Task Reserve()

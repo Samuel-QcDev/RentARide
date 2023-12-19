@@ -1,14 +1,97 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RentARide.Views.MembreDetails"
-             Title="MembreDetails">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+<ContentPage
+    x:Class="RentARide.Views.MembreDetails"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModel="clr-namespace:RentARide.ViewModel"
+    Title="Membre Details"
+    x:DataType="viewModel:MembreDetailsViewModel">
+    <VerticalStackLayout
+        Margin="0,30,0,0"
+        Padding="10"
+        Spacing="20">
+        <HorizontalStackLayout WidthRequest="300">
+            <Label
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                Text="Prénom : "
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+            <Entry
+                HorizontalOptions="End"
+                Placeholder="Entrer votre prénom"
+                Text="{Binding MembreDetails.FirstName}"
+                WidthRequest="150" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout WidthRequest="300">
+            <Label
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                Text="Nom de Famille "
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+            <Entry
+                HorizontalOptions="End"
+                Placeholder="Nom de famille"
+                Text="{Binding MembreDetails.LastName}"
+                WidthRequest="150" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout WidthRequest="300">
+            <Label
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                Text="Email Address : "
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+            <Entry
+                HorizontalOptions="End"
+                Placeholder="Email Address"
+                Text="{Binding MembreDetails.Email}"
+                WidthRequest="150" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout WidthRequest="300">
+            <Label
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                Text="Mot de Passe : "
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+            <Entry
+                HorizontalOptions="End"
+                IsPassword="True"
+                Placeholder="Mot de Passe"
+                Text="{Binding MembreDetails.Password}"
+                WidthRequest="150" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout WidthRequest="300">
+            <Label
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                Text="Catégorie : "
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+            <Picker
+                Title="Pick a category "
+                Margin="25,0,0,0"
+                BackgroundColor="LightGreen"
+                FontSize="Medium"
+                HorizontalTextAlignment="End"
+                SelectedItem="{Binding MembreDetails.Level}"
+                WidthRequest="150">
+                <Picker.Items>
+                    <x:String>Or</x:String>
+                    <x:String>Argent</x:String>
+                    <x:String>Bronze</x:String>
+                    <x:String>Libre</x:String>
+                </Picker.Items>
+            </Picker>
+        </HorizontalStackLayout>
 
+        <Button
+            Margin="10,10,10,10"
+            Command="{Binding AddMembreCommand}"
+            CornerRadius="20"
+            Text="Save Membre Details" />
 
     </VerticalStackLayout>
 </ContentPage>

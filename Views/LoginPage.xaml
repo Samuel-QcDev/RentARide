@@ -17,6 +17,7 @@
                 VerticalOptions="Center"
                 VerticalTextAlignment="Center" />
             <Entry
+                x:Name="Email"
                 HorizontalOptions="End"
                 Placeholder="Email Address"
                 Text="{Binding LoginDetails.EmailAddress}"
@@ -30,6 +31,7 @@
                 VerticalOptions="Center"
                 VerticalTextAlignment="Center" />
             <Entry
+                x:Name="Password"
                 HorizontalOptions="End"
                 IsPassword="True"
                 Placeholder="Password"
@@ -38,10 +40,12 @@
         </HorizontalStackLayout>
         <HorizontalStackLayout Margin="10,10,10,0" HorizontalOptions="Center">
             <Button
+                x:Name="Signin"
                 Margin="5"
                 Command="{Binding SubmitCommand}"
                 Text="Submit" />
             <Button
+                x:Name="Create "
                 Margin="5"
                 Command="{Binding CreateAccountCommand}"
                 Text="Create Account" />
