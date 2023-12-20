@@ -23,30 +23,29 @@ public partial class LoginViewModel : ObservableObject
         LoginDetails = new Login();
     }
     public Login LoginDetails { get; set; }
-   
+
     [RelayCommand]
     private async Task Submit()
     {
-        if ((LoginDetails == null) || (memberEmail == null) || (memberPassword == null))
+        if ((LoginDetails == null) || (MemberEmail == null) || (MemberPassword == null))
         {
             await Application.Current.MainPage.DisplayAlert(
-
                 "Account invalid",
                 $"Please create an account.",
                 "OK");
-            await Shell.Current.GoToAsync("MemberDetailspage");
         }
-        if (((LoginDetails.EmailAddress == memberEmail) && (LoginDetails.Password == memberPassword))&&((memberEmail != null)&& (memberPassword != null)))
+        else if (((LoginDetails.EmailAddress == MemberEmail) && (LoginDetails.Password == MemberPassword)) && ((MemberEmail != null) && (MemberPassword != null)))
         {
-            //await Application.Current.MainPage.DisplayAlert(
-
-            //    "Submit",
-            //    $"You entered {LoginDetails.EmailAddress} and {LoginDetails.Password}",
-            //    "OK");
-            
             await Shell.Current.GoToAsync("Mainpage");
         }
-        else if (LoginDetails.EmailAddress != memberEmail)
+        else if ((LoginDetails.Password != MemberPassword) && (LoginDetails.EmailAddress != MemberEmail))
+        {
+            await Application.Current.MainPage.DisplayAlert(
+                "Invalid account",
+                $"Please create an account.",
+                "OK");
+        }
+        else if (LoginDetails.EmailAddress != MemberEmail)
         {
             await Application.Current.MainPage.DisplayAlert(
 
@@ -54,7 +53,7 @@ public partial class LoginViewModel : ObservableObject
                 $"You entered the wrong Email Address. Please enter a valid Email or create an account.",
                 "OK");
         }
-        else if (LoginDetails.Password != memberPassword)
+        else if (LoginDetails.Password != MemberPassword)
         {
             await Application.Current.MainPage.DisplayAlert(
 
@@ -62,22 +61,10 @@ public partial class LoginViewModel : ObservableObject
                 $"You entered the wrong password. Please enter the correct password or create an account.",
                 "OK");
         }
-        else if ((LoginDetails.Password != memberPassword)&& (LoginDetails.EmailAddress != memberEmail))
-        {
-            await Application.Current.MainPage.DisplayAlert(
-
-                "Invalid account",
-                $"Please create an account.",
-                "OK");
-            await Shell.Current.GoToAsync("MemberDetailspage");
-        }
     }
-
     [RelayCommand]
-    private async Task CreateAccount()
+    private static async Task CreateAccount()
     {
         await Shell.Current.GoToAsync("MembreDetailspage");
     }
-
-
 }
