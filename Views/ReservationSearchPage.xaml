@@ -288,7 +288,7 @@
                 Text="GPS" />
             <CheckBox
                 x:Name="SiegeAuto"
-                Grid.Row="2"
+                Grid.Row="3"
                 Grid.Column="4"
                 Grid.ColumnSpan="1"
                 HorizontalOptions="End" />
