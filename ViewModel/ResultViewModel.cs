@@ -8,6 +8,7 @@ using System.Runtime.Intrinsics.X86;
 using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using RentARide.Models;
 
 namespace RentARide.ViewModel;
 

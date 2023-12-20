@@ -4,15 +4,20 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Windows.Input;
 using RentARide.Views;
-using RentARide.DbContext;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using RentARide.Models;
+using RentARide.ViewModel;
 
 namespace RentARide.ViewModel;
 
-
-public partial class LoginViewModel : LocalBaseViewModel
+[QueryProperty(nameof(MemberEmail), "memberEmail")]
+[QueryProperty("MemberPassword", "memberPassword")]
+//[QueryProperty(nameof(), "password")]
+public partial class LoginViewModel : ObservableObject
 {
+    [ObservableProperty] private string memberEmail;
+    //[ObservableProperty] private string memberPassword;
     public LoginViewModel()
     {
         LoginDetails = new Login();
@@ -22,17 +27,28 @@ public partial class LoginViewModel : LocalBaseViewModel
     [RelayCommand]
     private async Task Submit()
     {
-        for (var i = 0.0; i < 1.0; i += 0.1)
+        if (LoginDetails.EmailAddress == memberEmail)
         {
-            await LoginPage.LoginProgressBar.ProgressTo(i, 500, Easing.Linear);
+            for (var i = 0.0; i < 1.0; i += 0.1)
+            {
+                await LoginPage.LoginProgressBar.ProgressTo(i, 500, Easing.Linear);
+            }
+
+            await Application.Current.MainPage.DisplayAlert(
+
+                "Submit",
+                $"You entered {LoginDetails.EmailAddress} and {LoginDetails.Password}",
+                "OK");
+            await Shell.Current.GoToAsync("Mainpage");
         }
+        else
+        {
+            await Application.Current.MainPage.DisplayAlert(
 
-        await Application.Current.MainPage.DisplayAlert(
-
-            "Submit",
-            $"You entered {LoginDetails.EmailAddress} and {LoginDetails.Password}",
-            "OK");
-        await Shell.Current.GoToAsync("Mainpage");
+                "Submit",
+                $"You entered {LoginDetails.EmailAddress}. The correct email is {memberEmail}",
+                "OK");
+        }
     }
 
     [RelayCommand]

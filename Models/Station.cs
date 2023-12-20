@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RentARide.DbContext
+namespace RentARide.Models
 {
     [ObservableObject]
     public partial class Station

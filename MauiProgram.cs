@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using RentARide.ViewModel;
 using RentARide.Views;
-using RentARide.DbContext;
+using RentARide.Models;
 
 namespace RentARide;
 
@@ -20,19 +20,19 @@ public static class MauiProgram
 			});
 
         // Services
-        builder.Services.AddSingleton<ApplicationDbContext>();
+       // builder.Services.AddSingleton<ApplicationDbContext>();
 
         // Views
-        builder.Services.AddSingleton<LoginPage>();
-        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<HistoriqueReservationPage>();
         builder.Services.AddTransient<ReservationSearchPage>();
         builder.Services.AddTransient<ResultPage>();
         builder.Services.AddTransient<MembreDetails>();
         
         // View Models
-        builder.Services.AddSingleton<LoginViewModel>();
-        builder.Services.AddSingleton<MainViewModel>();
+        builder.Services.AddTransient<LoginViewModel>();
+        builder.Services.AddTransient<MainViewModel>(); 
         builder.Services.AddTransient<HistoriqueReservationViewModel>();
         builder.Services.AddTransient<ReservationSearchViewModel>();
         builder.Services.AddTransient<ResultViewModel>();

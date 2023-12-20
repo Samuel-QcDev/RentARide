@@ -72,12 +72,6 @@
 	  <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 	  <PackageReference Include="CommunityToolkit.Maui.Core" Version="7.0.1" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-	  <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
-	  <PackageReference Include="SQLitePCL.raw" Version="0.9.2" />
-	  <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.7" />
-	  <PackageReference Include="SQLitePCLRaw.core" Version="2.1.7" />
-	  <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.7" />
-	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.7" />
 	  <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
 	  <PackageReference Include="xunit" Version="2.6.3" />
 	</ItemGroup>

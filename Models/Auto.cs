@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RentARide.DbContext
-
+namespace RentARide.Models
 {
-    public partial class Velo : Vehicule
+    
+    public partial class Auto : Vehicule
     {
+        private string categorieAuto;
+        public Auto() { }
     }
 }

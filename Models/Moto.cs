@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RentARide.DbContext{
+namespace RentARide.Models
+{
 
     public partial class Moto : Vehicule
     {

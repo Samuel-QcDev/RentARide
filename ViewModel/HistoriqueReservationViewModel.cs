@@ -1,4 +1,6 @@
-﻿namespace RentARide.ViewModel;
+﻿using RentARide.Models;
+
+namespace RentARide.ViewModel;
 
 public class HistoriqueReservationViewModel : LocalBaseViewModel
 {

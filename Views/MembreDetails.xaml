@@ -46,7 +46,7 @@
             <Entry
                 HorizontalOptions="End"
                 Placeholder="Email Address"
-                Text="{Binding MembreDetails.Email}"
+                Text="{Binding MembreDetails.MemberEmail}"
                 WidthRequest="150" />
         </HorizontalStackLayout>
         <HorizontalStackLayout WidthRequest="300">
@@ -60,7 +60,7 @@
                 HorizontalOptions="End"
                 IsPassword="True"
                 Placeholder="Mot de Passe"
-                Text="{Binding MembreDetails.Password}"
+                Text="{Binding MembreDetails.MemberPassword}"
                 WidthRequest="150" />
         </HorizontalStackLayout>
         <HorizontalStackLayout WidthRequest="300">
