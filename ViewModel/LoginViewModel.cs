@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Maui.Core.Platform;
 using System.Windows.Input;
 using RentARide.Views;
 using CommunityToolkit.Maui.Alerts;
@@ -12,12 +13,11 @@ using RentARide.ViewModel;
 namespace RentARide.ViewModel;
 
 [QueryProperty(nameof(MemberEmail), "memberEmail")]
-[QueryProperty("MemberPassword", "memberPassword")]
-//[QueryProperty(nameof(), "password")]
+[QueryProperty(nameof(MemberPassword), "memberPassword")]
 public partial class LoginViewModel : ObservableObject
 {
     [ObservableProperty] private string memberEmail;
-    //[ObservableProperty] private string memberPassword;
+    [ObservableProperty] private string memberPassword;
     public LoginViewModel()
     {
         LoginDetails = new Login();
@@ -27,39 +27,55 @@ public partial class LoginViewModel : ObservableObject
     [RelayCommand]
     private async Task Submit()
     {
-        if (LoginDetails.EmailAddress == memberEmail)
+        if ((LoginDetails == null) || (memberEmail == null) || (memberPassword == null))
         {
-            for (var i = 0.0; i < 1.0; i += 0.1)
-            {
-                await LoginPage.LoginProgressBar.ProgressTo(i, 500, Easing.Linear);
-            }
-
             await Application.Current.MainPage.DisplayAlert(
 
-                "Submit",
-                $"You entered {LoginDetails.EmailAddress} and {LoginDetails.Password}",
+                "Account invalid",
+                $"Please create an account.",
                 "OK");
+            await Shell.Current.GoToAsync("MemberDetailspage");
+        }
+        if (((LoginDetails.EmailAddress == memberEmail) && (LoginDetails.Password == memberPassword))&&((memberEmail != null)&& (memberPassword != null)))
+        {
+            //await Application.Current.MainPage.DisplayAlert(
+
+            //    "Submit",
+            //    $"You entered {LoginDetails.EmailAddress} and {LoginDetails.Password}",
+            //    "OK");
+            
             await Shell.Current.GoToAsync("Mainpage");
         }
-        else
+        else if (LoginDetails.EmailAddress != memberEmail)
         {
             await Application.Current.MainPage.DisplayAlert(
 
                 "Submit",
-                $"You entered {LoginDetails.EmailAddress}. The correct email is {memberEmail}",
+                $"You entered the wrong Email Address. Please enter a valid Email or create an account.",
                 "OK");
+        }
+        else if (LoginDetails.Password != memberPassword)
+        {
+            await Application.Current.MainPage.DisplayAlert(
+
+                "Submit",
+                $"You entered the wrong password. Please enter the correct password or create an account.",
+                "OK");
+        }
+        else if ((LoginDetails.Password != memberPassword)&& (LoginDetails.EmailAddress != memberEmail))
+        {
+            await Application.Current.MainPage.DisplayAlert(
+
+                "Invalid account",
+                $"Please create an account.",
+                "OK");
+            await Shell.Current.GoToAsync("MemberDetailspage");
         }
     }
 
     [RelayCommand]
     private async Task CreateAccount()
     {
-        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        var message = "Your account was created!";
-        ToastDuration duration = ToastDuration.Short;
-        var fontSize = 14;
-        var toast = Toast.Make(message, duration, fontSize);
-        await toast.Show(cancellationTokenSource.Token);
         await Shell.Current.GoToAsync("MembreDetailspage");
     }
 

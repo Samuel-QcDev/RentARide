@@ -7,7 +7,9 @@
     xmlns:viewModel="clr-namespace:RentARide.ViewModel"
     Title="Login Page"
     x:DataType="viewModel:LoginViewModel">
-
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
     <VerticalStackLayout x:Name="LoginStackLayout" Margin="0,20,0,10">
         <HorizontalStackLayout WidthRequest="300">
             <Label

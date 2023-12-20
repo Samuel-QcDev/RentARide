@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RentARide;
@@ -31,11 +33,12 @@ public partial class MembreDetailsViewModel : LocalBaseViewModel
         var memberEmail = memberDetails.MemberEmail;
         var memberPassword = memberDetails.MemberPassword;
 
-        await Application.Current.MainPage.DisplayAlert(
-
-            "Submit",
-            $"You entered {memberDetails.MemberEmail} and {memberDetails.MemberPassword}",
-            "OK");
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        var message = "Your account was created!";
+        ToastDuration duration = ToastDuration.Short;
+        var fontSize = 14;
+        var toast = Toast.Make(message, duration, fontSize);
+        await toast.Show(cancellationTokenSource.Token);
 
         //var navigationParameter = new Dictionary<string, object> { { "member", memberDetails}};
 
@@ -43,7 +46,7 @@ public partial class MembreDetailsViewModel : LocalBaseViewModel
         // await Shell.Current.DisplayAlert("Record Added", "Employee Details Successfully submitted", "OK");
 
         //Navigate back to the list
-        await Shell.Current.GoToAsync($"Loginpage?memberEmail={memberEmail}");
+        await Shell.Current.GoToAsync($"Loginpage?memberEmail={memberEmail}&&memberPassword={memberPassword}");
         //await Shell.Current.GoToAsync($"Loginpage, navigationParameter");
     }
 }

@@ -6,6 +6,9 @@
     xmlns:viewModel="clr-namespace:RentARide.ViewModel"
     Title="Membre Details"
     x:DataType="viewModel:MembreDetailsViewModel">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
     <VerticalStackLayout
         Margin="0,30,0,0"
         Padding="10"
