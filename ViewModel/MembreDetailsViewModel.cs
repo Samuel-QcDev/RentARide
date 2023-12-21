@@ -20,15 +20,12 @@ public partial class MembreDetailsViewModel : LocalBaseViewModel
     {
         MembreDetails = new Membre();
     }
-
+    
     public Membre MembreDetails { get; set; }
     
-    
-
     [RelayCommand]
     public async Task AddMembre()
     {
-
         var memberDetails = this.MembreDetails;
         var memberEmail = memberDetails.MemberEmail;
         var memberPassword = memberDetails.MemberPassword;
@@ -42,10 +39,8 @@ public partial class MembreDetailsViewModel : LocalBaseViewModel
 
         //var navigationParameter = new Dictionary<string, object> { { "member", memberDetails}};
 
-
         // await Shell.Current.DisplayAlert("Record Added", "Employee Details Successfully submitted", "OK");
 
-        //Navigate back to the list
         await Shell.Current.GoToAsync($"Loginpage?memberEmail={memberEmail}&&memberPassword={memberPassword}");
         //await Shell.Current.GoToAsync($"Loginpage, navigationParameter");
     }

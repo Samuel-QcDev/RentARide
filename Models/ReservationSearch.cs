@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using RentARide.ViewModel;
+using RentARide.Views;
 
 namespace RentARide.Models
 {
@@ -16,6 +18,7 @@ namespace RentARide.Models
         public string CategorieAuto { get; set; }
         public string StationId { get; set; }
         public Enum Options { get; set; }
+        public string MemberId { get; set; }
 
         public ReservationSearch()
         {
@@ -31,6 +34,11 @@ namespace RentARide.Models
             CategorieAuto = categorie;
             StationId = station;
             Options = options;
+        }
+
+        public static void creerMembre(int memberId, string name, string password, string level)
+        {
+            
         }
     }
     

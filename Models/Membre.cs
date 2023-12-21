@@ -13,6 +13,7 @@ namespace RentARide.Models
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string FullName { get; set; }
         public string MemberEmail { get; set; }
         public string MemberPassword { get; set; }
         public string Level { get; set; }

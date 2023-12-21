@@ -214,6 +214,33 @@
                     <x:String>Vélo</x:String>
                 </Picker.Items>
             </Picker>
+            <Label
+                x:Name="StationLabel"
+                Grid.Row="6"
+                Grid.RowSpan="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                FontSize="Medium"
+                Text="Station : "
+                VerticalTextAlignment="Center" />
+            <Picker
+                x:Name="StationName"
+                Grid.Row="6"
+                Grid.RowSpan="1"
+                Grid.Column="4"
+                Grid.ColumnSpan="3"
+                Margin="0,5,0,0"
+                BackgroundColor="LightGreen"
+                FontSize="Medium"
+                HorizontalTextAlignment="Center"
+                
+                VerticalTextAlignment="Center">
+                <Picker.Items>
+                    <x:String>Station 1</x:String>
+                    <x:String>Station 2</x:String>
+                    <x:String>Station 3</x:String>
+                </Picker.Items>
+            </Picker>
         </Grid>
         <!--  Need to hide the Options section if not auto  -->
         <Grid
