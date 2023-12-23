@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +20,33 @@ public partial class MembreDetailsViewModel : LocalBaseViewModel
     public MembreDetailsViewModel()
     {
         MembreDetails = new Membre();
+        CreerMembre(0, "Julie", "Or");
+        CreerMembre(1, "Tom", "Bronze");
+        CreerMembre(2, "Sam", "Libre");
+        CreerMembre(3, "Max", "Or");
+        for (int i = 0; i < 4; i++)
+        {
+            Debug.WriteLine(myMembres[i].GetValue(myMembres[i]));
+        }
     }
-    
+
+    public override string ToString()
+    {
+        return "id + name + level".ToString();
+    }
+
     public Membre MembreDetails { get; set; }
-    
+    public string Name
+    {
+        get { return Name; }
+    }
+
+    MembreDetails[] myMembres = new MembreDetails[10];
+    public void CreerMembre(int id, string name, string level)
+    {
+        myMembres[id] = new MembreDetails(id, name, level);
+    }
+
     [RelayCommand]
     public async Task AddMembre()
     {
