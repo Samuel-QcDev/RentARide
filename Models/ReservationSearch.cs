@@ -24,6 +24,13 @@ namespace RentARide.Models
         {
             CreerVehicule(new Auto("AB445", "Essence", Auto.Options.GPS));
             CreerVehicule(new Auto("AB445", "Electrique",Auto.Options.Mp3));
+            CreerStation(0, "P001", "Dorchester-Charest", 5);
+            CreerStation(1, "P002", "Carre D'Youville", 8);
+
+            for (int i = 0; i < 2; i++)
+            {
+                Console.WriteLine(myStations[i].StationId);
+            }
         }
         public ReservationSearch(DateTime date, int hreDebut, int minsDebut,
             int hreFin, int minsFin, string type, string station,
@@ -44,6 +51,16 @@ namespace RentARide.Models
         public void CreerVehicule(Vehicule vehicule)
         {
 
+        }
+        public Station StationDetails { get; set; }
+        Station[] myStations = new Station[20];
+        private int index;
+        public void CreerStation(int index, string id, string address, int spaces)
+        {
+            
+            myStations[index] = new Station(index, id, address, spaces);
+
+            Console.WriteLine();
         }
     }
     

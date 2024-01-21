@@ -8,6 +8,7 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Runtime.Intrinsics.X86;
 using RentARide.ViewModel;
+using RentARide.Models;
 
 namespace RentARide.Views;
 
@@ -53,7 +54,6 @@ public partial class ReservationSearchPage : ContentPage
 
     //    Navigation.PushAsync(new ResultPage());
     //}
-
 
     private void VehicleType_OnSelectedIndexChanged(object sender, EventArgs e)
     {

@@ -15,14 +15,21 @@ namespace RentARide.ViewModel;
 
 public partial class ReservationSearchViewModel: LocalBaseViewModel
 {
-    
+    public ReservationSearchViewModel()
+    {
+        ReservationSearchDetails = new ReservationSearch();
+    }
+    public ReservationSearch ReservationSearchDetails { get; set; }
     // [ObservableProperty] private string time;
     [RelayCommand]
     private async Task Search()
     {
         await Shell.Current.GoToAsync("Resultpage");
     }
-
+    public override string ToString()
+    {
+        return "id + address + spaces".ToString();
+    }
     [RelayCommand]
     void SetTime()
     {
