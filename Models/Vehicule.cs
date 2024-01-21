@@ -15,10 +15,5 @@ namespace RentARide.Models
         public Vehicule()
         {
         }
-        public static void CreerVehicule()
-        {
-
-        }
-
     }
 }

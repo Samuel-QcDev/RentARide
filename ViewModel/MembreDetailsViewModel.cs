@@ -47,6 +47,7 @@ public partial class MembreDetailsViewModel : LocalBaseViewModel
         myMembres[id] = new MembreDetails(id, name, level);
     }
 
+
     [RelayCommand]
     public async Task AddMembre()
     {

@@ -22,7 +22,8 @@ namespace RentARide.Models
 
         public ReservationSearch()
         {
-                
+            CreerVehicule(new Auto("AB445", "Essence", Auto.Options.GPS));
+            CreerVehicule(new Auto("AB445", "Electrique",Auto.Options.Mp3));
         }
         public ReservationSearch(DateTime date, int hreDebut, int minsDebut,
             int hreFin, int minsFin, string type, string station,
@@ -39,6 +40,10 @@ namespace RentARide.Models
         public static void creerMembre(int memberId, string name, string password, string level)
         {
             
+        }
+        public void CreerVehicule(Vehicule vehicule)
+        {
+
         }
     }
     
