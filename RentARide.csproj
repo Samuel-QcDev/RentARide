@@ -51,6 +51,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="RentARide.Tests\**" />
+	  <EmbeddedResource Remove="RentARide.Tests\**" />
+	  <MauiCss Remove="RentARide.Tests\**" />
+	  <MauiXaml Remove="RentARide.Tests\**" />
+	  <None Remove="RentARide.Tests\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Views\HistoriqueReservationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

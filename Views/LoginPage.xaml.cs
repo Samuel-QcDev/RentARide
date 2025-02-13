@@ -5,17 +5,16 @@ namespace RentARide.Views;
 public partial class LoginPage : ContentPage
 {
     private double LoginProgress { get; set; }
-
     public static ProgressBar LoginProgressBar;
 
-    private LoginViewModel vm;
-    
-    public LoginPage(LoginViewModel vm)
+    private LoginViewModel vm = new LoginViewModel();
+        
+    public LoginPage()
 	{
         
         InitializeComponent();
         LoginProgressBar = new ProgressBar();
-        this.BindingContext = vm;
+        BindingContext = vm;
         LoginStackLayout.Children.Add(LoginProgressBar);
     }
     // Temporary method for Submit button, will be changed to a command

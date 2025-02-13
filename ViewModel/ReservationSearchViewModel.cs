@@ -13,8 +13,23 @@ using RentARide.Models;
 
 namespace RentARide.ViewModel;
 
-public partial class ReservationSearchViewModel: LocalBaseViewModel
+
+
+[ObservableObject]
+public partial class ReservationSearchViewModel
 {
+    [ObservableProperty]
+    private DateTime startTime;
+    [ObservableProperty]
+    private DateTime endTime;
+    [ObservableProperty]
+    private string typeVehicule;
+    [ObservableProperty]
+    private string categorieAuto;
+    [ObservableProperty]
+    private string stationId;
+    [ObservableProperty]
+    private Enum options;
     public ReservationSearchViewModel()
     {
         ReservationSearchDetails = new ReservationSearch();
