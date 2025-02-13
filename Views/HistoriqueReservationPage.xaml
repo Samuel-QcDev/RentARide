@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RentARide.Views.HistoriqueReservationPage"
-             Title="HistoriqueReservationPage">
+<ContentPage
+    x:Class="RentARide.Views.HistoriqueReservationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="HistoriqueReservationPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Réservations"
+        <Label
             FontSize="Medium"
-            VerticalOptions="Start" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center"
+            Text="Réservations"
+            VerticalOptions="Start" />
     </VerticalStackLayout>
 </ContentPage>
