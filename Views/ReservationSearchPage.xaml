@@ -352,7 +352,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="1"
                 HorizontalOptions="End">
-                <CheckBox.Behaviors>
+                <!--<CheckBox.Behaviors>-->
                     <!--<behaviors:EventToCommandBehavior
                         Command="{Binding MP3CheckBoxCommand}"
                         CommandParameter="{Binding Source={x:Reference Mp3},Path=IsChecked}"
