@@ -13,5 +13,6 @@ namespace RentARide.Models
         public string Password { get; set; }
         public string EmailAddress { get; set; }
 
+
     }
 }

@@ -6,13 +6,13 @@
     xmlns:viewModel="clr-namespace:RentARide.ViewModel"
     x:DataType="viewModel:MainViewModel">
     <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
     </Shell.BackButtonBehavior>
     <VerticalStackLayout Padding="10" Spacing="50">
 
         <Image Source="rentaride_logo.png" />
-      
-        
+
+
         <Button
             x:Name="Reservation"
             Command="{Binding ReservationCommand}"

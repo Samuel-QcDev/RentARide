@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
 
-namespace RentARide.ViewModel
+namespace RentARide.Resources.ViewModel
 {
     public class LocalBaseViewModel : INotifyPropertyChanged
     {
@@ -36,7 +36,7 @@ namespace RentARide.ViewModel
             changes.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected bool SetProperty<T>(ref T backingstore, T value, [CallerMemberName] string propertyName = "",Action onChanged= null)
+        protected bool SetProperty<T>(ref T backingstore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingstore, value))
                 return false;

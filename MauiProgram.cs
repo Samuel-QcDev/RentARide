@@ -2,6 +2,7 @@
 using RentARide.ViewModel;
 using RentARide.Views;
 using RentARide.Models;
+using RentARide.Resources.ViewModel;
 
 namespace RentARide;
 
@@ -37,7 +38,6 @@ public static class MauiProgram
         builder.Services.AddTransient<ReservationSearchViewModel>();
         builder.Services.AddTransient<ResultViewModel>();
         builder.Services.AddTransient<MembreDetailsViewModel>();
-
 
         return builder.Build();
 	}

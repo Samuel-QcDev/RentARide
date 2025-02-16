@@ -9,11 +9,13 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using RentARide.Models;
 using RentARide.ViewModel;
+using RentARide.Resources.ViewModel;
 
 namespace RentARide.ViewModel;
 
 [QueryProperty(nameof(MemberEmail), "memberEmail")]
 [QueryProperty(nameof(MemberPassword), "memberPassword")]
+
 public partial class LoginViewModel : ObservableObject
 {
     [ObservableProperty] private string memberEmail;

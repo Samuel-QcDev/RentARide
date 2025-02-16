@@ -7,17 +7,17 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RentARide.Models
 {
-    [ObservableObject]
-    public partial class Station
+   
+    public partial class Station : ObservableObject
     {
-        [ObservableProperty] private string stationId;
-        [ObservableProperty] private string address;
+        [ObservableProperty] public string stationId;
+        [ObservableProperty] private string stationAddress;
         [ObservableProperty] private int parkSpaces;
         private int index;
         public Station(int index,string id, string address, int spaces)
         {
             this.stationId = id;
-            this.address = address;
+            this.stationAddress = address;
             this.parkSpaces = spaces;
             this.index = index;
         }

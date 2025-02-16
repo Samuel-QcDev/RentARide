@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using RentARide.ViewModel;
+using RentARide.Resources.ViewModel;
 
 namespace RentARide.Views;
 

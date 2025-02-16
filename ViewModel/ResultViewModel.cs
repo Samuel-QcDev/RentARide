@@ -1,5 +1,4 @@
-﻿using RentARide.ViewModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using CommunityToolkit.Maui.Alerts;
@@ -9,6 +8,7 @@ using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RentARide.Models;
+using RentARide.Resources.ViewModel;
 
 namespace RentARide.ViewModel;
 

@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using static System.Collections.IEnumerable;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using RentARide.ViewModel;
 using RentARide.Views;
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace RentARide.Models
 {
-    public class ReservationSearch
+    public class ReservationSearch : INotifyPropertyChanged
     {
         public int Id { get; set; }
         public DateTime StartTime { get; set; }
@@ -19,49 +23,26 @@ namespace RentARide.Models
         public string StationId { get; set; }
         public Enum Options { get; set; }
         public string MemberId { get; set; }
-
-        public ReservationSearch()
-        {
-            CreerVehicule(new Auto("AB445", "Essence", Auto.Options.GPS));
-            CreerVehicule(new Auto("AB445", "Electrique",Auto.Options.Mp3));
-            CreerStation(0, "P001", "Dorchester-Charest", 5);
-            CreerStation(1, "P002", "Carre D'Youville", 8);
-
-            for (int i = 0; i < 2; i++)
-            {
-                Console.WriteLine(myStations[i].StationId);
-            }
-        }
-        public ReservationSearch(DateTime date, int hreDebut, int minsDebut,
-            int hreFin, int minsFin, string type, string station,
-            [Optional] string categorie, [Optional] Enum options)
-        {
-            StartTime = new DateTime(date.Year, date.Month, date.Day, hreDebut, minsDebut, 0);
-            EndTime = new DateTime(date.Year, date.Month, date.Day, hreFin, minsFin, 0);
-            TypeVehicule = type;
-            CategorieAuto = categorie;
-            StationId = station;
-            Options = options;
+        private bool _isChecked;
+        public bool IsChecked
+    {
+            set { SetProperty(ref _isChecked, value); }
+            get { return _isChecked; }
         }
 
-        public static void creerMembre(int memberId, string name, string password, string level)
+        public event PropertyChangedEventHandler PropertyChanged;
+        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
-            
+            if (Object.Equals(storage, value))
+                return false;
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
         }
-        public void CreerVehicule(Vehicule vehicule)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-
-        }
-        public Station StationDetails { get; set; }
-        Station[] myStations = new Station[20];
-        private int index;
-        public void CreerStation(int index, string id, string address, int spaces)
-        {
-            
-            myStations[index] = new Station(index, id, address, spaces);
-
-            Console.WriteLine();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-    
+
 }

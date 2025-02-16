@@ -10,7 +10,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RentARide;
 using RentARide.Models;
-using RentARide.ViewModel;
+using RentARide.Resources.ViewModel;
 using RentARide.Views;
 
 namespace RentARide.ViewModel;
