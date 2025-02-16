@@ -21,7 +21,7 @@ public partial class ReservationSearchPage : ContentPage
     public string StationId { get; set; }
     public Enum Options { get; set; }
 
-    private ReservationSearchViewModel vm = new ReservationSearchViewModel();
+    private ReservationSearchViewModel vm = new ();
     public ReservationSearchPage()
         {
             BindingContext = vm;

@@ -352,12 +352,12 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="1"
                 HorizontalOptions="End">
-                <CheckBox.Behaviors>
+                <!--<CheckBox.Behaviors>
                     <behaviors:EventToCommandBehavior
                         Command="{Binding MP3CheckBoxCommand}"
                         CommandParameter="{Binding .}"
                         EventName="CheckChanged"/>
-                </CheckBox.Behaviors>
+                </CheckBox.Behaviors>-->
             </CheckBox>
                     
             <Label

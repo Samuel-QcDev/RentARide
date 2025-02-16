@@ -34,8 +34,8 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
     {
         ReservationSearchDetails = new ReservationSearch();
 
-        Auto auto1 = new Auto("AB445", "Essence", ["GPS", "AC"]);
-        Auto auto2 = new Auto("AB445", "Electrique", ["Seat"]);
+        Auto auto1 = new ("AB445", "Essence", ["GPS", "AC"]);
+        Auto auto2 = new ("AB445", "Electrique", ["Seat"]);
         CreerStation(0, "P001", "Dorchester-Charest", 5);
         CreerStation(1, "P002", "Carre D'Youville", 8);
 
@@ -45,7 +45,7 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
         {
             Console.WriteLine(myStations[i].StationId);
         }
-        TimePicker timePicker = new TimePicker
+        TimePicker timePicker = new ()
         {
             Time = new TimeSpan(4, 15, 26) // Time set to "04:15:26"
         };
@@ -83,7 +83,7 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
         {
             if (opt.IsChecked)
             {
-                //Implement actions for checked
+                await Shell.Current.GoToAsync("Historiquereservationpage");//Implement actions for checked
             }
         }
      

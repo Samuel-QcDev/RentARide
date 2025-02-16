@@ -14,6 +14,10 @@ namespace RentARide.Models
         public List<string> options;
 
 
+        public Auto()
+        {
+            
+        }
         public Auto(string id, string type, List<string> carOptions)
         {
             this.autoId = id;
