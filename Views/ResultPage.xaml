@@ -24,13 +24,13 @@
 
             </CollectionView>
 
-            <Button
+            <!--<Button
                 x:Name="Submit"
                 Command="{Binding ReserveCommand}"
                 CornerRadius="15"
                 FontSize="Medium"
                 Text="Reserve"
-                WidthRequest="200" />
+                WidthRequest="200" />-->
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

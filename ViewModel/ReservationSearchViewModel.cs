@@ -10,29 +10,32 @@ using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RentARide.Models;
-using RentARide.Resources.ViewModel;
 using System.Runtime.InteropServices;
 
 namespace RentARide.ViewModel;
 
 public partial class ReservationSearchViewModel : ObservableObject, INotifyPropertyChanged
 {
+    //[ObservableProperty]
+    //private DateTime startTime;
+    //[ObservableProperty]
+    //private DateTime endTime;
+    //[ObservableProperty]
+    //private string typeVehicule;
+    //[ObservableProperty]
+    //private string categorieAuto;
+    //[ObservableProperty]
+    //private string stationId;
+    //[ObservableProperty]
+    //private Enum options;
     [ObservableProperty]
-    private DateTime startTime;
-    [ObservableProperty]
-    private DateTime endTime;
-    [ObservableProperty]
-    private string typeVehicule;
-    [ObservableProperty]
-    private string categorieAuto;
-    [ObservableProperty]
-    private string stationId;
-    [ObservableProperty]
-    private Enum options;
+    private bool isChecked;
+
 
     public ReservationSearchViewModel()
     {
         ReservationSearchDetails = new ReservationSearch();
+        AutoDetails = new Auto();
 
         Auto auto1 = new ("AB445", "Essence", ["GPS", "AC"]);
         Auto auto2 = new ("AB445", "Electrique", ["Seat"]);
@@ -50,8 +53,22 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
             Time = new TimeSpan(4, 15, 26) // Time set to "04:15:26"
         };
     }
+    public event PropertyChangedEventHandler PropertyChanged;
+    bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+    {
+        if (Object.Equals(storage, value))
+            return false;
+        storage = value;
+        OnPropertyChanged(propertyName);
+        return true;
+    }
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
     public ReservationSearch ReservationSearchDetails { get; set; }
+    public Auto AutoDetails {  get; set; }
 
     public static void creerMembre(int memberId, string name, string password, string level)
     {
@@ -77,21 +94,13 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
     }
 
     [RelayCommand]
-    private static async Task MP3CheckBox(ReservationSearch opt)
+    private static async Task MP3CheckBox()
     {
-        if (opt != null)
-        {
-            if (opt.IsChecked)
-            {
-                await Shell.Current.GoToAsync("Historiquereservationpage");//Implement actions for checked
-            }
-        }
-     
-    }
 
-    //[RelayCommand]
-    //void SetTime()
-    //{
-    //    // Select the int for hour
-    //}
+    }
+    [RelayCommand]
+    private async Task Reserve()
+    {
+        await Shell.Current.GoToAsync("Mainpage");//Change this code for a method to add current reservation to MyReservationsList
+    }
 }

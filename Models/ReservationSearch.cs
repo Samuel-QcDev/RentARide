@@ -13,36 +13,20 @@ using System.Runtime.CompilerServices;
 
 namespace RentARide.Models
 {
-    public class ReservationSearch : INotifyPropertyChanged
+    public class ReservationSearch
     {
         public int Id { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
         public string TypeVehicule { get; set; }
         public string CategorieAuto { get; set; }
         public string StationId { get; set; }
         public Enum Options { get; set; }
         public string MemberId { get; set; }
-        private bool _isChecked;
-        public bool IsChecked
-    {
-            set { SetProperty(ref _isChecked, value); }
-            get { return _isChecked; }
-        }
+        public bool IsChecked { get; set; }
+        public List<string> AutoOptions { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Object.Equals(storage, value))
-                return false;
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+
     }
 
 }

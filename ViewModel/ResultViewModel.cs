@@ -8,18 +8,13 @@ using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RentARide.Models;
-using RentARide.Resources.ViewModel;
+using RentARide.ViewModel;
 
 namespace RentARide.ViewModel;
 
 
 public partial class ResultViewModel : LocalBaseViewModel
 {
-    [RelayCommand]
-    private async Task Reserve()
-    {
 
-        await Shell.Current.GoToAsync("Mainpage");
-    }
 }
 

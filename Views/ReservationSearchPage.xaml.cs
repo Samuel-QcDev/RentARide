@@ -14,8 +14,11 @@ namespace RentARide.Views;
 
 public partial class ReservationSearchPage : ContentPage
 {
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
+
     public string TypeVehicule { get; set; }
     public string CategorieAuto { get; set; }
     public string StationId { get; set; }
@@ -28,15 +31,16 @@ public partial class ReservationSearchPage : ContentPage
             InitializeComponent();
         }
 
-    public ReservationSearchPage(DateTime date, int hreDebut, int minsDebut,
-            int hreFin, int minsFin, string type, string station,
+    public ReservationSearchPage(DateTime startDate, DateTime endDate, DateTime startTime, DateTime endTime, string type, string station,
             [Optional] string categorie, [Optional] Enum options)
     {
         BindingContext = vm;
         InitializeComponent();
 
-        StartTime = new DateTime(date.Year, date.Month, date.Day, hreDebut, minsDebut, 0);
-        EndTime = new DateTime(date.Year, date.Month, date.Day, hreFin, minsFin, 0);
+        StartTime = startTime;
+        EndTime = endTime;
+        StartDate = startDate;
+        EndDate = endDate;
         TypeVehicule = type;
         CategorieAuto = categorie;
         StationId = station;

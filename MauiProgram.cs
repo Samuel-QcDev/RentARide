@@ -2,7 +2,6 @@
 using RentARide.ViewModel;
 using RentARide.Views;
 using RentARide.Models;
-using RentARide.Resources.ViewModel;
 
 namespace RentARide;
 

@@ -9,7 +9,6 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using RentARide.Models;
 using RentARide.ViewModel;
-using RentARide.Resources.ViewModel;
 
 namespace RentARide.ViewModel;
 
