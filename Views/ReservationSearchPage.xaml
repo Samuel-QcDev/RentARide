@@ -71,178 +71,6 @@
                 HorizontalOptions="Fill">
             </TimePicker>
 
-            <!--<Label
-                Grid.Row="2"
-                Grid.Column="3"
-                Margin="0,10,0,5"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center"
-                Text="H" />
-            <Picker
-                Grid.Row="2"
-                Grid.RowSpan="1"
-                Grid.Column="4"
-                Grid.ColumnSpan="1"
-                Margin="0,0,0,0"
-                BackgroundColor="LightGreen"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center">
-                <Picker.Items>
-                    <x:String>00</x:String>
-                    <x:String>30</x:String>
-                </Picker.Items>
-            </Picker>-->
-
-
-            <!--<Picker
-                Grid.Row="2"
-                Grid.RowSpan="1"
-                Grid.Column="2"
-                Grid.ColumnSpan="1"
-                Margin="0,0,0,0"
-                BackgroundColor="LightGreen"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center"
-                SelectedItem="{Binding }">
-                <Picker.Items>
-                    <x:String>00</x:String>
-                    <x:String>01</x:String>
-                    <x:String>02</x:String>
-                    <x:String>03</x:String>
-                    <x:String>04</x:String>
-                    <x:String>05</x:String>
-                    <x:String>06</x:String>
-                    <x:String>07</x:String>
-                    <x:String>08</x:String>
-                    <x:String>09</x:String>
-                    <x:String>10</x:String>
-                    <x:String>11</x:String>
-                    <x:String>12</x:String>
-                    <x:String>13</x:String>
-                    <x:String>14</x:String>
-                    <x:String>15</x:String>
-                    <x:String>16</x:String>
-                    <x:String>17</x:String>
-                    <x:String>18</x:String>
-                    <x:String>19</x:String>
-                    <x:String>20</x:String>
-                    <x:String>21</x:String>
-                    <x:String>22</x:String>
-                    <x:String>23</x:String>
-                </Picker.Items>
-            </Picker>
-            <Label
-                Grid.Row="2"
-                Grid.Column="3"
-                Margin="0,10,0,5"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center"
-                Text="H" />
-            <Picker
-                Grid.Row="2"
-                Grid.RowSpan="1"
-                Grid.Column="4"
-                Grid.ColumnSpan="1"
-                Margin="0,0,0,0"
-                BackgroundColor="LightGreen"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center">
-                <Picker.Items>
-                    <x:String>00</x:String>
-                    <x:String>30</x:String>
-                </Picker.Items>
-            </Picker>-->
-            <!--<Picker FontSize="Medium"
-                BackgroundColor="LightGreen"
-                HorizontalTextAlignment="Center"
-                Grid.Row="1"
-                Grid.RowSpan="1"
-                Grid.Column="6"
-                Grid.ColumnSpan="1"
-                Margin="0,0,0,0">
-
-            <Picker.Items>
-                <x:String>AM</x:String>
-                <x:String>PM</x:String>
-            </Picker.Items>
-        </Picker>-->
-            <!--<Label
-                Grid.Row="3"
-                Grid.Column="3"
-                Margin="0,10,0,5"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center"
-                Text="À" />
-            <Picker
-                Grid.Row="4"
-                Grid.RowSpan="1"
-                Grid.Column="2"
-                Grid.ColumnSpan="1"
-                Margin="0,0,0,0"
-                BackgroundColor="LightGreen"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center">
-                <Picker.Items>
-                    <x:String>00</x:String>
-                    <x:String>01</x:String>
-                    <x:String>02</x:String>
-                    <x:String>03</x:String>
-                    <x:String>04</x:String>
-                    <x:String>05</x:String>
-                    <x:String>06</x:String>
-                    <x:String>07</x:String>
-                    <x:String>08</x:String>
-                    <x:String>09</x:String>
-                    <x:String>10</x:String>
-                    <x:String>11</x:String>
-                    <x:String>12</x:String>
-                    <x:String>13</x:String>
-                    <x:String>14</x:String>
-                    <x:String>15</x:String>
-                    <x:String>16</x:String>
-                    <x:String>17</x:String>
-                    <x:String>18</x:String>
-                    <x:String>19</x:String>
-                    <x:String>20</x:String>
-                    <x:String>21</x:String>
-                    <x:String>22</x:String>
-                    <x:String>23</x:String>
-                </Picker.Items>
-            </Picker>
-            <Label
-                Grid.Row="4"
-                Grid.Column="3"
-                Margin="0,10,0,5"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center"
-                Text="H" />
-            <Picker
-                Grid.Row="4"
-                Grid.RowSpan="1"
-                Grid.Column="4"
-                Grid.ColumnSpan="1"
-                Margin="0,0,0,0"
-                BackgroundColor="LightGreen"
-                FontSize="Medium"
-                HorizontalTextAlignment="Center">
-                <Picker.Items>
-                    <x:String>00</x:String>
-                    <x:String>30</x:String>
-                </Picker.Items>
-            </Picker>-->
-
-            <!--<Picker FontSize="Medium"
-                BackgroundColor="LightGreen"
-                HorizontalTextAlignment="Center"
-                Grid.Row="3" Grid.RowSpan="1"
-                Grid.Column="6" Grid.ColumnSpan="1"
-                Margin="0,0,0,0">
-            <Picker.Items>
-                <x:String>AM</x:String>
-                <x:String>PM</x:String>
-            </Picker.Items>
-        </Picker>-->
-
             <Label
                 x:Name="VehicleTypeLabel"
                 Grid.Row="2"
@@ -252,8 +80,18 @@
                 FontSize="Medium"
                 Text="Type de Véhicule : "
                 VerticalTextAlignment="Center" />
+            <Label
+                x:Name="VehicleTypeLabeltest"
+                Grid.Row="4"
+                Grid.RowSpan="1"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                FontSize="Medium"
+                Text="{Binding StationId}"
+                VerticalTextAlignment="Center" />
             <Picker
                 x:Name="VehicleType"
+                SelectedItem="{Binding TypeVehicule}"
                 Grid.Row="2"
                 Grid.RowSpan="1"
                 Grid.Column="4"
@@ -275,12 +113,13 @@
                 Grid.Row="3"
                 Grid.RowSpan="1"
                 Grid.Column="0"
-                Grid.ColumnSpan="4"
+                Grid.ColumnSpan="2"
                 FontSize="Medium"
                 Text="Station : "
                 VerticalTextAlignment="Center" />
             <Picker
                 x:Name="StationName"
+                SelectedItem="{Binding StationId}"
                 Grid.Row="3"
                 Grid.RowSpan="1"
                 Grid.Column="4"
@@ -305,34 +144,47 @@
             ColumnDefinitions="*,*,*,*,*,*,*,*"
             ColumnSpacing="1"
             IsVisible="False"
-            RadioButtonGroup.SelectedValue="{Binding ReservationSearchDetails.CategorieAuto}"
             RowDefinitions="*,*,*,*,*,*,*"
             RowSpacing="2">
-            <Label
+            <Grid
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="8"
+                Grid.RowSpan="1"
+                x:Name="RadioButtons"
+                ColumnDefinitions="*,*,*,*,*,*,*,Auto"
+                RowDefinitions="*,Auto"
+                ColumnSpacing="1"
+                RowSpacing="2"
+                Padding="10"
+                Margin="0,0,0,0"
+                RadioButtonGroup.GroupName="TypeVehicule" 
+                RadioButtonGroup.SelectedValue="{Binding CategorieAuto}">
+                <Label
                 Grid.Row="0"
                 Grid.RowSpan="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 FontSize="Medium"
-                Text="Options : " />
-            <RadioButton
-                x:Name="RadioButtGas"
+                Text="Options : "/>
+                <RadioButton
                 Grid.Row="0"
                 Grid.Column="2"
                 Grid.ColumnSpan="3"
+                x:Name="RadioButtGas"
                 Content="À essence"
-                GroupName="TypeVehicule"
-                HorizontalOptions="Start"
-                Value="À essence" />
-            <RadioButton
-                x:Name="RadioButtElectric"
+                Value="À essence">
+                </RadioButton>
+                <RadioButton
                 Grid.Row="0"
                 Grid.Column="5"
                 Grid.ColumnSpan="3"
+                x:Name="RadioButtElectric"
                 Content="Électrique"
-                GroupName="TypeVehicule"
-                Value="Électrique" />
-            
+                Value="Électrique">
+                </RadioButton>
+            </Grid>
+
             <Label
                 Grid.Row="4"
                 Grid.RowSpan="1"
@@ -347,20 +199,15 @@
                 Grid.Column="3"
                 Grid.ColumnSpan="3"
                 FontSize="Medium"
-                Text="{Binding StartDate}" />
+                Text="{Binding CategorieAuto}" />
 
             <CheckBox
                 x:Name="Mp3"
+                IsChecked="{Binding IsCheckedMP3}"
                 Grid.Row="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="1"
                 HorizontalOptions="End">
-                <!--<CheckBox.Behaviors>-->
-                    <!--<behaviors:EventToCommandBehavior
-                        Command="{Binding MP3CheckBoxCommand}"
-                        CommandParameter="{Binding Source={x:Reference Mp3},Path=IsChecked}"
-                        EventName="CheckChanged"/>
-                </CheckBox.Behaviors>-->
             </CheckBox>
                         <!--CommandParameter="{Binding Source={x:Reference Mp3},Path=IsChecked}"-->                    
             <Label
@@ -372,6 +219,7 @@
                 Text="Lecteur MP3" />
             <CheckBox
                 x:Name="A_C"
+                IsChecked="{Binding IsCheckedAC}"
                 Grid.Row="3"
                 Grid.Column="0"
                 Grid.ColumnSpan="1"
@@ -385,6 +233,7 @@
                 Text="Air Climatisé" />
             <CheckBox
                 x:Name="Gps"
+                IsChecked="{Binding IsCheckedGPS}"
                 Grid.Row="2"
                 Grid.Column="4"
                 Grid.ColumnSpan="1"
@@ -398,6 +247,7 @@
                 Text="GPS" />
             <CheckBox
                 x:Name="SiegeAuto"
+                IsChecked="{Binding IsCheckedChildSeat}"
                 Grid.Row="3"
                 Grid.Column="4"
                 Grid.ColumnSpan="1"

@@ -25,17 +25,22 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
     private DateTime startDate;
     [ObservableProperty]
     private DateTime endDate;
-
-
-    //private string typeVehicule;
-    //[ObservableProperty]
-    //private string categorieAuto;
-    //[ObservableProperty]
-    //private string stationId;
+    [ObservableProperty]
+    private string typeVehicule;
+    [ObservableProperty]
+    private string categorieAuto;
+    [ObservableProperty]
+    private string stationId;
     //[ObservableProperty]
     //private Enum options;
     [ObservableProperty]
-    private bool isChecked;
+    private bool isCheckedMP3;
+    [ObservableProperty]
+    private bool isCheckedGPS;
+    [ObservableProperty]
+    private bool isCheckedAC;
+    [ObservableProperty]
+    private bool isCheckedChildSeat;
 
     public ReservationSearchViewModel()
     {
@@ -44,6 +49,11 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
 
         StartDate = DateTime.Now;
         EndDate = DateTime.Now;
+
+        //AutoDetails.autoOptions.Add("MP3");
+        //AutoDetails.autoOptions.Add("MP3");
+        //AutoDetails.autoOptions.Add("MP3");
+        //AutoDetails.autoOptions.Add("MP3");
 
         Auto auto1 = new ("AB445", "Essence", ["GPS", "AC"]);
         Auto auto2 = new ("AB445", "Electrique", ["Seat"]);
