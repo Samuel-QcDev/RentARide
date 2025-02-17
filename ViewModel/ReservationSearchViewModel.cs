@@ -11,16 +11,22 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RentARide.Models;
 using System.Runtime.InteropServices;
+using System.Collections.ObjectModel;
 
 namespace RentARide.ViewModel;
 
 public partial class ReservationSearchViewModel : ObservableObject, INotifyPropertyChanged
 {
-    //[ObservableProperty]
-    //private DateTime startTime;
-    //[ObservableProperty]
-    //private DateTime endTime;
-    //[ObservableProperty]
+    [ObservableProperty]
+    private TimeSpan startTime;
+    [ObservableProperty]
+    private TimeSpan endTime;
+    [ObservableProperty]
+    private DateTime startDate;
+    [ObservableProperty]
+    private DateTime endDate;
+
+
     //private string typeVehicule;
     //[ObservableProperty]
     //private string categorieAuto;
@@ -31,11 +37,13 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
     [ObservableProperty]
     private bool isChecked;
 
-
     public ReservationSearchViewModel()
     {
         ReservationSearchDetails = new ReservationSearch();
         AutoDetails = new Auto();
+
+        StartDate = DateTime.Now;
+        EndDate = DateTime.Now;
 
         Auto auto1 = new ("AB445", "Essence", ["GPS", "AC"]);
         Auto auto2 = new ("AB445", "Electrique", ["Seat"]);
@@ -48,25 +56,12 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
         {
             Console.WriteLine(myStations[i].StationId);
         }
-        TimePicker timePicker = new ()
-        {
-            Time = new TimeSpan(4, 15, 26) // Time set to "04:15:26"
-        };
+        //TimePicker timePicker = new ()
+        //{
+        //    Time = new TimeSpan(4, 15, 26) // Time set to "04:15:26"
+        //};
     }
-    public event PropertyChangedEventHandler PropertyChanged;
-    bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-    {
-        if (Object.Equals(storage, value))
-            return false;
-        storage = value;
-        OnPropertyChanged(propertyName);
-        return true;
-    }
-    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
+   
     public ReservationSearch ReservationSearchDetails { get; set; }
     public Auto AutoDetails {  get; set; }
 

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
-namespace RentARide
+namespace RentARide.Models
 {
     public class Reservation
     {
@@ -16,7 +16,10 @@ namespace RentARide
         public string StationId { get; set; }
         public Enum Options { get; set; }
 
-  
+        public Reservation()
+        {
+            
+        }
         public Reservation(DateTime date, int hreDebut, int minsDebut, 
             int hreFin, int minsFin, string type, string station, 
             [ Optional ] string categorie, [ Optional ] Enum options)

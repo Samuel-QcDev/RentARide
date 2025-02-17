@@ -4,7 +4,7 @@ namespace RentARide.Views;
 
 public partial class MainPage : ContentPage
 {
-    MainViewModel vm = new MainViewModel();
+    MainViewModel vm = new();
     public MainPage()
 	{
         BindingContext = vm;

@@ -16,8 +16,8 @@ public partial class ReservationSearchPage : ContentPage
 {
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public DateTime StartTime { get; set; }
-    public DateTime EndTime { get; set; }
+    public TimeSpan StartTime { get; set; }
+    public TimeSpan EndTime { get; set; }
 
     public string TypeVehicule { get; set; }
     public string CategorieAuto { get; set; }
@@ -27,25 +27,26 @@ public partial class ReservationSearchPage : ContentPage
     private ReservationSearchViewModel vm = new ();
     public ReservationSearchPage()
         {
-            BindingContext = vm;
             InitializeComponent();
-        }
-
-    public ReservationSearchPage(DateTime startDate, DateTime endDate, DateTime startTime, DateTime endTime, string type, string station,
-            [Optional] string categorie, [Optional] Enum options)
-    {
-        BindingContext = vm;
-        InitializeComponent();
-
-        StartTime = startTime;
-        EndTime = endTime;
-        StartDate = startDate;
-        EndDate = endDate;
-        TypeVehicule = type;
-        CategorieAuto = categorie;
-        StationId = station;
-        Options = options;
+            BindingContext = vm;
     }
+
+    //public ReservationSearchPage(DateTime startDate, DateTime endDate, DateTime startTime, DateTime endTime, string type, string station,
+    //        [Optional] string categorie, [Optional] Enum options)
+    //{
+    //    StartDate = DateTime.Now;
+    //    BindingContext = vm;
+    //    InitializeComponent();
+
+    //    StartTime = startTime;
+    //    EndTime = endTime;
+    //    StartDate = startDate;
+    //    EndDate = endDate;
+    //    TypeVehicule = type;
+    //    CategorieAuto = categorie;
+    //    StationId = station;
+    //    Options = options;
+    //}
 
     private void VehicleType_OnSelectedIndexChanged(object sender, EventArgs e)
     {

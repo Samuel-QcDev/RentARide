@@ -5,9 +5,9 @@ namespace RentARide.Views;
 public partial class LoginPage : ContentPage
 {
     private double LoginProgress { get; set; }
-    public static ProgressBar LoginProgressBar;
+    private static ProgressBar LoginProgressBar;
 
-    private LoginViewModel vm = new LoginViewModel();
+    private LoginViewModel vm = new();
         
     public LoginPage()
 	{
