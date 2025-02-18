@@ -203,13 +203,14 @@
 
             <CheckBox
                 x:Name="Mp3"
-                IsChecked="{Binding IsCheckedMP3}"
+                IsChecked="{Binding IsCheckedMP3}"    
+                CheckedChanged="Gps_CheckedChanged"
                 Grid.Row="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="1"
                 HorizontalOptions="End">
             </CheckBox>
-                        <!--CommandParameter="{Binding Source={x:Reference Mp3},Path=IsChecked}"-->                    
+                   
             <Label
                 Grid.Row="2"
                 Grid.Column="1"

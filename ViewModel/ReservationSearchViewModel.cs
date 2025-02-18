@@ -71,7 +71,110 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
         //    Time = new TimeSpan(4, 15, 26) // Time set to "04:15:26"
         //};
     }
-   
+    partial void OnIsCheckedMP3Changed(bool value)
+    {
+        if (IsCheckedMP3)
+        {
+            if (AutoDetails.autoOptions.Contains("MP3"))
+            {
+                return;
+            }
+            else
+            {
+                AutoDetails.autoOptions.Add("MP3");
+            }
+        }
+        else
+        {
+            if (AutoDetails.autoOptions.Contains("MP3"))
+            {
+                AutoDetails.autoOptions.Remove("MP3");
+            }
+            else
+            {
+                return;
+            }
+        }
+        return;
+    }
+    partial void OnIsCheckedACChanged(bool value)
+    {
+        if (IsCheckedAC)
+        {
+            if (AutoDetails.autoOptions.Contains("AC"))
+            {
+                return;
+            }
+            else
+            {
+                AutoDetails.autoOptions.Add("AC");
+            }
+        }
+        else
+        {
+            if (AutoDetails.autoOptions.Contains("AC"))
+            {
+                AutoDetails.autoOptions.Remove("AC");
+            }
+            else
+            {
+                return;
+            }
+        }
+        return;
+    }
+    partial void OnIsCheckedGPSChanged(bool value)
+    {
+        if (IsCheckedGPS)
+        {
+            if (AutoDetails.autoOptions.Contains("GPS"))
+            {
+                return;
+            }
+            else
+            {
+                AutoDetails.autoOptions.Add("GPS");
+            }
+        }
+        else
+        {
+            if (AutoDetails.autoOptions.Contains("GPS"))
+            {
+                AutoDetails.autoOptions.Remove("GPS");
+            }
+            else
+            {
+                return;
+            }
+        }
+        return;
+    }
+    partial void OnIsCheckedChildSeatChanged(bool value)
+    {
+        if (IsCheckedChildSeat)
+        {
+            if (AutoDetails.autoOptions.Contains("ChildSeat"))
+            {
+                return;
+            }
+            else
+            {
+                AutoDetails.autoOptions.Add("ChildSeat");
+            }
+        }
+        else
+        {
+            if (AutoDetails.autoOptions.Contains("ChildSeat"))
+            {
+                AutoDetails.autoOptions.Remove("ChildSeat");
+            }
+            else
+            {
+                return;
+            }
+        }
+        return;
+    }
     public ReservationSearch ReservationSearchDetails { get; set; }
     public Auto AutoDetails {  get; set; }
 
@@ -99,10 +202,34 @@ public partial class ReservationSearchViewModel : ObservableObject, INotifyPrope
     }
 
     [RelayCommand]
-    private static async Task MP3CheckBox()
+    Task MP3CheckBox()
     {
+        if (IsCheckedMP3)
+        {
+            if (AutoDetails.autoOptions.Contains("MP3"))
+            {
+                return Task.CompletedTask;
+            }
+            else
+            {
+                AutoDetails.autoOptions.Add("MP3");
+            }
+        }
+        else
+        {
+            if (AutoDetails.autoOptions.Contains("MP3"))
+            {
+                AutoDetails.autoOptions.Remove("MP3");
+            }
+            else
+            {
+                return Task.CompletedTask;
+            }
+        }
 
+        return Task.CompletedTask;
     }
+
     [RelayCommand]
     private async Task Reserve()
     {

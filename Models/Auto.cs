@@ -11,7 +11,7 @@ namespace RentARide.Models
     {
         public string categorieAuto;
         public string autoId;
-        public List<string> autoOptions;
+        public List<string> autoOptions = new();
 
 
         public Auto()

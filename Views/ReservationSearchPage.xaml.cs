@@ -59,4 +59,9 @@ public partial class ReservationSearchPage : ContentPage
             OptionsLayout.IsVisible = false;
         }
     }
+
+    private void Gps_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
 }
