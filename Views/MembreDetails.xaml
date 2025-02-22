@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModel="clr-namespace:RentARide.ViewModel"
     Title="Membre Details"
-    x:DataType="viewModel:MembreDetailsViewModel">
+    x:DataType="viewModel:MembreViewModel">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False" />
     </Shell.BackButtonBehavior>
