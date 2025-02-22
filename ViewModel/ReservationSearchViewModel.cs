@@ -18,22 +18,6 @@ namespace RentARide.ViewModel;
 public partial class ReservationSearchViewModel : ObservableObject
 {
     [ObservableProperty]
-    private TimeSpan startTime;
-    [ObservableProperty]
-    private TimeSpan endTime;
-    [ObservableProperty]
-    private DateTime startDate;
-    [ObservableProperty]
-    private DateTime endDate;
-    [ObservableProperty]
-    private string typeVehicule;
-    [ObservableProperty]
-    private string categorieAuto;
-    [ObservableProperty]
-    private string stationId;
-    //[ObservableProperty]
-    //private Enum options;
-    [ObservableProperty]
     private bool isCheckedMP3;
     [ObservableProperty]
     private bool isCheckedGPS;
@@ -47,8 +31,8 @@ public partial class ReservationSearchViewModel : ObservableObject
         ReservationSearchDetails = new ReservationSearch();
         AutoDetails = new Auto();
 
-        StartDate = DateTime.Now;
-        EndDate = DateTime.Now;
+        ReservationSearchDetails.StartDate = DateTime.Now;
+        ReservationSearchDetails.EndDate = DateTime.Now;
 
         Auto auto1 = new ("AB445", "Essence", ["GPS", "AC"]);
         Auto auto2 = new ("AB445", "Electrique", ["Seat"]);
@@ -61,10 +45,7 @@ public partial class ReservationSearchViewModel : ObservableObject
         {
             Console.WriteLine(myStations[i].StationId);
         }
-        //TimePicker timePicker = new ()
-        //{
-        //    Time = new TimeSpan(4, 15, 26) // Time set to "04:15:26"
-        //};
+
     }
     partial void OnIsCheckedMP3Changed(bool value)
     {
@@ -193,6 +174,13 @@ public partial class ReservationSearchViewModel : ObservableObject
     [RelayCommand]
     private static async Task Search()
     {
+        //if (true)
+        //{
+
+        //}else
+        //{
+
+        //}
         await Shell.Current.GoToAsync("Resultpage");
     }
 
@@ -225,9 +213,9 @@ public partial class ReservationSearchViewModel : ObservableObject
         return Task.CompletedTask;
     }
 
-    [RelayCommand]
-    private async Task Reserve()
-    {
-        await Shell.Current.GoToAsync("Mainpage");//Change this code for a method to add current reservation to MyReservationsList
-    }
+    //[RelayCommand]
+    //private async Task Reserve()
+    //{
+    //    await Shell.Current.GoToAsync("Mainpage");//Change this code for a method to add current reservation to MyReservationsList
+    //}
 }
