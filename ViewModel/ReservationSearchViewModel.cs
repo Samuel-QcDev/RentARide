@@ -25,11 +25,14 @@ public partial class ReservationSearchViewModel : ObservableObject
     private bool isCheckedAC;
     [ObservableProperty]
     private bool isCheckedChildSeat;
-
+    public ReservationSearch ReservationSearchDetails { get; set; }
+    public Auto AutoDetails { get; set; }
+    public Reservation ReservationDetails { get; set; }
     public ReservationSearchViewModel()
     {
         ReservationSearchDetails = new ReservationSearch();
         AutoDetails = new Auto();
+        ReservationDetails = new Reservation();
 
         ReservationSearchDetails.StartDate = DateTime.Now;
         ReservationSearchDetails.EndDate = DateTime.Now;
@@ -151,8 +154,6 @@ public partial class ReservationSearchViewModel : ObservableObject
         }
         return;
     }
-    public ReservationSearch ReservationSearchDetails { get; set; }
-    public Auto AutoDetails {  get; set; }
 
     public static void creerMembre(int memberId, string name, string password, string level)
     {
