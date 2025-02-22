@@ -50,11 +50,6 @@ public partial class ReservationSearchViewModel : ObservableObject
         StartDate = DateTime.Now;
         EndDate = DateTime.Now;
 
-        //AutoDetails.autoOptions.Add("MP3");
-        //AutoDetails.autoOptions.Add("MP3");
-        //AutoDetails.autoOptions.Add("MP3");
-        //AutoDetails.autoOptions.Add("MP3");
-
         Auto auto1 = new ("AB445", "Essence", ["GPS", "AC"]);
         Auto auto2 = new ("AB445", "Electrique", ["Seat"]);
         CreerStation(0, "P001", "Dorchester-Charest", 5);
