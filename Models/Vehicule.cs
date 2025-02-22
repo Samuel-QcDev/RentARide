@@ -12,8 +12,9 @@ namespace RentARide.Models
     
     public partial class Vehicule : INotifyPropertyChanged
     {
-        private string vehiculeId;
-        private string type;
+        public string vehiculeId;
+        public string vehiculeStationId;
+        public string type;
         public Vehicule()
         {
         }

@@ -13,20 +13,21 @@ namespace RentARide.Models
         public string autoId;
         public List<string> autoOptions = new();
 
-
         public Auto()
         {
             
         }
-        public Auto(string id, string type, List<string> carOptions)
+        public Auto(string id, string stationID,string type, List<string> carOptions)
         {
+            this.type = "Car";
             this.autoId = id;
+            this.vehiculeStationId = stationID;
             this.categorieAuto = type;
             this.autoOptions = (List<string>)carOptions;
         }
         public override string ToString()
         {
-            return categorieAuto + " " + autoId + " " + String.Join(",",autoOptions);
+            return type + " " + autoId  + " " + vehiculeStationId + " " + categorieAuto + " " + String.Join(",",autoOptions);
         }
     }
 }

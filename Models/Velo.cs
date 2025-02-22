@@ -11,5 +11,22 @@ namespace RentARide.Models
     public partial class Velo : Vehicule
     {
         public int BikeReturnStationID { get; set; }
+
+        public Velo()
+        {
+
+        }
+        public Velo(string id, string stationID)
+        {
+            this.type = "Velo";
+            this.vehiculeId = id;
+            this.vehiculeStationId = stationID;
+        }
+        public override string ToString()
+        {
+            return type + " " + vehiculeId+ " " + vehiculeStationId;
+        }
     }
 }
+
+

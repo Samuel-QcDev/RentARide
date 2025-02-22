@@ -28,6 +28,8 @@ namespace RentARide.Models
         //public bool IsChecked { get; set; }
         [ObservableProperty]
         public List<string> autoOptions;
+        public List<Vehicule> searchResults = new();
+
 
     }
 }
