@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RentARide.Models
-
 {
-    public partial class Velo : Vehicule
+    public partial class ReservationResult : Reservation_BASE
     {
-        public int BikeReturnStationID { get; set; }
+        public string ReservationID { get; set; }
     }
 }

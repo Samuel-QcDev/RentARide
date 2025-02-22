@@ -13,7 +13,7 @@ using RentARide.ViewModel;
 namespace RentARide.ViewModel;
 
 
-public partial class ResultViewModel : LocalBaseViewModel
+public partial class ReservationResultViewModel : LocalBaseViewModel
 {
 
 }

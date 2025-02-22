@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 
 namespace RentARide.ViewModel;
 
-public partial class ReservationSearchViewModel : ObservableObject, INotifyPropertyChanged
+public partial class ReservationSearchViewModel : ObservableObject
 {
     [ObservableProperty]
     private TimeSpan startTime;

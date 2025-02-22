@@ -13,7 +13,7 @@ namespace RentARide.Views;
 
 public partial class ResultPage : ContentPage
 {
-    ResultViewModel vm = new ResultViewModel();
+    ReservationResultViewModel vm = new ReservationResultViewModel();
     public ResultPage()
 	{
         BindingContext = vm;

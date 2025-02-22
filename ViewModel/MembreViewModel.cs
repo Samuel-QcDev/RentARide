@@ -15,9 +15,9 @@ using RentARide.Views;
 
 namespace RentARide.ViewModel;
 
-public partial class MembreDetailsViewModel : LocalBaseViewModel
+public partial class MembreViewModel : LocalBaseViewModel
 {
-    public MembreDetailsViewModel()
+    public MembreViewModel()
     {
         MembreDetails = new Membre();
         CreerMembre(0, "Julie", "Or");

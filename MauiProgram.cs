@@ -35,8 +35,8 @@ public static class MauiProgram
         builder.Services.AddTransient<MainViewModel>(); 
         builder.Services.AddTransient<HistoriqueReservationViewModel>();
         builder.Services.AddTransient<ReservationSearchViewModel>();
-        builder.Services.AddTransient<ResultViewModel>();
-        builder.Services.AddTransient<MembreDetailsViewModel>();
+        builder.Services.AddTransient<ReservationResultViewModel>();
+        builder.Services.AddTransient<MembreViewModel>();
 
         return builder.Build();
 	}

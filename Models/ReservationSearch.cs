@@ -13,20 +13,10 @@ using System.Runtime.CompilerServices;
 
 namespace RentARide.Models
 {
-    public class ReservationSearch
+    public partial class ReservationSearch : Reservation_BASE
     {
-        public int Id { get; set; }
-        //public TimeSpan StartTime { get; set; }
-        //public TimeSpan EndTime { get; set; }
-        public string TypeVehicule { get; set; }
-        public string CategorieAuto { get; set; }
-        public string StationId { get; set; }
-        public Enum Options { get; set; }
-        public string MemberId { get; set; }
-        public bool IsChecked { get; set; }
-        public List<string> AutoOptions { get; set; }
-
-
+        public int ReservationSearchID { get; set; }
+        public int BikeReturnStationID { get; set; }
     }
 
 }
