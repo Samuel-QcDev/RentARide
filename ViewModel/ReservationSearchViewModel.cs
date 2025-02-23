@@ -17,6 +17,7 @@ namespace RentARide.ViewModel;
 
 public partial class ReservationSearchViewModel : ObservableObject
 {
+    public ObservableCollection<Vehicule> Vehicules { get; } = new();
     [ObservableProperty]
     private bool isCheckedMP3;
     [ObservableProperty]
@@ -37,23 +38,16 @@ public partial class ReservationSearchViewModel : ObservableObject
 
         ReservationSearchDetails.StartDate = DateTime.Now;
         ReservationSearchDetails.EndDate = DateTime.Now;
-        ReservationDetails.searchResults.Clear();
+
+        ReservationDetails.SearchResults.Clear();
         CreerVehicule(0, new Auto("AB445", "P001","Essence", ["GPS", "AC"]));
-        Console.WriteLine(ReservationDetails.searchResults.Count);
         CreerVehicule(1, new Auto("AB446", "P002", "Essence", ["MP3", "AC"]));
-        Console.WriteLine(ReservationDetails.searchResults.Count);
         CreerVehicule(2, new Auto("AB447", "P003", "Essence", ["GPS", "AC", "MP3"]));
-        Console.WriteLine(ReservationDetails.searchResults.Count);
         CreerVehicule(3, new Auto("AB448", "P004", "Essence", []));
-        Console.WriteLine(ReservationDetails.searchResults.Count);
         CreerVehicule(4, new Auto("AB449", "P004", "Électrique", ["AC","ChildSeat"]));
-        Console.WriteLine(ReservationDetails.searchResults.Count);
         CreerVehicule(5, new Auto("AB450", "P005", "Essence", ["GPS", "MP3"]));
-        Console.WriteLine(ReservationDetails.searchResults.Count);
         CreerVehicule(6, new Auto("AB451", "P006", "Électrique", ["GPS", "AC"]));
-        Console.WriteLine(ReservationDetails.searchResults.Count);
         CreerVehicule(7, new Auto("AB452", "P007", "Électrique", ["GPS", "AC"]));
-        Console.WriteLine(ReservationDetails.searchResults.Count);
         CreerVehicule(8, new Velo("V01","P001"));
         CreerVehicule(9, new Velo("V02", "P001"));
         CreerVehicule(10, new Velo("V03", "P002"));
@@ -69,7 +63,10 @@ public partial class ReservationSearchViewModel : ObservableObject
         CreerVehicule(20, new Moto("V06", "P003"));
         CreerVehicule(21, new Moto("V10", "P005"));
 
-        Console.WriteLine(ReservationDetails.searchResults.Count);
+        Console.WriteLine(Vehicules[2].type);
+        Console.WriteLine(Vehicules[2].vehiculeStationId);
+
+        Console.WriteLine(Vehicules.Count);
 
         CreerStation(0, "P001", "Dorchester-Charest", 5);
         CreerStation(1, "P002", "Carre D'Youville", 8);
@@ -80,8 +77,9 @@ public partial class ReservationSearchViewModel : ObservableObject
     public void CreerVehicule(int index, Vehicule vehicule)
     {
         myVehicules[index] = vehicule;
-        ReservationDetails.searchResults.Add(myVehicules[index]);
-        Console.WriteLine(ReservationDetails.searchResults[index]);
+        Vehicules.Add(myVehicules[index]);
+        Console.WriteLine(Vehicules[index]);
+        Console.WriteLine(Vehicules.Count);
     }
     public static void creerMembre(int memberId, string name, string password, string level)
     {

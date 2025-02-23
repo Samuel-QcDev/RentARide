@@ -273,7 +273,28 @@
             HorizontalOptions="Center"
             SemanticProperties.Hint="Navigates to Results page"
             Text="Recherche"/>-->
+
             <CollectionView VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand"
+                            ItemsSource="{Binding Vehicules}"
+                            SelectionMode="Single">
+ 
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:ReservationSearch">
+                        <VerticalStackLayout>
+                            <HorizontalStackLayout Padding="10"
+                                                   Spacing="10">
+                                <Label Text="{Binding }"/>
+                                <Label Text="{Binding TypeVehicule}"/>
+                                <Label Text="{Binding CategorieAuto}"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+            <!--<CollectionView VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <CollectionView.ItemsSource>
                     <x:Array Type="{x:Type model:ReservationSearch}">
@@ -286,81 +307,7 @@
                         <model:ReservationSearch TypeVehicule="Car"
                                                  CategorieAuto="Essence"
                                                  StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
+ \
                     </x:Array>
                 </CollectionView.ItemsSource>
                 <CollectionView.ItemTemplate>
@@ -375,7 +322,7 @@
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
+            </CollectionView>-->
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
