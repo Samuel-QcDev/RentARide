@@ -3,6 +3,7 @@ using RentARide.ViewModel;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Linq;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using System.Runtime.Intrinsics.X86;
@@ -45,7 +46,10 @@ public partial class ReservationSearchViewModel : ObservableObject
         ReservationSearchDetails.EndDate = DateTime.Now;
 
         int lenght = LoadData();
-        //CheckInitialStateMP3();
+        CheckInitialStateMP3();
+        CheckInitialStateAC();
+        CheckInitialStateGPS();
+        CheckInitialStateChildSeat();
 
         //Console.WriteLine(Vehicules[2].type);
         //Console.WriteLine(Vehicules[2].vehiculeStationId);
@@ -208,135 +212,10 @@ public int  LoadData()
         }
         return length;
     }
+
     public void CheckInitialStateMP3()
     {
         if (IsCheckedMP3)
-        {
-            if (AutoDetails.AutoOptions.Contains("MP3"))
-            {
-                return;
-            }
-            else
-            {
-                AutoDetails.AutoOptions.Add("MP3");
-                int length = Vehicules.Count;
-                for (int i = 0; i < length; i++)
-                {
-                    for (int j = 0; j < Vehicules[i].AutoOptions.Count;j++)
-                    if (Vehicules[i].AutoOptions[j] == "MP3")
-                    {
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                    }
-                }
-                foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                {
-                    Vehicules.Add(myVehicules[index]);
-                }
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-                int length1 = Vehicules.Count;
-                for (int i = 0; i < length1; i++)
-                {
-                    Console.WriteLine(Vehicules[i].ToString());
-                }
-                for (int i = 0; i < length1; i++)
-                {
-                    Console.WriteLine(myVehicules[i].ToString());
-                }
-            }
-        }
-        else
-        {
-            if (AutoDetails.AutoOptions.Contains("MP3"))
-            {
-                AutoDetails.AutoOptions.Remove("MP3");
-                int length = Vehicules.Count;
-                for (int i = 0; i < length; i++)
-                {
-                        for (int j = 0; j < Vehicules[i].AutoOptions.Count; j++)
-                            if (Vehicules[i].AutoOptions[j] == "MP3")
-                            {
-                                ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                    }
-                }
-                foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                {
-                    Vehicules.Remove(myVehicules[index]);
-                }
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-            }
-            else
-            {
-                return;
-            }
-        }
-    }
-    Vehicule[] myVehicules = new Vehicule[50];
-    
-    public void CreerVehicule(int index, Vehicule vehicule)
-    {
-        myVehicules[index] = vehicule;
-        Vehicules.Add(myVehicules[index]);
-        //Console.WriteLine(Vehicules[index]);
-        //Console.WriteLine(Vehicules.Count);
-    }
-    public static void creerMembre(int memberId, string name, string password, string level)
-    {
-
-    }
-
-    Station[] myStations = new Station[20];
-    private int index;
-
-    public void CreerStation(int index, string id, string address, int spaces)
-    {
-        myStations[index] = new Station(index, id, address, spaces);
-    }
-
-    partial void OnIsCheckedMP3Changed(bool value)
-    {
-        if (IsCheckedMP3)
-        {
-            if (AutoDetails.AutoOptions.Contains("MP3"))
-            {
-                return;
-            }
-            else
-            {
-                AutoDetails.AutoOptions.Add("MP3");
-                int lenght = Vehicules.Count;
-                int lenght1 = myVehicules.Length;
-                for (int i = lenght1 - 1; i >= 0; i--)
-                {
-                    if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
-                    {
-                        for (int j = myVehicules[i].AutoOptions.Count-1; j >=0; j--)
-                        {
-                            if ((myVehicules[i].AutoOptions != null) && (myVehicules[i].type == "Car"))
-                            {
-                                if (myVehicules[i].AutoOptions[j] == "MP3")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                }
-                            }
-                        }
-                    }
-                }
-                Console.WriteLine("# of vehicules before adding MP3: " + Vehicules.Count);
-                foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                {
-                    Vehicules.Add(myVehicules[index]);
-                }
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-
-                for (int i = 0; i < Vehicules.Count; i++)
-                {
-                    Console.WriteLine(Vehicules[i].ToString());
-                }
-                Console.WriteLine("# of vehicules after adding MP3: " + Vehicules.Count);
-            }
-        }
-        else
-        {
             if (AutoDetails.AutoOptions.Contains("MP3"))
             {
                 AutoDetails.AutoOptions.Remove("MP3");
@@ -366,53 +245,10 @@ public int  LoadData()
             {
                 return;
             }
-        }
     }
-    partial void OnIsCheckedACChanged(bool value)
+    public void CheckInitialStateAC()
     {
         if (IsCheckedAC)
-        {
-            if (AutoDetails.AutoOptions.Contains("AC"))
-            {
-                return;
-            }
-            else
-            {
-                AutoDetails.AutoOptions.Add("AC");
-                int lenght = Vehicules.Count;
-                int lenght1 = myVehicules.Length;
-                for (int i = lenght1 - 1; i >= 0; i--)
-                {
-                    if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
-                    {
-                        for (int j = myVehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                        {
-                            if ((myVehicules[i].AutoOptions != null) && (myVehicules[i].type == "Car"))
-                            {
-                                if (myVehicules[i].AutoOptions[j] == "AC")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                }
-                            }
-                        }
-                    }
-                }
-                Console.WriteLine("# of vehicules before adding AC: " + Vehicules.Count);
-                foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                {
-                    Vehicules.Add(myVehicules[index]);
-                }
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-
-                for (int i = 0; i < Vehicules.Count; i++)
-                {
-                    Console.WriteLine(Vehicules[i].ToString());
-                }
-                Console.WriteLine("# of vehicules after adding AC: " + Vehicules.Count);
-            }
-        }
-        else
-        {
             if (AutoDetails.AutoOptions.Contains("AC"))
             {
                 AutoDetails.AutoOptions.Remove("AC");
@@ -442,60 +278,17 @@ public int  LoadData()
             {
                 return;
             }
-        }
     }
-    partial void OnIsCheckedGPSChanged(bool value)
+    public void CheckInitialStateGPS()
     {
         if (IsCheckedGPS)
-        {
-            if (AutoDetails.AutoOptions.Contains("GPS"))
-            {
-                return;
-            }
-            else
-            {
-                AutoDetails.AutoOptions.Add("GPS");
-                int lenght = Vehicules.Count;
-                int lenght1 = myVehicules.Length;
-                for (int i = lenght1 - 1; i >= 0; i--)
-                {
-                    if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
-                    {
-                        for (int j = myVehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                        {
-                            if ((myVehicules[i].AutoOptions != null) && (myVehicules[i].type == "Car"))
-                            {
-                                if (myVehicules[i].AutoOptions[j] == "GPS")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                }
-                            }
-                        }
-                    }
-                }
-                Console.WriteLine("# of vehicules before adding GPS: " + Vehicules.Count);
-                foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                {
-                    Vehicules.Add(myVehicules[index]);
-                }
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-
-                for (int i = 0; i < Vehicules.Count; i++)
-                {
-                    Console.WriteLine(Vehicules[i].ToString());
-                }
-                Console.WriteLine("# of vehicules after adding GPS: " + Vehicules.Count);
-            }
-        }
-        else
-        {
             if (AutoDetails.AutoOptions.Contains("GPS"))
             {
                 AutoDetails.AutoOptions.Remove("GPS");
                 int lenght = Vehicules.Count;
                 for (int i = lenght - 1; i >= 0; i--)
                 {
-                    if (Vehicules[i] != null && (Vehicules[i].type == "GPS"))
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
                     {
                         for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                         {
@@ -518,60 +311,17 @@ public int  LoadData()
             {
                 return;
             }
-        }
     }
-    partial void OnIsCheckedChildSeatChanged(bool value)
+    public void CheckInitialStateChildSeat()
     {
         if (IsCheckedChildSeat)
-        {
-            if (AutoDetails.AutoOptions.Contains("ChildSeat"))
-            {
-                return;
-            }
-            else
-            {
-                AutoDetails.AutoOptions.Add("ChildSeat");
-                int lenght = Vehicules.Count;
-                int lenght1 = myVehicules.Length;
-                for (int i = lenght1 - 1; i >= 0; i--)
-                {
-                    if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
-                    {
-                        for (int j = myVehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                        {
-                            if ((myVehicules[i].AutoOptions != null) && (myVehicules[i].type == "Car"))
-                            {
-                                if (myVehicules[i].AutoOptions[j] == "ChildSeat")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                }
-                            }
-                        }
-                    }
-                }
-                Console.WriteLine("# of vehicules before adding ChildSeat: " + Vehicules.Count);
-                foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                {
-                    Vehicules.Add(myVehicules[index]);
-                }
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-
-                for (int i = 0; i < Vehicules.Count; i++)
-                {
-                    Console.WriteLine(Vehicules[i].ToString());
-                }
-                Console.WriteLine("# of vehicules after adding ChildSeat: " + Vehicules.Count);
-            }
-        }
-        else
-        {
             if (AutoDetails.AutoOptions.Contains("ChildSeat"))
             {
                 AutoDetails.AutoOptions.Remove("ChildSeat");
                 int lenght = Vehicules.Count;
                 for (int i = lenght - 1; i >= 0; i--)
                 {
-                    if (Vehicules[i] != null && (Vehicules[i].type == "ChildSeat"))
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
                     {
                         for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                         {
@@ -594,29 +344,540 @@ public int  LoadData()
             {
                 return;
             }
-        }
+    }
+
+    Vehicule[] myVehicules = new Vehicule[50];
+    
+    public void CreerVehicule(int index, Vehicule vehicule)
+    {
+        myVehicules[index] = vehicule;
+        Vehicules.Add(myVehicules[index]);
+        //Console.WriteLine(Vehicules[index]);
+        //Console.WriteLine(Vehicules.Count);
+    }
+    public static void creerMembre(int memberId, string name, string password, string level)
+    {
+
+    }
+
+    Station[] myStations = new Station[20];
+    private int index;
+
+    public void CreerStation(int index, string id, string address, int spaces)
+    {
+        myStations[index] = new Station(index, id, address, spaces);
+    }
+
+    partial void OnIsCheckedMP3Changed(bool value)
+    {
+        CheckOtherProperties("MP3");
+    }
+    partial void OnIsCheckedACChanged(bool value)
+    {
+        CheckOtherProperties("AC");
+    }
+    partial void OnIsCheckedGPSChanged(bool value)
+    {
+        CheckOtherProperties("GPS");
+    }
+    partial void OnIsCheckedChildSeatChanged(bool value)
+    {
+        CheckOtherProperties("ChildSeat");
     }
     // Method to check if other three properties are true
     private void CheckOtherProperties(string changedProp)
     {
         if (changedProp == "MP3")
         {
-            if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedChildSeat)
+            if (IsCheckedMP3)
             {
+                if (AutoDetails.AutoOptions.Contains("MP3"))
+                {
+                    return;
+                }
+                else
+                {
+                    AutoDetails.AutoOptions.Add("MP3");
+                    // Only add the vehicle if other checkboxes conditions are met
+                    if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> {"GPS", "AC", "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> { "MP3" };
+                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    }else if (!IsCheckedGPS && !IsCheckedAC)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> {"GPS", "AC"};
+                        HashSet<string> addOptions = new HashSet<string> {"MP3", "ChildSeat"};
+                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedGPS && !IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> {"GPS", "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> {"MP3", "AC"};
+                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedAC && !IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> {"AC", "ChildSeat"};
+                        HashSet<string> addOptions = new HashSet<string> { "MP3", "GPS" };
+                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedAC && IsCheckedGPS && IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> {"AC"};
+                        HashSet<string> addOptions = new HashSet<string> { "GPS", "MP3", "ChildSeat" };
+                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "GPS"};
+                        HashSet<string> addOptions = new HashSet<string> { "MP3", "AC", "ChildSeat" };
+                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedChildSeat && IsCheckedGPS && IsCheckedAC)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> { "MP3", "AC", "GPS" };
+                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    }
+                    Console.WriteLine("# of vehicules before adding MP3: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                    {
+                        Vehicules.Add(myVehicules[index]);
+                    }
+                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
 
-
+                    for (int i = 0; i < Vehicules.Count; i++)
+                    {
+                        Console.WriteLine(Vehicules[i].ToString());
+                    }
+                    Console.WriteLine("# of vehicules after adding MP3: " + Vehicules.Count);
+                }
             }
-            else if (IsCheckedAC && IsCheckedGPS)
+            else
             {
-                // Property1 must also be true
-                Console.WriteLine("Properties 1, 2, and 3 are true.");
-            }
-            else if (!IsCheckedAC)
-        {
-
+                if (AutoDetails.AutoOptions.Contains("MP3"))
+                {
+                    AutoDetails.AutoOptions.Remove("MP3");
+                    int lenght = Vehicules.Count;
+                    for (int i = lenght - 1; i >= 0; i--)
+                    {
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        {
+                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                            {
+                                if (Vehicules[i].AutoOptions[j] == "MP3")
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("# of vehicules before Removing MP3: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                    {
+                        Vehicules.Remove(Vehicules[index]);
+                    }
+                    Console.WriteLine("# of vehicules after Removing MP3: " + Vehicules.Count);
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                }
+                else
+                {
+                    return;
+                }
             }
         }
+        else if (changedProp == "AC")
+        {
+            if (IsCheckedAC)
+            {
+                if (AutoDetails.AutoOptions.Contains("AC"))
+                {
+                    return;
+                }
+                else
+                {
+                    AutoDetails.AutoOptions.Add("AC");
+                    // Only add the vehicle if other checkboxes conditions are met
+                    if (!IsCheckedMP3 && !IsCheckedGPS && !IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "MP3", "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> { "AC" };
+                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedGPS && !IsCheckedMP3)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "MP3" };
+                        HashSet<string> addOptions = new HashSet<string> { "AC", "ChildSeat" };
+                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedGPS && !IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> { "AC", "MP3" };
+                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedMP3 && !IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "MP3", "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> { "AC", "GPS" };
+                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedMP3 && IsCheckedGPS && IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "MP3" };
+                        HashSet<string> addOptions = new HashSet<string> { "AC", "GPS", "ChildSeat" };
+                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedGPS && IsCheckedMP3 && IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "GPS" };
+                        HashSet<string> addOptions = new HashSet<string> { "AC", "MP3", "ChildSeat" };
+                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedChildSeat && IsCheckedGPS && IsCheckedMP3)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> { "AC", "MP3", "GPS" };
+                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    }
+                    Console.WriteLine("# of vehicules before adding AC: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                    {
+                        Vehicules.Add(myVehicules[index]);
+                    }
+                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+
+                    for (int i = 0; i < Vehicules.Count; i++)
+                    {
+                        Console.WriteLine(Vehicules[i].ToString());
+                    }
+                    Console.WriteLine("# of vehicules after adding AC: " + Vehicules.Count);
+                }
+            }
+            else
+            {
+                if (AutoDetails.AutoOptions.Contains("AC"))
+                {
+                    AutoDetails.AutoOptions.Remove("AC");
+                    int lenght = Vehicules.Count;
+                    for (int i = lenght - 1; i >= 0; i--)
+                    {
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        {
+                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                            {
+                                if (Vehicules[i].AutoOptions[j] == "AC")
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("# of vehicules before Removing AC: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                    {
+                        Vehicules.Remove(Vehicules[index]);
+                    }
+                    Console.WriteLine("# of vehicules after Removing AC: " + Vehicules.Count);
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+        else if (changedProp == "GPS")
+        {
+            if (IsCheckedGPS)
+            {
+                if (AutoDetails.AutoOptions.Contains("GPS"))
+                {
+                    return;
+                }
+                else
+                {
+                    AutoDetails.AutoOptions.Add("GPS");
+                    // Only add the vehicle if other checkboxes conditions are met
+                    if (!IsCheckedMP3 && !IsCheckedAC && !IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "AC", "MP3", "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> { "GPS" };
+                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedAC && !IsCheckedMP3)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "AC", "MP3" };
+                        HashSet<string> addOptions = new HashSet<string> { "GPS", "ChildSeat" };
+                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedAC && !IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "AC", "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> { "GPS", "MP3" };
+                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedMP3 && !IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "MP3", "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> { "GPS", "GPS" };
+                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedMP3 && IsCheckedAC && IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "MP3" };
+                        HashSet<string> addOptions = new HashSet<string> { "GPS", "AC", "ChildSeat" };
+                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedAC && IsCheckedMP3 && IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "AC" };
+                        HashSet<string> addOptions = new HashSet<string> { "GPS", "MP3", "ChildSeat" };
+                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedChildSeat && IsCheckedAC && IsCheckedMP3)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "ChildSeat" };
+                        HashSet<string> addOptions = new HashSet<string> { "GPS", "MP3", "AC" };
+                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    }
+                    Console.WriteLine("# of vehicules before adding GPS: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                    {
+                        Vehicules.Add(myVehicules[index]);
+                    }
+                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+
+                    for (int i = 0; i < Vehicules.Count; i++)
+                    {
+                        Console.WriteLine(Vehicules[i].ToString());
+                    }
+                    Console.WriteLine("# of vehicules after adding GPS: " + Vehicules.Count);
+                }
+            }
+            else
+            {
+                if (AutoDetails.AutoOptions.Contains("GPS"))
+                {
+                    AutoDetails.AutoOptions.Remove("GPS");
+                    int lenght = Vehicules.Count;
+                    for (int i = lenght - 1; i >= 0; i--)
+                    {
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        {
+                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                            {
+                                if (Vehicules[i].AutoOptions[j] == "GPS")
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("# of vehicules before Removing GPS: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                    {
+                        Vehicules.Remove(Vehicules[index]);
+                    }
+                    Console.WriteLine("# of vehicules after Removing GPS: " + Vehicules.Count);
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+        else if (changedProp == "ChildSeat")
+        {
+            if (IsCheckedMP3)
+            {
+                if (AutoDetails.AutoOptions.Contains("ChildSeat"))
+                {
+                    return;
+                }
+                else
+                {
+                    AutoDetails.AutoOptions.Add("ChildSeat");
+                    // Only add the vehicle if other checkboxes conditions are met
+                    if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedMP3)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "AC", "MP3" };
+                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat" };
+                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedGPS && !IsCheckedAC)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "AC" };
+                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "MP3" };
+                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedGPS && !IsCheckedMP3)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "MP3" };
+                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "AC" };
+                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedAC && !IsCheckedMP3)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "AC", "MP3" };
+                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "GPS" };
+                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedAC && IsCheckedGPS && IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "AC" };
+                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "MP3", "GPS" };
+                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "GPS" };
+                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "AC", "MP3" };
+                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    }
+                    else if (!IsCheckedMP3 && IsCheckedGPS && IsCheckedAC)
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { "MP3" };
+                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "AC", "GPS" };
+                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    }
+                    Console.WriteLine("# of vehicules before adding ChildSeat: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                    {
+                        Vehicules.Add(myVehicules[index]);
+                    }
+                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+
+                    for (int i = 0; i < Vehicules.Count; i++)
+                    {
+                        Console.WriteLine(Vehicules[i].ToString());
+                    }
+                    Console.WriteLine("# of vehicules after adding ChildSeat: " + Vehicules.Count);
+                }
+            }
+            else
+            {
+                if (AutoDetails.AutoOptions.Contains("ChildSeat"))
+                {
+                    AutoDetails.AutoOptions.Remove("ChildSeat");
+                    int lenght = Vehicules.Count;
+                    for (int i = lenght - 1; i >= 0; i--)
+                    {
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        {
+                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                            {
+                                if (Vehicules[i].AutoOptions[j] == "ChildSeat")
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("# of vehicules before Removing ChildSeat: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                    {
+                        Vehicules.Remove(Vehicules[index]);
+                    }
+                    Console.WriteLine("# of vehicules after Removing ChildSeat: " + Vehicules.Count);
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+
+        //{
+        //    if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedChildSeat)
+        //    {
+        //        int lenght = Vehicules.Count;
+        //        int lenght1 = myVehicules.Length;
+        //        for (int i = lenght1 - 1; i >= 0; i--)
+        //        {
+        //            if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
+        //            {
+        //                for (int j = myVehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+        //                {
+        //                    if ((myVehicules[i].AutoOptions != null) && (myVehicules[i].type == "Car"))
+        //                    {
+        //                        if (myVehicules[i].AutoOptions[j] == "MP3")
+        //                        {
+        //                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+        //                        }
+        //                        if ((myVehicules[i].AutoOptions[j] == "GPS") || (myVehicules[i].AutoOptions[j] == "AC") || (myVehicules[i].AutoOptions[j] == "ChildSeat"))
+        //                        {
+        //                            ReservationSearchDetails.indexVehiculesToBeAdded.Remove(i);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        Console.WriteLine("# of vehicules before adding MP3: " + Vehicules.Count);
+        //        foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+        //        {
+        //            Vehicules.Add(myVehicules[index]);
+        //        }
+        //        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+        //        for (int i = 0; i < Vehicules.Count; i++)
+        //        {
+        //            Console.WriteLine(Vehicules[i].ToString());
+        //        }
+        //        Console.WriteLine("# of vehicules after adding MP3: " + Vehicules.Count);
+        //    }
+        //    else if (IsCheckedAC && IsCheckedGPS)
+        //    {
+        //        // Property1 must also be true
+        //        Console.WriteLine("Properties 1, 2, and 3 are true.");
+        //    }
+        //    else if (!IsCheckedAC)
+        //{
+
+        //    }
+        //}
         // Add similar checks for other combinations depending on your logic
+    }
+    private void AddVehiculeBasedOnCheckbox(string optionChecked, HashSet<string> removalOpts, HashSet<string> addOpts)
+    {
+        {
+            for (int i = myVehicules.Length - 1; i >= 0; i--)
+            {
+                if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
+                {
+                    bool allValuesInList = addOpts.All(item => myVehicules[i].AutoOptions.Contains(item));
+                    bool containsAnyValue = removalOpts.Any(item => myVehicules[i].AutoOptions.Contains(item));
+                    bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
+                    if (containsValueChecked && allValuesInList)
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        if (containsAnyValue)
+                        {
+                            ReservationSearchDetails.indexVehiculesToBeAdded.Remove(i);
+                        }
+                    }
+                    //for (int j = myVehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                    //{
+                        //if ((myVehicules[i].AutoOptions != null) && (myVehicules[i].type == "Car"))
+                        //{
+                        //    if (myVehicules[i].AutoOptions[j] == optionChecked && allValuesInList)
+                        //    {
+                        //        if (removalOpts.Contains(myVehicules[i].AutoOptions[j]))
+                        //        {
+                        //            ReservationSearchDetails.indexVehiculesToBeAdded.Remove(i);
+                        //            return;
+                        //        }
+                        //        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        //    }
+
+                        //}
+                    //}
+                }
+            }
+        }
     }
     [RelayCommand]
     private static async Task Search()
