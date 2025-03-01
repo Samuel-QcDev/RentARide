@@ -61,120 +61,6 @@ public partial class ReservationSearchViewModel : ObservableObject
 
 
     }
-    //public void VerifyCollectionView()
-    //{
-    //    if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat) //None
-    //    {
-    //        LoadData();
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && !IsCheckedChildSeat) // 1!
-    //    {
-    //        LoadData();
-    //        for (int i = Vehicules.Count - 1; i >= 0; i--)
-    //        {
-    //            if (myVehicules[i].type == "Car")
-    //            {
-    //                Vehicules.Remove(myVehicules[i]);
-    //            }
-    //        }
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && !IsCheckedAC && IsCheckedChildSeat) // 1!
-    //    {
-    //        LoadData();
-    //        for (int i = Vehicules.Count - 1; i >= 0; i--)
-    //        {
-    //            if (myVehicules[i].type == "Velo")
-    //            {
-    //                Vehicules.Remove(myVehicules[i]);
-    //            }
-    //        }
-    //    }
-    //    else if (IsCheckedMP3 && !IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat) // 1!
-    //    {
-
-    //    }
-    //    else if (!IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat) // 1!
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && !IsCheckedAC && !IsCheckedChildSeat) // 2!
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && !IsCheckedGPS && IsCheckedAC && !IsCheckedChildSeat) // 2!
-    //    {
-
-    //    }
-    //    else if (!IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && !IsCheckedChildSeat) // 2!
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && !IsCheckedGPS && !IsCheckedAC && IsCheckedChildSeat) // 2!
-    //    {
-
-    //    }
-    //    else if (!IsCheckedMP3 && IsCheckedGPS && !IsCheckedAC && IsCheckedChildSeat) // 2!
-    //    {
-
-    //    }
-    //    else if (!IsCheckedMP3 && !IsCheckedGPS && !IsCheckedAC && IsCheckedChildSeat) // 3!
-    //    {
-
-    //    }
-    //    else if (!IsCheckedMP3 && IsCheckedGPS && !IsCheckedAC && !IsCheckedChildSeat) // 3!
-    //    {
-
-    //    }
-    //    else if (!IsCheckedMP3 && !IsCheckedGPS && IsCheckedAC && !IsCheckedChildSeat) // 3!
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && !IsCheckedGPS && !IsCheckedAC && !IsCheckedChildSeat) // 3!
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-    //    {
-
-    //    }
-    //    else if (IsCheckedMP3 && IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-    //    {
-
-    //    }
-    //    else if (!IsCheckedMP3 && !IsCheckedGPS && !IsCheckedAC && !IsCheckedChildSeat)
-    //    {
-
-    //    }
-    //}
-
 
 public int  LoadData()
     {
@@ -212,13 +98,20 @@ public int  LoadData()
         }
         return length;
     }
-
     public void CheckInitialStateMP3()
     {
         if (IsCheckedMP3)
+        {
+            return;
+        }
+        else
+        {
             if (AutoDetails.AutoOptions.Contains("MP3"))
             {
                 AutoDetails.AutoOptions.Remove("MP3");
+            }
+            else
+            {
                 int lenght = Vehicules.Count;
                 for (int i = lenght - 1; i >= 0; i--)
                 {
@@ -241,17 +134,22 @@ public int  LoadData()
                 Console.WriteLine("# of vehicules after Removing MP3: " + Vehicules.Count);
                 ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
             }
-            else
-            {
-                return;
-            }
+        }
     }
     public void CheckInitialStateAC()
     {
         if (IsCheckedAC)
+        {
+            return;
+        }
+        else
+        {
             if (AutoDetails.AutoOptions.Contains("AC"))
             {
                 AutoDetails.AutoOptions.Remove("AC");
+            }
+            else
+            {
                 int lenght = Vehicules.Count;
                 for (int i = lenght - 1; i >= 0; i--)
                 {
@@ -274,17 +172,22 @@ public int  LoadData()
                 Console.WriteLine("# of vehicules after Removing AC: " + Vehicules.Count);
                 ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
             }
-            else
-            {
-                return;
-            }
+        }
     }
     public void CheckInitialStateGPS()
     {
         if (IsCheckedGPS)
+        {
+            return;
+        }
+        else 
+        {
             if (AutoDetails.AutoOptions.Contains("GPS"))
             {
                 AutoDetails.AutoOptions.Remove("GPS");
+            }
+            else
+            {
                 int lenght = Vehicules.Count;
                 for (int i = lenght - 1; i >= 0; i--)
                 {
@@ -307,17 +210,22 @@ public int  LoadData()
                 Console.WriteLine("# of vehicules after Removing GPS: " + Vehicules.Count);
                 ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
             }
-            else
-            {
-                return;
-            }
+        }
     }
     public void CheckInitialStateChildSeat()
     {
         if (IsCheckedChildSeat)
+        {
+            return;
+        }
+        else
+        {
             if (AutoDetails.AutoOptions.Contains("ChildSeat"))
             {
                 AutoDetails.AutoOptions.Remove("ChildSeat");
+            }
+            else
+            {
                 int lenght = Vehicules.Count;
                 for (int i = lenght - 1; i >= 0; i--)
                 {
@@ -340,10 +248,7 @@ public int  LoadData()
                 Console.WriteLine("# of vehicules after Removing ChildSeat: " + Vehicules.Count);
                 ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
             }
-            else
-            {
-                return;
-            }
+        }
     }
 
     Vehicule[] myVehicules = new Vehicule[50];
