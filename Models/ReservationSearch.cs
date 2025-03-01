@@ -10,6 +10,7 @@ using RentARide.Views;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RentARide.Models
 {
@@ -17,6 +18,9 @@ namespace RentARide.Models
     {
         public int ReservationSearchID { get; set; }
         public int BikeReturnStationID { get; set; }
+     
+        public List<int> indexVehiculesToBeRemoved = new();
+        public List<int> indexVehiculesToBeAdded = new();
     }
 
 }

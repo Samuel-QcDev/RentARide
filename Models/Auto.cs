@@ -11,7 +11,7 @@ namespace RentARide.Models
     {
         public string categorieAuto;
         public string autoId;
-        public List<string> autoOptions = new();
+
 
         public Auto()
         {
@@ -27,7 +27,7 @@ namespace RentARide.Models
         }
         public override string ToString()
         {
-            return type + " " + autoId  + " " + vehiculeStationId + " " + categorieAuto + " " + String.Join(",",autoOptions);
+            return type + " " + autoId  + " " + vehiculeStationId + " " + categorieAuto + " " + String.Join(",",AutoOptions);
         }
     }
 }

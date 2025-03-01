@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,21 +10,26 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RentARide.Models
 {
-    
-    public partial class Vehicule : INotifyPropertyChanged
+
+    public partial class Vehicule : ObservableObject
     {
         public string vehiculeId;
         public string vehiculeStationId;
         public string type;
+        [ObservableProperty]
+        public List<string> autoOptions = new();
+
+        //[ObservableProperty]
+        //public string autoOptionsString;
         public Vehicule()
         {
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
-        void onPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //void onPropertyChanged(string propertyName)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
     }
 }
