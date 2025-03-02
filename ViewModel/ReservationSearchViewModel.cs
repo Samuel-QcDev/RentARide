@@ -51,11 +51,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         ReservationSearchDetails.StartDate = DateTime.Now;
         ReservationSearchDetails.EndDate = DateTime.Now;
 
-        LoadData();
-        ReservationSearchDetails.TypeVehicule = "Auto";
-        isAutoSelected = true;
-        CheckInitialStateCategorieAuto();
-
+        int lenght = LoadData();
         //CheckInitialStateMP3();
         //CheckInitialStateAC();
         //CheckInitialStateGPS();
@@ -70,7 +66,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         CreerStation(1, "P002", "Carre D'Youville", 8);
     }
 
-    public void LoadData()
+public int  LoadData()
     {
         Vehicules.Clear();
         CreerVehicule(0, new Auto("AB445", "P001", "Essence", ["GPS", "AC"]));
@@ -104,6 +100,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             Console.WriteLine(myVehicules[i].ToString());
         }
+        return length;
     }
     public void CheckInitialStateMP3()
     {
@@ -761,6 +758,14 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     }
                 }
             }
+            //if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
+            //{
+            //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            //    {
+            //        Vehicules.Add(myVehicules[index]);
+            //    }
+            //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+            //}
             for (int i = Vehicules.Count - 1; i >= 0; i--)
             {
                 if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
@@ -787,6 +792,14 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     }
                 }
             }
+            //if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
+            //{
+            //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            //    {
+            //        Vehicules.Add(myVehicules[index]);
+            //    }
+            //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+            //}
             for (int i = Vehicules.Count - 1; i >= 0; i--)
             {
                 if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
@@ -813,6 +826,14 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     }
                 }
             }
+            //if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
+            //{
+            //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            //    {
+            //        Vehicules.Add(myVehicules[index]);
+            //    }
+            //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+            //}
             for (int i = Vehicules.Count - 1; i >= 0; i--)
             {
                 if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
@@ -840,111 +861,9 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 Vehicules.Add(myVehicules[index]);
             }
         }
-    }
-    private void CheckInitialStateCategorieAuto()
-    {
-        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        if (ReservationSearchDetails.TypeVehicule == "Auto")
-        {
-            CheckInitialStateMP3();
-            CheckInitialStateAC();
-            CheckInitialStateGPS();
-            CheckInitialStateChildSeat();
-            CheckOtherProperties("MP3");
-            CheckOtherProperties("GPS");
-            CheckOtherProperties("AC");
-            CheckOtherProperties("ChildSeat");
-            bool containsTypePicked = Vehicules.Any(p => p.type == "Car");
-            if (!containsTypePicked)
-            {
-                for (int i = myVehicules.Length - 1; i >= 0; i--)
-                {
-                    if (myVehicules[i] != null && (myVehicules[i].type == "Car"))
-                    {
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                    }
-                }
-            }
-            for (int i = Vehicules.Count - 1; i >= 0; i--)
-            {
-                if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
-                {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                }
-                else if (Vehicules[i] != null && (Vehicules[i].type == "Moto"))
-                {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                }
-            }
-        }
-        else if (ReservationSearchDetails.TypeVehicule == "Moto")
-        {
-            IsAutoSelected = false;
-            bool containsTypePicked = Vehicules.Any(p => p.type == "Moto");
-            if (!containsTypePicked)
-            {
-                for (int i = myVehicules.Length - 1; i >= 0; i--)
-                {
-                    if (myVehicules[i] != null && (myVehicules[i].type == "Moto"))
-                    {
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                    }
-                }
-            }
-            for (int i = Vehicules.Count - 1; i >= 0; i--)
-            {
-                if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
-                {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                }
-                else if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
-                {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                }
-            }
-        }
-        else if (ReservationSearchDetails.TypeVehicule == "Vélo")
-        {
-            IsAutoSelected = false;
-            bool containsTypePicked = Vehicules.Any(p => p.type == "Velo");
-            if (!containsTypePicked)
-            {
-                for (int i = myVehicules.Length - 1; i >= 0; i--)
-                {
-                    if (myVehicules[i] != null && (myVehicules[i].type == "Velo"))
-                    {
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                    }
-                }
-            }
-            for (int i = Vehicules.Count - 1; i >= 0; i--)
-            {
-                if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
-                {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                }
-                else if (Vehicules[i] != null && (Vehicules[i].type == "Moto"))
-                {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                }
-            }
-        }
-        if (ReservationSearchDetails.indexVehiculesToBeRemoved.Count > 0)
-        {
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-            {
-                Vehicules.Remove(Vehicules[index]);
-            }
-            ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-        }
-        if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
-        {
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-            {
-                Vehicules.Add(myVehicules[index]);
-            }
-        }
+
+
+        //Console.WriteLine($"Vehicle type changed to: {SelectedVehicleType}");
     }
     [RelayCommand]
     private static async Task Search()
