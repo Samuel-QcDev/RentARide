@@ -103,13 +103,15 @@
                 BackgroundColor="LightGreen"
                 FontSize="Medium"
                 HorizontalTextAlignment="Center"
-                SelectedIndexChanged="VehicleType_OnSelectedIndexChanged"
                 VerticalTextAlignment="Center">
                     <Picker.Items>
                         <x:String>Auto</x:String>
                         <x:String>Moto</x:String>
                         <x:String>Vélo</x:String>
                     </Picker.Items>
+                    <Picker.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding OnVehicleTypeChangedCommand}"/>
+                    </Picker.Behaviors>
                 </Picker>
                 <Label
                 x:Name="StationLabel"
@@ -146,7 +148,7 @@
             Padding="10"
             ColumnDefinitions="*,*,*,*,*,*,*,*"
             ColumnSpacing="1"
-            IsVisible="False"
+            IsVisible="{Binding IsAutoSelected}"
             RowDefinitions="*,*,*,*,*"
             RowSpacing="2">
                 <Grid
@@ -207,7 +209,6 @@
                 <CheckBox
                 x:Name="Mp3"
                 IsChecked="{Binding IsCheckedMP3}"    
-                CheckedChanged="Gps_CheckedChanged"
                 Grid.Row="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="1"

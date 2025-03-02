@@ -19,5 +19,6 @@ public partial class LocalBaseViewModel : ObservableObject
     [ObservableProperty]
     string title;
 
+
     public bool IsNotBusy => !IsBusy;
 }

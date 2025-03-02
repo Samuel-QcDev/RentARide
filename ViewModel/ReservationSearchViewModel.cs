@@ -13,10 +13,11 @@ using CommunityToolkit.Mvvm.Input;
 using RentARide.Models;
 using System.Runtime.InteropServices;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace RentARide.ViewModel;
 
-public partial class ReservationSearchViewModel : ObservableObject
+public partial class ReservationSearchViewModel : LocalBaseViewModel
 {
 
     [ObservableProperty]
@@ -27,29 +28,34 @@ public partial class ReservationSearchViewModel : ObservableObject
     private bool isCheckedAC;
     [ObservableProperty]
     private bool isCheckedChildSeat;
-   
+    [ObservableProperty]
+    private bool isAutoSelected;
+    
+
     public ReservationSearch ReservationSearchDetails { get; set; }
     public Auto AutoDetails { get; set; }
     public Reservation ReservationDetails { get; set; }
+
     public Station StationDetails { get; set; }
     public ObservableCollection<Vehicule> Vehicules { get; } = new();
     public Vehicule VehiculeDetails { get; set; }
-
+    public ICommand OnVehicleTypeChangedCommand { get; }
     public ReservationSearchViewModel()
     {
         ReservationSearchDetails = new ReservationSearch();
         AutoDetails = new Auto();
         ReservationDetails = new Reservation();
         VehiculeDetails = new Vehicule();
+        OnVehicleTypeChangedCommand = new RelayCommand(OnVehicleTypeChanged);
 
         ReservationSearchDetails.StartDate = DateTime.Now;
         ReservationSearchDetails.EndDate = DateTime.Now;
 
         int lenght = LoadData();
-        CheckInitialStateMP3();
-        CheckInitialStateAC();
-        CheckInitialStateGPS();
-        CheckInitialStateChildSeat();
+        //CheckInitialStateMP3();
+        //CheckInitialStateAC();
+        //CheckInitialStateGPS();
+        //CheckInitialStateChildSeat();
 
         //Console.WriteLine(Vehicules[2].type);
         //Console.WriteLine(Vehicules[2].vehiculeStationId);
@@ -58,8 +64,6 @@ public partial class ReservationSearchViewModel : ObservableObject
 
         CreerStation(0, "P001", "Dorchester-Charest", 5);
         CreerStation(1, "P002", "Carre D'Youville", 8);
-
-
     }
 
 public int  LoadData()
@@ -257,8 +261,6 @@ public int  LoadData()
     {
         myVehicules[index] = vehicule;
         Vehicules.Add(myVehicules[index]);
-        //Console.WriteLine(Vehicules[index]);
-        //Console.WriteLine(Vehicules.Count);
     }
     public static void creerMembre(int memberId, string name, string password, string level)
     {
@@ -271,6 +273,15 @@ public int  LoadData()
     public void CreerStation(int index, string id, string address, int spaces)
     {
         myStations[index] = new Station(index, id, address, spaces);
+    }
+    // Method to handle changes when the Vehicle Type changes
+    private void OnVehicleTypeChanged(string selectedType)
+    {
+        // Your logic for when the TypeVehicule changes
+        // For example, you can display the selected type or trigger other actions.
+        Console.WriteLine($"Selected Vehicle Type: {selectedType}");
+
+        // Perform any other necessary actions when the vehicle type changes.
     }
 
     partial void OnIsCheckedMP3Changed(bool value)
@@ -289,7 +300,8 @@ public int  LoadData()
     {
         CheckOtherProperties("ChildSeat");
     }
-    // Method to check if other three properties are true
+
+    //Method to check all checkboxes to Add a vehicule depending on related states
     private void CheckOtherProperties(string changedProp)
     {
         if (changedProp == "MP3")
@@ -695,56 +707,6 @@ public int  LoadData()
                 }
             }
         }
-
-
-        //{
-        //    if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedChildSeat)
-        //    {
-        //        int lenght = Vehicules.Count;
-        //        int lenght1 = myVehicules.Length;
-        //        for (int i = lenght1 - 1; i >= 0; i--)
-        //        {
-        //            if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
-        //            {
-        //                for (int j = myVehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-        //                {
-        //                    if ((myVehicules[i].AutoOptions != null) && (myVehicules[i].type == "Car"))
-        //                    {
-        //                        if (myVehicules[i].AutoOptions[j] == "MP3")
-        //                        {
-        //                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-        //                        }
-        //                        if ((myVehicules[i].AutoOptions[j] == "GPS") || (myVehicules[i].AutoOptions[j] == "AC") || (myVehicules[i].AutoOptions[j] == "ChildSeat"))
-        //                        {
-        //                            ReservationSearchDetails.indexVehiculesToBeAdded.Remove(i);
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        Console.WriteLine("# of vehicules before adding MP3: " + Vehicules.Count);
-        //        foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-        //        {
-        //            Vehicules.Add(myVehicules[index]);
-        //        }
-        //        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        //        for (int i = 0; i < Vehicules.Count; i++)
-        //        {
-        //            Console.WriteLine(Vehicules[i].ToString());
-        //        }
-        //        Console.WriteLine("# of vehicules after adding MP3: " + Vehicules.Count);
-        //    }
-        //    else if (IsCheckedAC && IsCheckedGPS)
-        //    {
-        //        // Property1 must also be true
-        //        Console.WriteLine("Properties 1, 2, and 3 are true.");
-        //    }
-        //    else if (!IsCheckedAC)
-        //{
-
-        //    }
-        //}
-        // Add similar checks for other combinations depending on your logic
     }
     private void AddVehiculeBasedOnCheckbox(string optionChecked, HashSet<string> removalOpts, HashSet<string> addOpts)
     {
@@ -764,25 +726,144 @@ public int  LoadData()
                             ReservationSearchDetails.indexVehiculesToBeAdded.Remove(i);
                         }
                     }
-                    //for (int j = myVehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                    //{
-                        //if ((myVehicules[i].AutoOptions != null) && (myVehicules[i].type == "Car"))
-                        //{
-                        //    if (myVehicules[i].AutoOptions[j] == optionChecked && allValuesInList)
-                        //    {
-                        //        if (removalOpts.Contains(myVehicules[i].AutoOptions[j]))
-                        //        {
-                        //            ReservationSearchDetails.indexVehiculesToBeAdded.Remove(i);
-                        //            return;
-                        //        }
-                        //        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                        //    }
-
-                        //}
-                    //}
                 }
             }
         }
+    }
+    // Method to handle the event in the ViewModel
+    private void OnVehicleTypeChanged()
+    {
+        // Implement the logic that should happen when the picker selection changes
+        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+        if (ReservationSearchDetails.TypeVehicule == "Auto")
+        {
+            IsAutoSelected = true;
+            CheckInitialStateMP3();
+            CheckInitialStateAC();
+            CheckInitialStateGPS();
+            CheckInitialStateChildSeat();
+            CheckOtherProperties("MP3");
+            CheckOtherProperties("GPS");
+            CheckOtherProperties("AC");
+            CheckOtherProperties("ChildSeat");
+            bool containsTypePicked = Vehicules.Any(p => p.type == "Car");
+            if (!containsTypePicked)
+            {
+                for (int i = myVehicules.Length - 1; i >= 0; i--)
+                {
+                    if (myVehicules[i] != null && (myVehicules[i].type == "Car"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                    }
+                }
+            }
+            //if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
+            //{
+            //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            //    {
+            //        Vehicules.Add(myVehicules[index]);
+            //    }
+            //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+            //}
+            for (int i = Vehicules.Count - 1; i >= 0; i--)
+            {
+                if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
+                {
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                }
+                else if (Vehicules[i] != null && (Vehicules[i].type == "Moto"))
+                {
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                }
+            }
+        }
+        else if (ReservationSearchDetails.TypeVehicule == "Moto")
+        {
+            IsAutoSelected = false;
+            bool containsTypePicked = Vehicules.Any(p => p.type == "Moto");
+            if (!containsTypePicked)
+            {
+                for (int i = myVehicules.Length - 1; i >= 0; i--)
+                {
+                    if (myVehicules[i] != null && (myVehicules[i].type == "Moto"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                    }
+                }
+            }
+            //if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
+            //{
+            //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            //    {
+            //        Vehicules.Add(myVehicules[index]);
+            //    }
+            //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+            //}
+            for (int i = Vehicules.Count - 1; i >= 0; i--)
+            {
+                if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                {
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                }
+                else if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
+                {
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                }
+            }
+        }
+        else if (ReservationSearchDetails.TypeVehicule == "Vélo")
+        {
+            IsAutoSelected = false;
+            bool containsTypePicked = Vehicules.Any(p => p.type == "Velo");
+            if (!containsTypePicked)
+            {
+                for (int i = myVehicules.Length - 1; i >= 0; i--)
+                {
+                    if (myVehicules[i] != null && (myVehicules[i].type == "Velo"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                    }
+                }
+            }
+            //if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
+            //{
+            //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            //    {
+            //        Vehicules.Add(myVehicules[index]);
+            //    }
+            //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+            //}
+            for (int i = Vehicules.Count - 1; i >= 0; i--)
+            {
+                if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                {
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                }
+                else if (Vehicules[i] != null && (Vehicules[i].type == "Moto"))
+                {
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                }
+            }
+        }
+        if (ReservationSearchDetails.indexVehiculesToBeRemoved.Count > 0)
+        {
+            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+            {
+                Vehicules.Remove(Vehicules[index]);
+            }
+            ReservationSearchDetails.indexVehiculesToBeRemoved.Clear(); 
+        }
+        if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
+        {
+            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            {
+                Vehicules.Add(myVehicules[index]);
+            }
+        }
+
+
+        //Console.WriteLine($"Vehicle type changed to: {SelectedVehicleType}");
     }
     [RelayCommand]
     private static async Task Search()

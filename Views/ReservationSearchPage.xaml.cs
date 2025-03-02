@@ -48,20 +48,16 @@ public partial class ReservationSearchPage : ContentPage
     //    Options = options;
     //}
 
-    private void VehicleType_OnSelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (VehicleType.SelectedItem.ToString() == "Auto")
-        {
-            OptionsLayout.IsVisible = true;
-        }
-        else
-        {
-            OptionsLayout.IsVisible = false;
-        }
-    }
+    //private void VehicleType_OnSelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    if (VehicleType.SelectedItem.ToString() == "Auto")
+    //    {
+    //        OptionsLayout.IsVisible = true;
 
-    private void Gps_CheckedChanged(object sender, CheckedChangedEventArgs e)
-    {
-
-    }
+    //    }
+    //    else
+    //    {
+    //        OptionsLayout.IsVisible = false;
+    //    }
+    //}
 }
