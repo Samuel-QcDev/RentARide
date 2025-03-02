@@ -29,8 +29,16 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     [ObservableProperty]
     private bool isCheckedChildSeat;
     [ObservableProperty]
+    private bool isCheckedEssence;
+    [ObservableProperty]
+    private bool isCheckedElectric;
+    [ObservableProperty]
     private bool isAutoSelected;
-    
+    [ObservableProperty]
+    private bool isVeloSelected;
+    [ObservableProperty]
+    private string categorieAuto; // This tracks the selected vehicle type
+
 
     public ReservationSearch ReservationSearchDetails { get; set; }
     public Auto AutoDetails { get; set; }
@@ -40,6 +48,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     public ObservableCollection<Vehicule> Vehicules { get; } = new();
     public Vehicule VehiculeDetails { get; set; }
     public ICommand OnVehicleTypeChangedCommand { get; }
+    public ICommand OnStationChangedCommand { get; }
     public ReservationSearchViewModel()
     {
         ReservationSearchDetails = new ReservationSearch();
@@ -47,11 +56,12 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         ReservationDetails = new Reservation();
         VehiculeDetails = new Vehicule();
         OnVehicleTypeChangedCommand = new RelayCommand(OnVehicleTypeChanged);
+        OnStationChangedCommand = new RelayCommand(OnStationChanged);
 
         ReservationSearchDetails.StartDate = DateTime.Now;
         ReservationSearchDetails.EndDate = DateTime.Now;
 
-        int lenght = LoadData();
+    LoadData();
         //CheckInitialStateMP3();
         //CheckInitialStateAC();
         //CheckInitialStateGPS();
@@ -66,7 +76,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         CreerStation(1, "P002", "Carre D'Youville", 8);
     }
 
-public int  LoadData()
+    public void  LoadData()
     {
         Vehicules.Clear();
         CreerVehicule(0, new Auto("AB445", "P001", "Essence", ["GPS", "AC"]));
@@ -100,7 +110,6 @@ public int  LoadData()
         {
             Console.WriteLine(myVehicules[i].ToString());
         }
-        return length;
     }
     public void CheckInitialStateMP3()
     {
@@ -275,6 +284,19 @@ public int  LoadData()
         myStations[index] = new Station(index, id, address, spaces);
     }
     // Method to handle changes when the Vehicle Type changes
+    //partial void OnIsCheckedEssenceChanged(bool value)
+    //{
+    //    CheckOtherProperties("RadioButtonEssence");
+    //}
+    //partial void OnIsCheckedElectricChanged(bool value)
+    //{
+    //    CheckOtherProperties("RadioButtonElectric");
+    //}
+    partial void OnCategorieAutoChanged(string value)
+    {
+        CheckOtherProperties("RadioButtonEssence");
+    }
+
     private void OnVehicleTypeChanged(string selectedType)
     {
         // Your logic for when the TypeVehicule changes
@@ -376,6 +398,8 @@ public int  LoadData()
                 if (AutoDetails.AutoOptions.Contains("MP3"))
                 {
                     AutoDetails.AutoOptions.Remove("MP3");
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -477,6 +501,8 @@ public int  LoadData()
                 if (AutoDetails.AutoOptions.Contains("AC"))
                 {
                     AutoDetails.AutoOptions.Remove("AC");
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -577,6 +603,8 @@ public int  LoadData()
             {
                 if (AutoDetails.AutoOptions.Contains("GPS"))
                 {
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                     AutoDetails.AutoOptions.Remove("GPS");
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
@@ -679,6 +707,8 @@ public int  LoadData()
                 if (AutoDetails.AutoOptions.Contains("ChildSeat"))
                 {
                     AutoDetails.AutoOptions.Remove("ChildSeat");
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -707,6 +737,71 @@ public int  LoadData()
                 }
             }
         }
+        else if (changedProp == "RadioButtonEssence" || changedProp == "RadioButtonElectric")
+
+        {
+            Console.WriteLine(ReservationSearchDetails.CategorieAuto);
+            ReservationSearchDetails.indexVehiculesToBeRemoved.Clear ();
+            ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+
+            string selectedCategory = CategorieAuto;
+
+            for (int i = myVehicules.Length - 1; i >= 0; i--)
+            {
+                if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
+                {
+                    if (AccessCategorieAutoMyVehicules(i) == selectedCategory)
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                    }
+                }
+            }
+            for (int i = Vehicules.Count - 1; i >= 0; i--)
+            {
+                if (Vehicules[i] != null && Vehicules[i].type=="Car")
+                {
+                    if (AccessCategorieAutoVehicules(i) != selectedCategory)
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    }
+                }
+            }
+            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+            {
+                Vehicules.Remove(Vehicules[index]);
+            }
+            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            {
+                Vehicules.Add(myVehicules[index]);
+            }
+        }
+        //else if (changedProp == "RadioButtonElectric")
+        //{
+        //    Console.WriteLine(ReservationSearchDetails.CategorieAuto);
+        //    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+        //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+        //    for (int i = myVehicules.Length - 1; i >= 0; i--)
+        //    {
+        //        if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
+        //        {
+        //            if (AccessCategorieAutoMyVehicules(i) == "Électrique")
+        //            {
+        //                ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+        //            }
+        //        }
+        //    }
+        //    for (int i = Vehicules.Count - 1; i >= 0; i--)
+        //    {
+        //        if (Vehicules[i] != null && Vehicules[i].type == "Car")
+        //        {
+        //            if (AccessCategorieAutoVehicules(i) == "Essence")
+        //            {
+        //                ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+        //            }
+        //        }
+        //    }
+        //}
+
     }
     private void AddVehiculeBasedOnCheckbox(string optionChecked, HashSet<string> removalOpts, HashSet<string> addOpts)
     {
@@ -731,6 +826,36 @@ public int  LoadData()
         }
     }
     // Method to handle the event in the ViewModel
+    public string AccessCategorieAutoVehicules(int index)
+    {
+        // Check if the object at the specified index is an Auto
+        if (Vehicules[index] is Auto autoVehicule)
+        {
+            // Now you can access the CategorieAuto property
+            return autoVehicule.categorieAuto;
+        }
+        else
+        {
+            return "The object at the specified index is not an Auto.";
+        }
+    }
+    public string AccessCategorieAutoMyVehicules(int index)
+    {
+        // Check if the object at the specified index is an Auto
+        if (myVehicules[index] is Auto autoVehicule)
+        {
+            // Now you can access the CategorieAuto property
+            return autoVehicule.categorieAuto;
+        }
+        else
+        {
+            return "The object at the specified index is not an Auto.";
+        }
+    }
+    private void OnStationChanged()
+    {
+        return;
+    }
     private void OnVehicleTypeChanged()
     {
         // Implement the logic that should happen when the picker selection changes

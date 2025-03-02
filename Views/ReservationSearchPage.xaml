@@ -8,6 +8,12 @@
     xmlns:viewmodel="clr-namespace:RentARide.ViewModel"
     Title="Reservation Search"
     x:DataType="viewmodel:ReservationSearchViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary 
+                    xmlns:local="clr-namespace:RentARide.Models">
+            <local:RadioButtonValueConverter x:Key="RadioButtonValueConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout>
 
@@ -139,6 +145,9 @@
                         <x:String>Station 2</x:String>
                         <x:String>Station 3</x:String>
                     </Picker.Items>
+                    <Picker.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding OnStationChangedCommand}"/>
+                    </Picker.Behaviors>
                 </Picker>
             </Grid>
             <!--  Need to hide the Options section if not auto  -->
@@ -164,7 +173,7 @@
                 Padding="10"
                 Margin="0,0,0,0"
                 RadioButtonGroup.GroupName="TypeVehicule" 
-                RadioButtonGroup.SelectedValue="{Binding ReservationSearchDetails.CategorieAuto}">
+                RadioButtonGroup.SelectedValue="{Binding CategorieAuto}">
                     <Label
                 Grid.Row="1"
                 Grid.RowSpan="1"
@@ -178,7 +187,8 @@
                 Grid.ColumnSpan="3"
                 x:Name="RadioButtGas"
                 Content="À essence"
-                Value="À essence">
+                Value="À essence"
+                IsChecked="{Binding ReservationSearchDetails.CategorieAuto, Converter={StaticResource RadioButtonValueConverter}, ConverterParameter=Essence}">
                     </RadioButton>
                     <RadioButton
                 Grid.Row="0"
@@ -186,7 +196,8 @@
                 Grid.ColumnSpan="3"
                 x:Name="RadioButtElectric"
                 Content="Électrique"
-                Value="Électrique">
+                Value="Électrique"
+                IsChecked="{Binding ReservationSearchDetails.CategorieAuto, Converter={StaticResource RadioButtonValueConverter}, ConverterParameter=Électrique}">
                     </RadioButton>
                 </Grid>
 

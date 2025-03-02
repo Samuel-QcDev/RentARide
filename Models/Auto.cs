@@ -9,8 +9,8 @@ namespace RentARide.Models
 {
     public partial class Auto : Vehicule
     {
-        public string categorieAuto;
-        public string autoId;
+        public string categorieAuto { get; set; }
+        public string autoId { get; set; }
 
 
         public Auto()
