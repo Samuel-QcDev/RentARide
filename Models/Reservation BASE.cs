@@ -23,6 +23,8 @@ namespace RentARide.Models
         private string categorieAuto;
         [ObservableProperty]
         private string stationId;
+        [ObservableProperty]
+        private string stationAddress;
         //[ObservableProperty]
         //public string autoOptionsString;
         //public bool IsChecked { get; set; }

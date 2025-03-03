@@ -96,7 +96,7 @@
                 Grid.Column="2"
                 Grid.ColumnSpan="2"
                 FontSize="Medium"
-                Text="{Binding ReservationSearchDetails.StationId}"
+                Text="{Binding ReservationSearchDetails.StationAddress}"
                 VerticalTextAlignment="Center" />
                 <Picker
                 x:Name="VehicleType"
@@ -130,7 +130,7 @@
                 VerticalTextAlignment="Center" />
                 <Picker
                 x:Name="StationName"
-                SelectedItem="{Binding ReservationSearchDetails.StationId}"
+                SelectedItem="{Binding ReservationSearchDetails.StationAddress}"
                 Grid.Row="3"
                 Grid.RowSpan="1"
                 Grid.Column="4"
@@ -141,9 +141,22 @@
                 HorizontalTextAlignment="Center"
                 VerticalTextAlignment="Center">
                     <Picker.Items>
-                        <x:String>Station 1</x:String>
-                        <x:String>Station 2</x:String>
-                        <x:String>Station 3</x:String>
+                        <x:String>All Stations</x:String>
+                        <x:String>Dorchester-Charest</x:String>
+                        <x:String>Carre D'Youville</x:String>
+                        <x:String>Limoilou - 3e Ave</x:String>
+                        <x:String>Saint-Roch - Rue de la Reine</x:String>
+                        <x:String>Beauport</x:String>
+                        <x:String>Vanier</x:String>
+                        <x:String>Vieux-Quebec - Plaines d'Abraham</x:String>
+                        <x:String>Vieux-Quebec - Rue St-Jean</x:String>
+                        <x:String>Charlesbourg</x:String>
+                        <x:String>ULaval</x:String>
+                        <x:String>Sainte-Foy</x:String>
+                        <x:String>Sillery</x:String>
+                        <x:String>Levis</x:String>
+                        <x:String>Cap-Rouge</x:String>
+                        <x:String>Chutes Montmorency</x:String>
                     </Picker.Items>
                     <Picker.Behaviors>
                         <behaviors:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding OnStationChangedCommand}"/>
@@ -187,7 +200,7 @@
                 Grid.ColumnSpan="3"
                 x:Name="RadioButtGas"
                 Content="À essence"
-                Value="À essence"
+                Value="Essence"
                 IsChecked="{Binding ReservationSearchDetails.CategorieAuto, Converter={StaticResource RadioButtonValueConverter}, ConverterParameter=Essence}">
                     </RadioButton>
                     <RadioButton
@@ -215,7 +228,7 @@
                 Grid.Column="3"
                 Grid.ColumnSpan="3"
                 FontSize="Medium"
-                Text="{Binding ReservationSearchDetails.CategorieAuto}" />
+                Text="{Binding CategorieAuto}" />
 
                 <CheckBox
                 x:Name="Mp3"
@@ -296,8 +309,8 @@
                         <VerticalStackLayout>
                             <HorizontalStackLayout Padding="10"
                                                    Spacing="10">
+                                
                                 <Label Text="{Binding }"/>
-                                <Label Text="{Binding TypeVehicule}"/>
                                 <Label Text="{Binding CategorieAuto}"/>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>

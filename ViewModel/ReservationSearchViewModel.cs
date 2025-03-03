@@ -74,6 +74,19 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
 
         CreerStation(0, "P001", "Dorchester-Charest", 5);
         CreerStation(1, "P002", "Carre D'Youville", 8);
+        CreerStation(0, "P001", "Dorchester-Charest", 5);
+        CreerStation(1, "P002", "Carre D'Youville", 8);
+        CreerStation(0, "P001", "Dorchester-Charest", 5);
+        CreerStation(1, "P002", "Carre D'Youville", 8);
+        CreerStation(0, "P001", "Dorchester-Charest", 5);
+        CreerStation(1, "P002", "Carre D'Youville", 8);
+        CreerStation(0, "P001", "Dorchester-Charest", 5);
+        CreerStation(1, "P002", "Carre D'Youville", 8);
+        CreerStation(0, "P001", "Dorchester-Charest", 5);
+        CreerStation(1, "P002", "Carre D'Youville", 8);
+        CreerStation(0, "P001", "Dorchester-Charest", 5);
+        CreerStation(1, "P002", "Carre D'Youville", 8);
+        CreerStation(1, "P002", "Carre D'Youville", 8);
     }
 
     public void  LoadData()
@@ -101,6 +114,23 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         CreerVehicule(19, new Moto("V05", "B001"));
         CreerVehicule(20, new Moto("V06", "P003"));
         CreerVehicule(21, new Moto("V10", "P005"));
+
+        CreerStation(0, "P001", "Dorchester-Charest", 5);
+        CreerStation(1, "P002", "Carre D'Youville", 8);
+        CreerStation(2, "P003", "Limoilou - 3e Ave", 5);
+        CreerStation(3, "P004", "Saint-Roch - Rue de la Reine", 8);
+        CreerStation(4, "P005", "Beauport", 5);
+        CreerStation(5, "P006", "Vanier", 8);
+        CreerStation(6, "P007", "Vieux-Quebec - Plaines d'Abraham", 5);
+        CreerStation(7, "P008", "Vieux-Quebec - Rue St-Jean", 8);
+        CreerStation(8, "P009", "Charlesbourg", 5);
+        CreerStation(9, "P010", "ULaval", 8);
+        CreerStation(10, "P011", "Sainte-Foy", 5);
+        CreerStation(11, "P012", "Sillery", 8);
+        CreerStation(12, "P013", "Levis", 5);
+        CreerStation(13, "P014", "Cap-Rouge", 8);
+        CreerStation(14, "P015", "Chutes Montmorency", 8);
+
         int length = Vehicules.Count;
         for (int i = 0; i < length; i++)
         {
@@ -340,43 +370,49 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     // Only add the vehicle if other checkboxes conditions are met
                     if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> {"GPS", "AC", "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { "MP3" };
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
                     }else if (!IsCheckedGPS && !IsCheckedAC)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> {"GPS", "AC"};
-                        HashSet<string> addOptions = new HashSet<string> {"MP3", "ChildSeat"};
+                        HashSet<string> removalOptions = new HashSet<string> {};
+                        HashSet<string> addOptions = new HashSet<string> {};
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
                     }
                     else if (!IsCheckedGPS && !IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> {"GPS", "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> {"MP3", "AC"};
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
                     }
                     else if (!IsCheckedAC && !IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> {"AC", "ChildSeat"};
-                        HashSet<string> addOptions = new HashSet<string> { "MP3", "GPS" };
+                        HashSet<string> removalOptions = new HashSet<string> {};
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
                     }
                     else if (!IsCheckedAC && IsCheckedGPS && IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> {"AC"};
-                        HashSet<string> addOptions = new HashSet<string> { "GPS", "MP3", "ChildSeat" };
+                        HashSet<string> removalOptions = new HashSet<string> {};
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
                     }
                     else if (!IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "GPS"};
-                        HashSet<string> addOptions = new HashSet<string> { "MP3", "AC", "ChildSeat" };
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
                     }
                     else if (!IsCheckedChildSeat && IsCheckedGPS && IsCheckedAC)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { "MP3", "AC", "GPS" };
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> {  };
+                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    }
+                    else
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
                     }
                     Console.WriteLine("# of vehicules before adding MP3: " + Vehicules.Count);
@@ -424,7 +460,29 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 }
                 else
                 {
-                    return;
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    int lenght = Vehicules.Count;
+                    for (int i = lenght - 1; i >= 0; i--)
+                    {
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        {
+                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                            {
+                                if (Vehicules[i].AutoOptions[j] == "MP3")
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("# of vehicules before Removing MP3: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                    {
+                        Vehicules.Remove(Vehicules[index]);
+                    }
+                    Console.WriteLine("# of vehicules after Removing MP3: " + Vehicules.Count);
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                 }
             }
         }
@@ -442,44 +500,50 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     // Only add the vehicle if other checkboxes conditions are met
                     if (!IsCheckedMP3 && !IsCheckedGPS && !IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "MP3", "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { "AC" };
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
                     }
                     else if (!IsCheckedGPS && !IsCheckedMP3)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "MP3" };
-                        HashSet<string> addOptions = new HashSet<string> { "AC", "ChildSeat" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
                     }
                     else if (!IsCheckedGPS && !IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { "AC", "MP3" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
                     }
                     else if (!IsCheckedMP3 && !IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "MP3", "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { "AC", "GPS" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
                     }
                     else if (!IsCheckedMP3 && IsCheckedGPS && IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "MP3" };
-                        HashSet<string> addOptions = new HashSet<string> { "AC", "GPS", "ChildSeat" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
                     }
                     else if (!IsCheckedGPS && IsCheckedMP3 && IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "GPS" };
-                        HashSet<string> addOptions = new HashSet<string> { "AC", "MP3", "ChildSeat" };
+                        HashSet<string> removalOptions = new HashSet<string> {};
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
                     }
                     else if (!IsCheckedChildSeat && IsCheckedGPS && IsCheckedMP3)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { "AC", "MP3", "GPS" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> { };
+                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    }
+                    else
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
                     }
                     Console.WriteLine("# of vehicules before adding AC: " + Vehicules.Count);
@@ -527,7 +591,29 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 }
                 else
                 {
-                    return;
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    int lenght = Vehicules.Count;
+                    for (int i = lenght - 1; i >= 0; i--)
+                    {
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        {
+                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                            {
+                                if (Vehicules[i].AutoOptions[j] == "AC")
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("# of vehicules before Removing AC: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                    {
+                        Vehicules.Remove(Vehicules[index]);
+                    }
+                    Console.WriteLine("# of vehicules after Removing AC: " + Vehicules.Count);
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                 }
             }
         }
@@ -545,44 +631,50 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     // Only add the vehicle if other checkboxes conditions are met
                     if (!IsCheckedMP3 && !IsCheckedAC && !IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "AC", "MP3", "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { "GPS" };
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
                     }
                     else if (!IsCheckedAC && !IsCheckedMP3)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "AC", "MP3" };
-                        HashSet<string> addOptions = new HashSet<string> { "GPS", "ChildSeat" };
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
                     }
                     else if (!IsCheckedAC && !IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "AC", "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { "GPS", "MP3" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
                     }
                     else if (!IsCheckedMP3 && !IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "MP3", "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { "GPS", "GPS" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
                     }
                     else if (!IsCheckedMP3 && IsCheckedAC && IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "MP3" };
-                        HashSet<string> addOptions = new HashSet<string> { "GPS", "AC", "ChildSeat" };
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
                     }
                     else if (!IsCheckedAC && IsCheckedMP3 && IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "AC" };
-                        HashSet<string> addOptions = new HashSet<string> { "GPS", "MP3", "ChildSeat" };
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
                     }
                     else if (!IsCheckedChildSeat && IsCheckedAC && IsCheckedMP3)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { "GPS", "MP3", "AC" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> { };
+                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    }
+                    else
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
                     }
                     Console.WriteLine("# of vehicules before adding GPS: " + Vehicules.Count);
@@ -603,9 +695,9 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             {
                 if (AutoDetails.AutoOptions.Contains("GPS"))
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                     AutoDetails.AutoOptions.Remove("GPS");
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -630,13 +722,35 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 }
                 else
                 {
-                    return;
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    int lenght = Vehicules.Count;
+                    for (int i = lenght - 1; i >= 0; i--)
+                    {
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        {
+                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                            {
+                                if (Vehicules[i].AutoOptions[j] == "GPS")
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("# of vehicules before Removing GPS: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                    {
+                        Vehicules.Remove(Vehicules[index]);
+                    }
+                    Console.WriteLine("# of vehicules after Removing GPS: " + Vehicules.Count);
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                 }
             }
         }
         else if (changedProp == "ChildSeat")
         {
-            if (IsCheckedMP3)
+            if (IsCheckedChildSeat)
             {
                 if (AutoDetails.AutoOptions.Contains("ChildSeat"))
                 {
@@ -648,44 +762,50 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     // Only add the vehicle if other checkboxes conditions are met
                     if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedMP3)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "AC", "MP3" };
-                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
                     }
                     else if (!IsCheckedGPS && !IsCheckedAC)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "AC" };
-                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "MP3" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
                     }
                     else if (!IsCheckedGPS && !IsCheckedMP3)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "GPS", "MP3" };
-                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "AC" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
                     }
                     else if (!IsCheckedAC && !IsCheckedMP3)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "AC", "MP3" };
-                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "GPS" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
                     }
                     else if (!IsCheckedAC && IsCheckedGPS && IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "AC" };
-                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "MP3", "GPS" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
                     }
                     else if (!IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "GPS" };
-                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "AC", "MP3" };
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
                     }
                     else if (!IsCheckedMP3 && IsCheckedGPS && IsCheckedAC)
                     {
-                        HashSet<string> removalOptions = new HashSet<string> { "MP3" };
-                        HashSet<string> addOptions = new HashSet<string> { "ChildSeat", "AC", "GPS" };
+                        HashSet<string> removalOptions = new HashSet<string> {  };
+                        HashSet<string> addOptions = new HashSet<string> { };
+                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    }
+                    else
+                    {
+                        HashSet<string> removalOptions = new HashSet<string> { };
+                        HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
                     }
                     Console.WriteLine("# of vehicules before adding ChildSeat: " + Vehicules.Count);
@@ -733,7 +853,29 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 }
                 else
                 {
-                    return;
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    int lenght = Vehicules.Count;
+                    for (int i = lenght - 1; i >= 0; i--)
+                    {
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        {
+                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                            {
+                                if (Vehicules[i].AutoOptions[j] == "ChildSeat")
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("# of vehicules before Removing ChildSeat: " + Vehicules.Count);
+                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                    {
+                        Vehicules.Remove(Vehicules[index]);
+                    }
+                    Console.WriteLine("# of vehicules after Removing ChildSeat: " + Vehicules.Count);
+                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                 }
             }
         }
@@ -745,6 +887,16 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
 
             string selectedCategory = CategorieAuto;
+            if (selectedCategory == "Essence")
+            {
+                IsCheckedEssence = true;
+                IsCheckedElectric = false;
+            }
+            else
+            {
+                IsCheckedEssence = false;
+                IsCheckedElectric = true;
+            }
 
             for (int i = myVehicules.Length - 1; i >= 0; i--)
             {
@@ -774,6 +926,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             {
                 Vehicules.Add(myVehicules[index]);
             }
+            CheckOtherProperties("MP3");
+            CheckOtherProperties("GPS");
+            CheckOtherProperties("AC");
+            CheckOtherProperties("ChildSeat");
         }
         //else if (changedProp == "RadioButtonElectric")
         //{
@@ -808,7 +964,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             for (int i = myVehicules.Length - 1; i >= 0; i--)
             {
-                if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
+                if ((myVehicules[i] != null) && (!Vehicules.Contains(myVehicules[i]) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto)))
                 {
                     bool allValuesInList = addOpts.All(item => myVehicules[i].AutoOptions.Contains(item));
                     bool containsAnyValue = removalOpts.Any(item => myVehicules[i].AutoOptions.Contains(item));
