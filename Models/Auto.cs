@@ -19,7 +19,7 @@ namespace RentARide.Models
         }
         public Auto(string id, string stationID,string type, List<string> carOptions)
         {
-            this.type = "Car";
+            this.type = "Auto";
             this.autoId = id;
             this.vehiculeStationId = stationID;
             this.categorieAuto = type;

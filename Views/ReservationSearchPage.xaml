@@ -113,7 +113,7 @@
                     <Picker.Items>
                         <x:String>Auto</x:String>
                         <x:String>Moto</x:String>
-                        <x:String>Vélo</x:String>
+                        <x:String>Velo</x:String>
                     </Picker.Items>
                     <Picker.Behaviors>
                         <behaviors:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding OnVehicleTypeChangedCommand}"/>

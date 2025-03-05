@@ -46,6 +46,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
 
     public Station StationDetails { get; set; }
     public ObservableCollection<Vehicule> Vehicules { get; } = new();
+    public ObservableCollection<Station> Stations { get; } = new();
     public Vehicule VehiculeDetails { get; set; }
     public ICommand OnVehicleTypeChangedCommand { get; }
     public ICommand OnStationChangedCommand { get; }
@@ -55,13 +56,23 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         AutoDetails = new Auto();
         ReservationDetails = new Reservation();
         VehiculeDetails = new Vehicule();
+        StationDetails = new Station();
         OnVehicleTypeChangedCommand = new RelayCommand(OnVehicleTypeChanged);
         OnStationChangedCommand = new RelayCommand(OnStationChanged);
 
         ReservationSearchDetails.StartDate = DateTime.Now;
         ReservationSearchDetails.EndDate = DateTime.Now;
 
-    LoadData();
+        //ReservationDetails.TypeVehicule = "Auto";
+        //ReservationDetails.StationAddress = "All Stations";
+        //CategorieAuto = "Essence";
+        //ReservationDetails.CategorieAuto = "Essence";
+
+        LoadData();
+        CheckOtherProperties("MP3");
+        CheckOtherProperties("GPS");
+        CheckOtherProperties("AC");
+        CheckOtherProperties("ChildSeat");
         //CheckInitialStateMP3();
         //CheckInitialStateAC();
         //CheckInitialStateGPS();
@@ -72,21 +83,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
 
         Console.WriteLine(Vehicules.Count);
 
-        CreerStation(0, "P001", "Dorchester-Charest", 5);
-        CreerStation(1, "P002", "Carre D'Youville", 8);
-        CreerStation(0, "P001", "Dorchester-Charest", 5);
-        CreerStation(1, "P002", "Carre D'Youville", 8);
-        CreerStation(0, "P001", "Dorchester-Charest", 5);
-        CreerStation(1, "P002", "Carre D'Youville", 8);
-        CreerStation(0, "P001", "Dorchester-Charest", 5);
-        CreerStation(1, "P002", "Carre D'Youville", 8);
-        CreerStation(0, "P001", "Dorchester-Charest", 5);
-        CreerStation(1, "P002", "Carre D'Youville", 8);
-        CreerStation(0, "P001", "Dorchester-Charest", 5);
-        CreerStation(1, "P002", "Carre D'Youville", 8);
-        CreerStation(0, "P001", "Dorchester-Charest", 5);
-        CreerStation(1, "P002", "Carre D'Youville", 8);
-        CreerStation(1, "P002", "Carre D'Youville", 8);
     }
 
     public void  LoadData()
@@ -117,12 +113,12 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
 
         CreerStation(0, "P001", "Dorchester-Charest", 5);
         CreerStation(1, "P002", "Carre D'Youville", 8);
-        CreerStation(2, "P003", "Limoilou - 3e Ave", 5);
-        CreerStation(3, "P004", "Saint-Roch - Rue de la Reine", 8);
+        CreerStation(2, "P003", "Limoilou", 5);
+        CreerStation(3, "P004", "Saint-Roch", 8);
         CreerStation(4, "P005", "Beauport", 5);
         CreerStation(5, "P006", "Vanier", 8);
         CreerStation(6, "P007", "Vieux-Quebec - Plaines d'Abraham", 5);
-        CreerStation(7, "P008", "Vieux-Quebec - Rue St-Jean", 8);
+        CreerStation(7, "P008", "Vieux-Quebec - St-Jean", 8);
         CreerStation(8, "P009", "Charlesbourg", 5);
         CreerStation(9, "P010", "ULaval", 8);
         CreerStation(10, "P011", "Sainte-Foy", 5);
@@ -158,7 +154,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 int lenght = Vehicules.Count;
                 for (int i = lenght - 1; i >= 0; i--)
                 {
-                    if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                     {
                         for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                         {
@@ -196,7 +192,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 int lenght = Vehicules.Count;
                 for (int i = lenght - 1; i >= 0; i--)
                 {
-                    if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                     {
                         for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                         {
@@ -234,7 +230,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 int lenght = Vehicules.Count;
                 for (int i = lenght - 1; i >= 0; i--)
                 {
-                    if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                     {
                         for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                         {
@@ -272,7 +268,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 int lenght = Vehicules.Count;
                 for (int i = lenght - 1; i >= 0; i--)
                 {
-                    if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                     {
                         for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                         {
@@ -313,15 +309,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     {
         myStations[index] = new Station(index, id, address, spaces);
     }
-    // Method to handle changes when the Vehicle Type changes
-    //partial void OnIsCheckedEssenceChanged(bool value)
-    //{
-    //    CheckOtherProperties("RadioButtonEssence");
-    //}
-    //partial void OnIsCheckedElectricChanged(bool value)
-    //{
-    //    CheckOtherProperties("RadioButtonElectric");
-    //}
+
     partial void OnCategorieAutoChanged(string value)
     {
         CheckOtherProperties("RadioButtonEssence");
@@ -362,7 +350,9 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             {
                 if (AutoDetails.AutoOptions.Contains("MP3"))
                 {
-                    return;
+                    HashSet<string> removalOptions = new HashSet<string> { };
+                    HashSet<string> addOptions = new HashSet<string> { };
+                    AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
                 }
                 else
                 {
@@ -373,43 +363,44 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                         HashSet<string> removalOptions = new HashSet<string> { };
                         HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
-                    }else if (!IsCheckedGPS && !IsCheckedAC)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {};
-                        HashSet<string> addOptions = new HashSet<string> {};
-                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
                     }
-                    else if (!IsCheckedGPS && !IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { };
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedAC && !IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {};
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedAC && IsCheckedGPS && IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {};
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedChildSeat && IsCheckedGPS && IsCheckedAC)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
-                    }
-                    else
+                    //else if (!IsCheckedGPS && !IsCheckedAC)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {};
+                    //    HashSet<string> addOptions = new HashSet<string> {};
+                    //    AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedGPS && !IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> { };
+                    //    HashSet<string> addOptions = new HashSet<string> { };
+                    //    AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedAC && !IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {};
+                    //    HashSet<string> addOptions = new HashSet<string> { };
+                    //    AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedAC && IsCheckedGPS && IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {};
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> { };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedChildSeat && IsCheckedGPS && IsCheckedAC)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> { };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
+                    //}
+                    //else
                     {
                         HashSet<string> removalOptions = new HashSet<string> { };
                         HashSet<string> addOptions = new HashSet<string> { };
@@ -439,7 +430,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                         {
                             for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                             {
@@ -465,7 +456,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                         {
                             for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                             {
@@ -492,7 +483,9 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             {
                 if (AutoDetails.AutoOptions.Contains("AC"))
                 {
-                    return;
+                    HashSet<string> removalOptions = new HashSet<string> { };
+                    HashSet<string> addOptions = new HashSet<string> { };
+                    AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
                 }
                 else
                 {
@@ -504,42 +497,42 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                         HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
                     }
-                    else if (!IsCheckedGPS && !IsCheckedMP3)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedGPS && !IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedMP3 && !IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedMP3 && IsCheckedGPS && IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedGPS && IsCheckedMP3 && IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {};
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedChildSeat && IsCheckedGPS && IsCheckedMP3)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
-                    }
+                    //else if (!IsCheckedGPS && !IsCheckedMP3)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> { };
+                    //    AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedGPS && !IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedMP3 && !IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedMP3 && IsCheckedGPS && IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedGPS && IsCheckedMP3 && IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {};
+                    //    HashSet<string> addOptions = new HashSet<string> { };
+                    //    AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedChildSeat && IsCheckedGPS && IsCheckedMP3)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> { };
+                    //    AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
+                    //}
                     else
                     {
                         HashSet<string> removalOptions = new HashSet<string> { };
@@ -570,7 +563,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                         {
                             for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                             {
@@ -596,7 +589,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                         {
                             for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                             {
@@ -623,7 +616,9 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             {
                 if (AutoDetails.AutoOptions.Contains("GPS"))
                 {
-                    return;
+                    HashSet<string> removalOptions = new HashSet<string> { };
+                    HashSet<string> addOptions = new HashSet<string> { };
+                    AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
                 }
                 else
                 {
@@ -635,42 +630,42 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                         HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
                     }
-                    else if (!IsCheckedAC && !IsCheckedMP3)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedAC && !IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedMP3 && !IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedMP3 && IsCheckedAC && IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedAC && IsCheckedMP3 && IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedChildSeat && IsCheckedAC && IsCheckedMP3)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
-                    }
+                    //else if (!IsCheckedAC && !IsCheckedMP3)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> { };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedAC && !IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedMP3 && !IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> { };
+                    //    AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedMP3 && IsCheckedAC && IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> { };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedAC && IsCheckedMP3 && IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> { };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedChildSeat && IsCheckedAC && IsCheckedMP3)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> { };
+                    //    AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
+                    //}
                     else
                     {
                         HashSet<string> removalOptions = new HashSet<string> { };
@@ -701,7 +696,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                         {
                             for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                             {
@@ -727,7 +722,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                         {
                             for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                             {
@@ -754,7 +749,9 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             {
                 if (AutoDetails.AutoOptions.Contains("ChildSeat"))
                 {
-                    return;
+                    HashSet<string> removalOptions = new HashSet<string> { };
+                    HashSet<string> addOptions = new HashSet<string> { };
+                    AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
                 }
                 else
                 {
@@ -766,42 +763,42 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                         HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
                     }
-                    else if (!IsCheckedGPS && !IsCheckedAC)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedGPS && !IsCheckedMP3)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedAC && !IsCheckedMP3)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedAC && IsCheckedGPS && IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
-                    }
-                    else if (!IsCheckedMP3 && IsCheckedGPS && IsCheckedAC)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> {  };
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
-                    }
+                    //else if (!IsCheckedGPS && !IsCheckedAC)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedGPS && !IsCheckedMP3)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> { };
+                    //    AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedAC && !IsCheckedMP3)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> { };
+                    //    AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedAC && IsCheckedGPS && IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedGPS && IsCheckedAC && IsCheckedChildSeat)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> { };
+                    //    HashSet<string> addOptions = new HashSet<string> {  };
+                    //    AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    //}
+                    //else if (!IsCheckedMP3 && IsCheckedGPS && IsCheckedAC)
+                    //{
+                    //    HashSet<string> removalOptions = new HashSet<string> {  };
+                    //    HashSet<string> addOptions = new HashSet<string> { };
+                    //    AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
+                    //}
                     else
                     {
                         HashSet<string> removalOptions = new HashSet<string> { };
@@ -832,7 +829,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                         {
                             for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                             {
@@ -858,7 +855,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
                         {
                             for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
                             {
@@ -910,7 +907,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             }
             for (int i = Vehicules.Count - 1; i >= 0; i--)
             {
-                if (Vehicules[i] != null && Vehicules[i].type=="Car")
+                if (Vehicules[i] != null && Vehicules[i].type=="Auto")
                 {
                     if (AccessCategorieAutoVehicules(i) != selectedCategory)
                     {
@@ -961,22 +958,20 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     }
     private void AddVehiculeBasedOnCheckbox(string optionChecked, HashSet<string> removalOpts, HashSet<string> addOpts)
     {
+        for (int i = myVehicules.Length - 1; i >= 0; i--)
         {
-            for (int i = myVehicules.Length - 1; i >= 0; i--)
+            if ( (myVehicules[i] != null) && (!Vehicules.Contains(myVehicules[i])) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
             {
-                if ((myVehicules[i] != null) && (!Vehicules.Contains(myVehicules[i]) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto)))
+                bool allValuesInList = addOpts.All(item => myVehicules[i].AutoOptions.Contains(item));
+                bool containsAnyValue = removalOpts.Any(item => myVehicules[i].AutoOptions.Contains(item));
+                bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
+                if (containsValueChecked && allValuesInList)
                 {
-                    bool allValuesInList = addOpts.All(item => myVehicules[i].AutoOptions.Contains(item));
-                    bool containsAnyValue = removalOpts.Any(item => myVehicules[i].AutoOptions.Contains(item));
-                    bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
-                    if (containsValueChecked && allValuesInList)
-                    {
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                        if (containsAnyValue)
-                        {
-                            ReservationSearchDetails.indexVehiculesToBeAdded.Remove(i);
-                        }
-                    }
+                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                }
+                if (containsAnyValue)
+                {
+                    ReservationSearchDetails.indexVehiculesToBeAdded.Remove(i);
                 }
             }
         }
@@ -1010,122 +1005,351 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     }
     private void OnStationChanged()
     {
-        return;
+        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+        StationDetails.selectedStationID.Clear();
+        Vehicules.Clear();
+        if (ReservationDetails.TypeVehicule != "")
+        {
+            for (int i = myStations.Length - 1; i >= 0; i--)
+            {
+                if (myStations[i] != null && (ReservationSearchDetails.StationAddress == "All Stations"))
+                {
+                    StationDetails.selectedStationID.Add(myStations[i].StationId);
+                }
+                else if (myStations[i] != null && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
+                {
+                    StationDetails.selectedStationID.Add(myStations[i].StationId);
+                }
+            }
+            for (int i = myVehicules.Length - 1; i >= 0; i--)
+            {
+                if ((myVehicules[i] != null) && (myVehicules[i].type == ReservationSearchDetails.TypeVehicule))
+                {
+                    if (myVehicules[i].type == "Auto")
+                    {
+                        if (AccessCategorieAutoMyVehicules(i) == CategorieAuto)
+                        {
+                            foreach (string station in StationDetails.selectedStationID)
+                            {
+                                if (myVehicules[i] != null && (myVehicules[i].vehiculeStationId == station))
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (string station in StationDetails.selectedStationID)
+                        {
+                            if (myVehicules[i] != null && (myVehicules[i].vehiculeStationId == station))
+                            {
+                                ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
+        else
+        {
+            for (int i = myStations.Length - 1; i >= 0; i--)
+            {
+                if (myStations[i] != null && (ReservationSearchDetails.StationAddress) == "All Stations")
+                {
+                    StationDetails.selectedStationID.Add(myStations[i].StationId);
+                }
+                else if (myStations[i] != null && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
+                {
+                    StationDetails.selectedStationID.Add(myStations[i].StationId);
+                }
+            }
+            for (int i = myVehicules.Length - 1; i >= 0; i--)
+            {
+                if ((myVehicules[i] != null) && (myVehicules[i].type == ReservationDetails.TypeVehicule))
+                {
+                    if (myVehicules[i].type == "Auto" && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                    {
+                        foreach (string station in StationDetails.selectedStationID)
+                        {
+                            if (myVehicules[i] != null && (myVehicules[i].vehiculeStationId == station))
+                            {
+                                ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (string station in StationDetails.selectedStationID)
+                        {
+                            if (myVehicules[i] != null && (myVehicules[i].vehiculeStationId == station))
+                            {
+                                ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
+        {
+            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            {
+                Vehicules.Add(myVehicules[index]);
+            }
+            ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+        }
+        if (ReservationSearchDetails.indexVehiculesToBeRemoved.Count > 0)
+        {
+            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+            {
+                Vehicules.Remove(Vehicules[index]);
+            }
+            ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+        }
+        //CheckOtherProperties("MP3");
+        //CheckOtherProperties("GPS");
+        //CheckOtherProperties("AC");
+        //CheckOtherProperties("ChildSeat");
+        //AddVehiculeBasedOnStation(StationDetails.selectedStationID)
+        //bool containsStationAddressPicked = Vehicules.Any(p => p.vehiculeStationId == ReservationSearchDetails.StationAddress);
+        //if (!containsStationAddressPicked)
+        //{
+        //    for (int  i = myVehicules.Length - 1; i >= 0; i--)
+        //    {
+        //        foreach (string station in StationDetails.selectedStationID)
+        //        {
+        //            if (myVehicules[i] != null && (myVehicules[i].vehiculeStationId == station))
+        //            { 
+        //                ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+        //            }
+        //        }
+        //    }
+        //}
+        //for (int i = Vehicules.Count - 1; i >= 0; i--)
+        //{
+        //    if (Vehicules[i] != null && ReservationSearchDetails.StationAddress != "All Stations")
+        //    {
+        //        for (int j = myVehicules.Length - 1; j >= 0; j--)
+        //        {
+        //                if (myVehicules[i] != null && (myVehicules[i].vehiculeStationId == station))
+        //                {
+        //                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+        //                }
+        //        }
+        //        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+        //    }
+        //}
+
     }
     private void OnVehicleTypeChanged()
     {
         // Implement the logic that should happen when the picker selection changes
         ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
         ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        if (ReservationSearchDetails.TypeVehicule == "Auto")
+        if (ReservationDetails.StationAddress != "")
         {
-            IsAutoSelected = true;
-            CheckInitialStateMP3();
-            CheckInitialStateAC();
-            CheckInitialStateGPS();
-            CheckInitialStateChildSeat();
-            CheckOtherProperties("MP3");
-            CheckOtherProperties("GPS");
-            CheckOtherProperties("AC");
-            CheckOtherProperties("ChildSeat");
-            bool containsTypePicked = Vehicules.Any(p => p.type == "Car");
-            if (!containsTypePicked)
+            if (ReservationSearchDetails.TypeVehicule == "Auto")
             {
-                for (int i = myVehicules.Length - 1; i >= 0; i--)
+                IsAutoSelected = true;
+                //CheckInitialStateMP3();
+                //CheckInitialStateAC();
+                //CheckInitialStateGPS();
+                //CheckInitialStateChildSeat();
+                CheckOtherProperties("MP3");
+                CheckOtherProperties("GPS");
+                CheckOtherProperties("AC");
+                CheckOtherProperties("ChildSeat");
+                bool containsTypePicked = Vehicules.Any(p => p.type == "Auto");
+                if (!containsTypePicked)
                 {
-                    if (myVehicules[i] != null && (myVehicules[i].type == "Car"))
+                    for (int i = myVehicules.Length - 1; i >= 0; i--)
                     {
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        if (myVehicules[i] != null && (myVehicules[i].type == "Auto"))
+                        {
+                            foreach (string station in StationDetails.selectedStationID)
+                            {
+                                if (myVehicules[i] != null && (myVehicules[i].vehiculeStationId == station))
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                }
+                            }
+                        }
+                    }
+                }
+                for (int i = Vehicules.Count - 1; i >= 0; i--)
+                {
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    }
+                    else if (Vehicules[i] != null && (Vehicules[i].type == "Moto"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
                     }
                 }
             }
-            //if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
-            //{
-            //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-            //    {
-            //        Vehicules.Add(myVehicules[index]);
-            //    }
-            //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-            //}
-            for (int i = Vehicules.Count - 1; i >= 0; i--)
+            else if (ReservationSearchDetails.TypeVehicule == "Moto")
             {
-                if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
+                IsAutoSelected = false;
+                bool containsTypePicked = Vehicules.Any(p => p.type == "Moto");
+                if (!containsTypePicked)
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    for (int i = myVehicules.Length - 1; i >= 0; i--)
+                    {
+                        if (myVehicules[i] != null && (myVehicules[i].type == "Moto"))
+                        {
+                            foreach (string station in StationDetails.selectedStationID)
+                            {
+                                if (myVehicules[i] != null && (myVehicules[i].vehiculeStationId == station))
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                }
+                            }
+                        }
+                    }
                 }
-                else if (Vehicules[i] != null && (Vehicules[i].type == "Moto"))
+                for (int i = Vehicules.Count - 1; i >= 0; i--)
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    }
+                    else if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    }
                 }
             }
+            else if (ReservationSearchDetails.TypeVehicule == "Velo")
+            {
+                IsAutoSelected = false;
+                bool containsTypePicked = Vehicules.Any(p => p.type == "Velo");
+                if (!containsTypePicked)
+                {
+                    for (int i = myVehicules.Length - 1; i >= 0; i--)
+                    {
+                        if (myVehicules[i] != null && (myVehicules[i].type == "Velo"))
+                        {
+                            foreach (string station in StationDetails.selectedStationID)
+                            {
+                                if (myVehicules[i] != null && (myVehicules[i].vehiculeStationId == station))
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                }
+                            }
+                        }
+                    }
+                }
+                for (int i = Vehicules.Count - 1; i >= 0; i--)
+                {
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    }
+                    else if (Vehicules[i] != null && (Vehicules[i].type == "Moto"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    }
+                }
+            }
+
         }
-        else if (ReservationSearchDetails.TypeVehicule == "Moto")
+        else
         {
-            IsAutoSelected = false;
-            bool containsTypePicked = Vehicules.Any(p => p.type == "Moto");
-            if (!containsTypePicked)
+            if (ReservationSearchDetails.TypeVehicule == "Auto")
             {
-                for (int i = myVehicules.Length - 1; i >= 0; i--)
+                IsAutoSelected = true;
+                //CheckInitialStateMP3();
+                //CheckInitialStateAC();
+                //CheckInitialStateGPS();
+                //CheckInitialStateChildSeat();
+                CheckOtherProperties("MP3");
+                CheckOtherProperties("GPS");
+                CheckOtherProperties("AC");
+                CheckOtherProperties("ChildSeat");
+                bool containsTypePicked = Vehicules.Any(p => p.type == "Auto");
+                if (!containsTypePicked)
                 {
-                    if (myVehicules[i] != null && (myVehicules[i].type == "Moto"))
+                    for (int i = myVehicules.Length - 1; i >= 0; i--)
                     {
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        if (myVehicules[i] != null && (myVehicules[i].type == "Auto"))
+                        {
+                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        }
+                    }
+                }
+                for (int i = Vehicules.Count - 1; i >= 0; i--)
+                {
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    }
+                    else if (Vehicules[i] != null && (Vehicules[i].type == "Moto"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
                     }
                 }
             }
-            //if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
-            //{
-            //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-            //    {
-            //        Vehicules.Add(myVehicules[index]);
-            //    }
-            //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-            //}
-            for (int i = Vehicules.Count - 1; i >= 0; i--)
+            else if (ReservationSearchDetails.TypeVehicule == "Moto")
             {
-                if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                IsAutoSelected = false;
+                bool containsTypePicked = Vehicules.Any(p => p.type == "Moto");
+                if (!containsTypePicked)
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                }
-                else if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
-                {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                }
-            }
-        }
-        else if (ReservationSearchDetails.TypeVehicule == "Vélo")
-        {
-            IsAutoSelected = false;
-            bool containsTypePicked = Vehicules.Any(p => p.type == "Velo");
-            if (!containsTypePicked)
-            {
-                for (int i = myVehicules.Length - 1; i >= 0; i--)
-                {
-                    if (myVehicules[i] != null && (myVehicules[i].type == "Velo"))
+                    for (int i = myVehicules.Length - 1; i >= 0; i--)
                     {
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        if (myVehicules[i] != null && (myVehicules[i].type == "Moto"))
+                        {
+                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        }
+                    }
+                }
+                for (int i = Vehicules.Count - 1; i >= 0; i--)
+                {
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    }
+                    else if (Vehicules[i] != null && (Vehicules[i].type == "Velo"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
                     }
                 }
             }
-            //if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
-            //{
-            //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-            //    {
-            //        Vehicules.Add(myVehicules[index]);
-            //    }
-            //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-            //}
-            for (int i = Vehicules.Count - 1; i >= 0; i--)
+            else if (ReservationSearchDetails.TypeVehicule == "Velo")
             {
-                if (Vehicules[i] != null && (Vehicules[i].type == "Car"))
+                IsAutoSelected = false;
+                bool containsTypePicked = Vehicules.Any(p => p.type == "Velo");
+                if (!containsTypePicked)
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    for (int i = myVehicules.Length - 1; i >= 0; i--)
+                    {
+                        if (myVehicules[i] != null && (myVehicules[i].type == "Velo"))
+                        {
+                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        }
+                    }
                 }
-                else if (Vehicules[i] != null && (Vehicules[i].type == "Moto"))
+                for (int i = Vehicules.Count - 1; i >= 0; i--)
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    }
+                    else if (Vehicules[i] != null && (Vehicules[i].type == "Moto"))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                    }
                 }
             }
+
         }
         if (ReservationSearchDetails.indexVehiculesToBeRemoved.Count > 0)
         {

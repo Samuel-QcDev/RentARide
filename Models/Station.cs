@@ -14,6 +14,12 @@ namespace RentARide.Models
         [ObservableProperty] private string stationAddress;
         [ObservableProperty] private int parkSpaces;
         private int index;
+        public List<string> selectedStationID = new();
+
+        public Station()
+        {
+            
+        }
         public Station(int index,string id, string address, int spaces)
         {
             this.stationId = id;
