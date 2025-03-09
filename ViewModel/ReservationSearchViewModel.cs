@@ -175,11 +175,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         ReservationSearchDetails.StationAddress = "All Stations";
         ReservationSearchDetails.CategorieAuto = "Essence";
 
-
-        //Console.WriteLine(Vehicules[2].type);
-        //Console.WriteLine(Vehicules[2].vehiculeStationId);
-
-        Console.WriteLine(Vehicules.Count);
+        //Console.WriteLine(Vehicules.Count);
 
     }
 
@@ -283,17 +279,17 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
 
         //# of Velos : 12
         CreerVehicule(90, new Velo("V01", "P001"));
-        CreerVehicule(91, new Velo("V02", "P001"));
-        CreerVehicule(92, new Velo("V03", "P002"));
-        CreerVehicule(93, new Velo("V04", "P002"));
-        CreerVehicule(94, new Velo("V05", "B001"));
-        CreerVehicule(95, new Velo("V06", "P003"));
-        CreerVehicule(96, new Velo("V07", "P001"));
-        CreerVehicule(97, new Velo("V08", "P001"));
-        CreerVehicule(98, new Velo("V09", "P002"));
-        CreerVehicule(99, new Velo("V10", "P002"));
-        CreerVehicule(100, new Velo("V11", "B001"));
-        CreerVehicule(101, new Velo("V12", "P003"));
+        CreerVehicule(91, new Velo("V02", "P002"));
+        CreerVehicule(92, new Velo("V03", "P003"));
+        CreerVehicule(93, new Velo("V04", "P004"));
+        CreerVehicule(94, new Velo("V05", "P005"));
+        CreerVehicule(95, new Velo("V06", "P006"));
+        CreerVehicule(96, new Velo("V07", "P007"));
+        CreerVehicule(97, new Velo("V08", "P008"));
+        CreerVehicule(98, new Velo("V09", "P009"));
+        CreerVehicule(99, new Velo("V10", "P010"));
+        CreerVehicule(100, new Velo("V11", "P011"));
+        CreerVehicule(101, new Velo("V12", "P012"));
 
         //# of Stations : 15
         CreerStation(0, "P001", "Dorchester-Charest", 10, 2);
