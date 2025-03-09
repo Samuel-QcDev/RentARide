@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,7 @@ namespace RentARide.Models
         //public bool IsChecked { get; set; }
         [ObservableProperty]
         public List<string> autoOptions;
-        [ObservableProperty]
-        public List<Reservation> reservations;
+        public ObservableCollection<Reservation> Reservations { get; } = new();
         //[ObservableProperty]
         //public List<Vehicule> searchResults = new();
 

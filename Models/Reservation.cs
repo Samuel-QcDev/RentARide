@@ -23,6 +23,23 @@ namespace RentARide.Models
         {
             
         }
+        public Reservation(string id, string memberid, DateTime requestedStartTime, DateTime requestedEndTime, string typeVehicule, string stationID)
+        {
+            this.ReservationID = id;
+            this.MemberID = memberid;
+            this.StartTime = requestedStartTime;
+            this.EndTime = requestedEndTime;
+            this.TypeVehicule = typeVehicule;
+            this.StationId = stationID;
+        }
+
+        Reservation[] myReservations = new Reservation[100];
+
+        public void CreerReservation(int index, Reservation reservation)
+        {
+            myReservations[index] = reservation;
+            Reservations.Add(myReservations[index]);
+        }
 
         //public Reservation(DateTime date, int hreDebut, int minsDebut, 
         //    int hreFin, int minsFin, string type, string station, 

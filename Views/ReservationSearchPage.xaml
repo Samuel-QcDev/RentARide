@@ -100,7 +100,7 @@
                 Grid.Column="2"
                 Grid.ColumnSpan="2"
                 FontSize="Medium"
-                Text="{Binding StartTime}"
+                Text="{Binding ReservationSearchDetails.TypeVehicule}"
                 VerticalTextAlignment="Center" />
                 <Picker
                 x:Name="VehicleType"
@@ -292,8 +292,8 @@
                 Margin="10"
                 Text="Siège Enfant" />
             </Grid>
-            <Button Text="Test Command"
-        Command="{Binding OnStartTimeChangedCommand}" />
+            <!--<Button Text="Test Command"
+        Command="{Binding OnStartTimeChangedCommand}" />-->
             <!--<Button
             x:Name="Search"
             Margin="0,20,0,0"
