@@ -9,10 +9,7 @@ namespace RentARide.Models
 {
     public partial class Reservation_BASE : ObservableObject
     {
-        [ObservableProperty]
-        private TimeSpan startTime;
-        [ObservableProperty]
-        private TimeSpan endTime;
+
         [ObservableProperty]
         private DateTime startDate;
         [ObservableProperty]
@@ -25,11 +22,17 @@ namespace RentARide.Models
         private string stationId;
         [ObservableProperty]
         private string stationAddress;
+        [ObservableProperty]
+        private string vehiculeID;
+        [ObservableProperty]
+        private string memberID;
         //[ObservableProperty]
         //public string autoOptionsString;
         //public bool IsChecked { get; set; }
         [ObservableProperty]
         public List<string> autoOptions;
+        [ObservableProperty]
+        public List<Reservation> reservations;
         //[ObservableProperty]
         //public List<Vehicule> searchResults = new();
 

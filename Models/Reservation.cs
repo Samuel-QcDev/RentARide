@@ -4,13 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RentARide.Models
 {
-    public class Reservation : Reservation_BASE
+    public partial class Reservation : Reservation_BASE
     {        
         public string ReservationID { get; set; }
         public int BikeReturnStationID { get; set; }
+        [ObservableProperty]
+        private DateTime startTime;
+        [ObservableProperty]
+        private DateTime endTime;
 
 
 

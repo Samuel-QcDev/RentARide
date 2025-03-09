@@ -37,31 +37,126 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     [ObservableProperty]
     private bool isVeloSelected;
     [ObservableProperty]
-    private string categorieAuto; // This tracks the selected vehicle type
+    private string categorieAuto;
 
-
-    public ReservationSearch ReservationSearchDetails { get; set; }
+    private ReservationSearch _reservationSearchDetails;
+    public ReservationSearch ReservationSearchDetails
+    {
+        get => _reservationSearchDetails;
+        set
+        {
+            if (_reservationSearchDetails != value)
+            {
+                _reservationSearchDetails = value;
+                OnPropertyChanged();
+            }
+        }
+    }
     public Auto AutoDetails { get; set; }
-    public Reservation ReservationDetails { get; set; }
-
     public Station StationDetails { get; set; }
     public ObservableCollection<Vehicule> Vehicules { get; } = new();
     public ObservableCollection<Station> Stations { get; } = new();
     public Vehicule VehiculeDetails { get; set; }
     public ICommand OnVehicleTypeChangedCommand { get; }
     public ICommand OnStationChangedCommand { get; }
+    public ICommand OnStartTimeChangedCommand { get; }
+    public ICommand OnEndTimeChangedCommand { get; }
+    public ICommand OnStartDateChangedCommand { get; }
+    public ICommand OnEndDateChangedCommand { get; }
+    private TimeSpan _startTime;
+
+    public TimeSpan StartTime
+    {
+        get => _startTime;
+        set
+        {
+            if (_startTime != value)
+            {
+                _startTime = value;
+                OnPropertyChanged();
+                OnStartTimeChangedCommand?.Execute(value);  // This notifies the UI that the property has changed
+            }
+        }
+    }
+    private TimeSpan _endTime;
+    public TimeSpan EndTime
+    {
+        get => _endTime;
+        set
+        {
+            if (_endTime != value)
+            {
+                _endTime = value;
+                OnPropertyChanged();
+                OnEndTimeChangedCommand?.Execute(value);  // This notifies the UI that the property has changed
+            }
+        }
+    }
+    private DateTime _startDate;
+
+    public DateTime StartDate
+    {
+        get => _startDate;
+        set
+        {
+            if (_startDate != value)
+            {
+                _startDate = value;
+                OnPropertyChanged();
+                OnStartDateChangedCommand?.Execute(value);  // This notifies the UI that the property has changed
+            }
+        }
+    }
+    private DateTime _endDate;
+    public DateTime EndDate
+    {
+        get => _endDate;
+        set
+        {
+            if (_endDate != value)
+            {
+                _endDate = value;
+                OnPropertyChanged();
+                OnEndDateChangedCommand?.Execute(value);  // This notifies the UI that the property has changed
+            }
+        }
+    }
+
+    public bool IsCarAvailable(List<Reservation> reservations, string vehiculeID, DateTime newStartTime, DateTime newEndTime)
+    {
+        // Check for overlap with existing reservations for the same car
+        foreach (var reservation in reservations)
+        {
+            if (reservation.VehiculeID == vehiculeID)
+            {
+                // Check if the new reservation time overlaps with an existing one
+                if ((newStartTime < reservation.EndTime) && (newEndTime > reservation.StartTime))
+                {
+                    return false; // Car is not available
+                }
+            }
+        }
+        return true; // Car is available
+    }
     public ReservationSearchViewModel()
     {
         ReservationSearchDetails = new ReservationSearch();
         AutoDetails = new Auto();
-        ReservationDetails = new Reservation();
         VehiculeDetails = new Vehicule();
         StationDetails = new Station();
         OnVehicleTypeChangedCommand = new RelayCommand(OnVehicleTypeChanged);
         OnStationChangedCommand = new RelayCommand(OnStationChanged);
+        OnStartTimeChangedCommand = new RelayCommand(OnStartTimeChanged);
+        Console.WriteLine("OnStartTimeChangedCommand initialized: " + (OnStartTimeChangedCommand != null));
 
-        ReservationSearchDetails.StartDate = DateTime.Now;
-        ReservationSearchDetails.EndDate = DateTime.Now;
+        OnEndTimeChangedCommand = new RelayCommand(OnEndTimeChanged);
+        OnStartDateChangedCommand = new RelayCommand(OnStartDateChanged);
+        OnEndDateChangedCommand = new RelayCommand(OnEndDateChanged);
+
+        StartDate = DateTime.Now;
+        EndDate = DateTime.Now;
+        ReservationSearchDetails.RequestedStartTime = ReservationSearchDetails.StartDate.Add(StartTime);
+        ReservationSearchDetails.RequestedEndTime = ReservationSearchDetails.EndDate.Add(EndTime);
 
         //ReservationDetails.TypeVehicule = "Auto";
         //ReservationDetails.StationAddress = "All Stations";
@@ -137,6 +232,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             Console.WriteLine(myVehicules[i].ToString());
         }
     }
+    
     public void CheckInitialStateMP3()
     {
         if (IsCheckedMP3)
@@ -1003,13 +1099,30 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             return "The object at the specified index is not an Auto.";
         }
     }
+    private void OnStartTimeChanged()
+    {
+        Console.WriteLine(StartTime);
+    }
+    private void OnEndTimeChanged()
+    {
+        Console.WriteLine(EndTime);
+    }
+    private void OnStartDateChanged()
+    {
+        Console.WriteLine(StartDate);
+    }
+    private void OnEndDateChanged()
+    {
+        Console.WriteLine(EndDate);
+    }
+
     private void OnStationChanged()
     {
         ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
         ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
         StationDetails.selectedStationID.Clear();
         Vehicules.Clear();
-        if (ReservationDetails.TypeVehicule != "")
+        if (ReservationSearchDetails.TypeVehicule != "")
         {
             for (int i = myStations.Length - 1; i >= 0; i--)
             {
@@ -1069,7 +1182,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             }
             for (int i = myVehicules.Length - 1; i >= 0; i--)
             {
-                if ((myVehicules[i] != null) && (myVehicules[i].type == ReservationDetails.TypeVehicule))
+                if ((myVehicules[i] != null) && (myVehicules[i].type == ReservationSearchDetails.TypeVehicule))
                 {
                     if (myVehicules[i].type == "Auto" && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
                     {
@@ -1153,7 +1266,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         // Implement the logic that should happen when the picker selection changes
         ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
         ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        if (ReservationDetails.StationAddress != "")
+        if (ReservationSearchDetails.StationAddress != "")
         {
             if (ReservationSearchDetails.TypeVehicule == "Auto")
             {
@@ -1323,7 +1436,9 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     }
                 }
             }
-            else if (ReservationSearchDetails.TypeVehicule == "Velo")
+            else if (ReservationSearchDetails.TypeVehicule == "Ve" +
+                "" +
+                "lo")
             {
                 IsAutoSelected = false;
                 bool containsTypePicked = Vehicules.Any(p => p.type == "Velo");
