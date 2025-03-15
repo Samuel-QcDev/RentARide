@@ -29,6 +29,11 @@ public partial class ReservationSearchPage : ContentPage
         {
             InitializeComponent();
             BindingContext = vm;
+
+            // When DatePicker value changes, process the date
+            StartDate = StartDate.Date;  // Use .Date to reset the time to midnight
+                                         // When DatePicker value changes, process the date
+            EndDate = EndDate.Date;  // Use .Date to reset the time to midnight
     }
 
     //public ReservationSearchPage(DateTime startDate, DateTime endDate, DateTime startTime, DateTime endTime, string type, string station,
