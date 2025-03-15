@@ -27,7 +27,7 @@ namespace RentARide.Models
         }
         public override string ToString()
         {
-            return type + " " + autoId  + " " + vehiculeStationId + " " + categorieAuto + " " + String.Join(",",AutoOptions);
+            return type + " " + vehiculeId  + " " + vehiculeStationId + " " + categorieAuto + " " + String.Join(",",AutoOptions);
         }
     }
 }
