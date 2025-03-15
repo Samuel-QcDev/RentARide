@@ -23,7 +23,7 @@ namespace RentARide.Models
         {
             
         }
-        public Reservation(string id, string memberid, DateTime requestedStartTime, DateTime requestedEndTime, string typeVehicule, string stationID)
+        public Reservation(string id, string memberid, DateTime requestedStartTime, DateTime requestedEndTime, string typeVehicule, string stationID, string vehiculeId)
         {
             this.ReservationID = id;
             this.MemberID = memberid;
@@ -31,6 +31,7 @@ namespace RentARide.Models
             this.EndTime = requestedEndTime;
             this.TypeVehicule = typeVehicule;
             this.StationId = stationID;
+            this.VehiculeID = vehiculeId;
         }
 
         Reservation[] myReservations = new Reservation[100];
