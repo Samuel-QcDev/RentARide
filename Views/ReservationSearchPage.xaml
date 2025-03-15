@@ -304,20 +304,22 @@
             HorizontalOptions="Center"
             SemanticProperties.Hint="Navigates to Results page"
             Text="Recherche"/>-->
-            <BoxView HeightRequest="1" Color="DarkGreen" HorizontalOptions="FillAndExpand" />
+                <BoxView HeightRequest="1" Color="DarkGreen" HorizontalOptions="FillAndExpand" />
             <CollectionView VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand"
                             ItemsSource="{Binding Vehicules}"
                             SelectionMode="Single">
  
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:ReservationSearch">
+                    <DataTemplate x:DataType="viewmodel:ReservationSearchViewModel">
                         <VerticalStackLayout>
                             <HorizontalStackLayout Padding="10"
                                                    Spacing="10">
-                                
                                 <Label Text="{Binding }"/>
-                                <Label Text="{Binding CategorieAuto}"/>
+                                <!--<Label Text="{Binding VehiculeDetails.vehiculeId}"/>
+                                <Label Text="{Binding VehiculeDetails.vehiculeStationId}"/>
+                                <Label Text="{Binding VehiculeDetails.type}"/>
+                                <Label Text="{Binding VehiculeDetails.autoOptions}"/>-->
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
                     </DataTemplate>
