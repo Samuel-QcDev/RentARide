@@ -29,7 +29,7 @@ public static class MauiProgram
         builder.Services.AddTransient<ReservationSearchPage>();
         builder.Services.AddTransient<ResultPage>();
         builder.Services.AddTransient<MembreDetails>();
-        
+
         // View Models
         builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<MainViewModel>(); 

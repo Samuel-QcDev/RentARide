@@ -59,6 +59,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Remove="Views\HeaderView.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Controls\HeaderView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\HistoriqueReservationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

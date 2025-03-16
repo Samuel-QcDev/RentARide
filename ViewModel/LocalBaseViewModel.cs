@@ -18,7 +18,24 @@ public partial class LocalBaseViewModel : ObservableObject
 
     [ObservableProperty]
     string title;
+    private string _greeting;
 
+    // Event for property change notifications
+
+
+    // Greeting property
+    public string Greeting
+    {
+        get => _greeting;
+        set
+        {
+            if (_greeting != value)
+            {
+                _greeting = value;
+                OnPropertyChanged(nameof(Greeting));
+            }
+        }
+    }
 
     public bool IsNotBusy => !IsBusy;
 }

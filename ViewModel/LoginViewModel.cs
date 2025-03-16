@@ -9,16 +9,18 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using RentARide.Models;
 using RentARide.ViewModel;
+using System.Runtime.CompilerServices;
 
 namespace RentARide.ViewModel;
 
 [QueryProperty(nameof(MemberEmail), "memberEmail")]
 [QueryProperty(nameof(MemberPassword), "memberPassword")]
-
-public partial class LoginViewModel : ObservableObject
+[QueryProperty(nameof(MemberFirstName), "memberFirstName")]
+public partial class LoginViewModel : LocalBaseViewModel
 {
     [ObservableProperty] private string memberEmail;
     [ObservableProperty] private string memberPassword;
+    [ObservableProperty] private string memberFirstName;
     public LoginViewModel()
     {
         LoginDetails = new Login();
@@ -41,7 +43,7 @@ public partial class LoginViewModel : ObservableObject
         }
         else if (((LoginDetails.EmailAddress == MemberEmail) && (LoginDetails.Password == MemberPassword)) && ((MemberEmail != null) && (MemberPassword != null)))
         {
-            await Shell.Current.GoToAsync("Mainpage");
+            await Shell.Current.GoToAsync($"Mainpage?memberEmail={memberEmail}&memberPassword={memberPassword}&memberFirstName={memberFirstName}");
         }
      
         else if ((LoginDetails.Password != MemberPassword) && (LoginDetails.EmailAddress != MemberEmail))
@@ -71,6 +73,7 @@ public partial class LoginViewModel : ObservableObject
     [RelayCommand]
     private static async Task CreateAccount()
     {
+
         await Shell.Current.GoToAsync("MembreDetailspage");
     }
 }

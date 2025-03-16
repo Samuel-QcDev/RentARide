@@ -7,6 +7,7 @@
     xmlns:model="clr-namespace:RentARide.Models"
     xmlns:viewmodel="clr-namespace:RentARide.ViewModel"
     xmlns:local="clr-namespace:RentARide.Models"
+    xmlns:controls="clr-namespace:RentARide.Controls"
     Title="Reservation Search"
     x:DataType="viewmodel:ReservationSearchViewModel">
     <ContentPage.Resources>
@@ -17,6 +18,8 @@
     </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout>
+
+            <controls:HeaderView Greeting="{Binding Greeting}" />
 
             <Grid
             Margin="10,10,0,0"

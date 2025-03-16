@@ -52,6 +52,7 @@ public partial class MembreViewModel : LocalBaseViewModel
     public async Task AddMembre()
     {
         var memberDetails = this.MembreDetails;
+        var memberFirstName = memberDetails.FirstName;
         var memberEmail = memberDetails.MemberEmail;
         var memberPassword = memberDetails.MemberPassword;
 
@@ -66,7 +67,7 @@ public partial class MembreViewModel : LocalBaseViewModel
 
         // await Shell.Current.DisplayAlert("Record Added", "Employee Details Successfully submitted", "OK");
 
-        await Shell.Current.GoToAsync($"Loginpage?memberEmail={memberEmail}&&memberPassword={memberPassword}");
+        await Shell.Current.GoToAsync($"Loginpage?memberEmail={memberEmail}&memberPassword={memberPassword}&memberFirstName={memberFirstName}");
         //await Shell.Current.GoToAsync($"Loginpage, navigationParameter");
     }
 }

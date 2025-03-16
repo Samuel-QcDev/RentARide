@@ -16,11 +16,18 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Platform;
+using RentARide.Controls;
 
 namespace RentARide.ViewModel;
 
+[QueryProperty(nameof(MemberEmail), "memberEmail")]
+[QueryProperty(nameof(MemberPassword), "memberPassword")]
+[QueryProperty(nameof(MemberFirstName), "memberFirstName")]
 public partial class ReservationSearchViewModel : LocalBaseViewModel
 {
+    [ObservableProperty] private string memberEmail;
+    [ObservableProperty] private string memberPassword;
+    [ObservableProperty] private string memberFirstName;
 
     [ObservableProperty]
     private bool isCheckedMP3;
@@ -57,6 +64,22 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     public Auto AutoDetails { get; set; }
     public Station StationDetails { get; set; }
     public Reservation ReservationDetails {  get; set; }
+    public Membre MembreDetails { get; set; }
+    //private Membre _membreDetails;
+
+    //public Membre MembreDetails
+    //{
+    //    get => _membreDetails;
+    //    set
+    //    {
+    //        if (_membreDetails != value)
+    //        {
+    //            _membreDetails = value;
+    //            OnPropertyChanged(nameof(MembreDetails));
+    //            OnPropertyChanged(nameof(Greeting)); // Update Greeting when Member changes
+    //        }
+    //    }
+    //}
     public ObservableCollection<Vehicule> Vehicules { get; } = new();
     public ObservableCollection<Station> Stations { get; } = new();
     //public ObservableCollection<Reservation> Reservations { get; } = new();
@@ -127,6 +150,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         }
     }
 
+
     public bool IsCarAvailable(ObservableCollection<Reservation> reservations, string vehiculeID, DateTime newStartTime, DateTime newEndTime)
     {
         // Check for overlap with existing reservations for the same car
@@ -145,6 +169,8 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     }
     public ReservationSearchViewModel()
     {
+        Console.WriteLine($"MemberEmail: {MemberEmail}, MemberPassword: {MemberPassword}, MemberFirstName: {MemberFirstName}");
+
         ReservationSearchDetails = new ReservationSearch();
         AutoDetails = new Auto();
         VehiculeDetails = new Vehicule();
@@ -158,7 +184,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         OnEndTimeChangedCommand = new RelayCommand(OnEndTimeChanged);
         OnStartDateChangedCommand = new RelayCommand(OnStartDateChanged);
         OnEndDateChangedCommand = new RelayCommand(OnEndDateChanged);
-   
+
         LoadData();
         // Check initial state of properties
         OnVehicleTypeChanged();
@@ -177,6 +203,19 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         IsAutoSelected = true;
         ReservationSearchDetails.StationAddress = "All Stations";
         ReservationSearchDetails.CategorieAuto = "Essence";
+
+        Console.WriteLine(MemberFirstName);
+
+        if (MemberFirstName != null)
+        {
+            Greeting = $"Hello, {MemberFirstName}!";
+        }
+        else
+        {
+            Greeting = "Hello User!";
+        }
+
+        Console.WriteLine(Greeting);
 
         //Console.WriteLine(Vehicules.Count);
 
@@ -312,59 +351,59 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         CreerStation(14, "P015", "Chutes Montmorency", 10, 1);
 
         ReservationDetails.CreerReservation(0, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(18).AddMinutes(0), DateTime.Today.AddDays(0).AddHours(20).AddMinutes(0), "Auto", "P001", "AU001"));
-        ReservationDetails.CreerReservation(1, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(1).AddHours(10).AddMinutes(30), DateTime.Today.AddDays(1).AddHours(11).AddMinutes(0), "Auto", "P001", "AU002"));
-        ReservationDetails.CreerReservation(2, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(18).AddMinutes(0), DateTime.Today.AddDays(0).AddHours(20).AddMinutes(0), "Auto", "P001", "AU003"));
-        ReservationDetails.CreerReservation(3, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU004"));
-        ReservationDetails.CreerReservation(4, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(18).AddMinutes(0), DateTime.Today.AddDays(0).AddHours(20).AddMinutes(0), "Auto", "P001", "AU005"));
-        ReservationDetails.CreerReservation(5, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU006"));
-        ReservationDetails.CreerReservation(6, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU007"));
-        ReservationDetails.CreerReservation(7, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU008"));
-        ReservationDetails.CreerReservation(8, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU009"));
-        ReservationDetails.CreerReservation(9, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU010"));
-        ReservationDetails.CreerReservation(10, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU011"));
-        ReservationDetails.CreerReservation(11, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU012"));
-        ReservationDetails.CreerReservation(12, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU013"));
-        ReservationDetails.CreerReservation(13, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU014"));
-        ReservationDetails.CreerReservation(14, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU0015"));
-        ReservationDetails.CreerReservation(15, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU016"));
-        ReservationDetails.CreerReservation(16, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU017"));
-        ReservationDetails.CreerReservation(17, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU018"));
-        ReservationDetails.CreerReservation(18, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU019"));
-        ReservationDetails.CreerReservation(19, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU020"));
-        ReservationDetails.CreerReservation(20, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU021"));
-        ReservationDetails.CreerReservation(21, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU022"));
-        ReservationDetails.CreerReservation(22, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU023"));
-        ReservationDetails.CreerReservation(23, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU024"));
-        ReservationDetails.CreerReservation(24, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU025"));
-        ReservationDetails.CreerReservation(25, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU026"));
-        ReservationDetails.CreerReservation(26, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU027"));
-        ReservationDetails.CreerReservation(27, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU028"));
-        ReservationDetails.CreerReservation(28, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU029"));
-        ReservationDetails.CreerReservation(29, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "M01"));
-        ReservationDetails.CreerReservation(30, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "M02"));
-        ReservationDetails.CreerReservation(31, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "M03"));
-        ReservationDetails.CreerReservation(32, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "M04"));
-        ReservationDetails.CreerReservation(33, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "M05"));
-        ReservationDetails.CreerReservation(34, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "M06"));
-        ReservationDetails.CreerReservation(35, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "M07"));
-        ReservationDetails.CreerReservation(36, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V01"));
-        ReservationDetails.CreerReservation(37, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V02"));
-        ReservationDetails.CreerReservation(38, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V03"));
-        ReservationDetails.CreerReservation(39, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V04"));
-        ReservationDetails.CreerReservation(40, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V05"));
-        ReservationDetails.CreerReservation(41, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V06"));
-        ReservationDetails.CreerReservation(42, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V07"));
-        ReservationDetails.CreerReservation(43, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V08"));
-        ReservationDetails.CreerReservation(44, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V09"));
-        ReservationDetails.CreerReservation(45, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V10"));
-        ReservationDetails.CreerReservation(46, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "V12"));
-        ReservationDetails.CreerReservation(47, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "M08"));
-        ReservationDetails.CreerReservation(48, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "M09"));
-        ReservationDetails.CreerReservation(49, new Reservation("RES0001", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "M12")
-            
-            
-            
-            );
+        ReservationDetails.CreerReservation(1, new Reservation("RES0002", "MEM001", DateTime.Today.AddDays(1).AddHours(10).AddMinutes(30), DateTime.Today.AddDays(1).AddHours(11).AddMinutes(0), "Auto", "P001", "AU002"));
+        ReservationDetails.CreerReservation(2, new Reservation("RES0003", "MEM001", DateTime.Today.AddDays(0).AddHours(18).AddMinutes(0), DateTime.Today.AddDays(0).AddHours(20).AddMinutes(0), "Auto", "P001", "AU003"));
+        ReservationDetails.CreerReservation(3, new Reservation("RES0004", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU004"));
+        ReservationDetails.CreerReservation(4, new Reservation("RES0005", "MEM001", DateTime.Today.AddDays(0).AddHours(18).AddMinutes(0), DateTime.Today.AddDays(0).AddHours(20).AddMinutes(0), "Auto", "P001", "AU005"));
+        ReservationDetails.CreerReservation(5, new Reservation("RES0006", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU006"));
+        ReservationDetails.CreerReservation(6, new Reservation("RES0007", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU007"));
+        ReservationDetails.CreerReservation(7, new Reservation("RES0008", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU008"));
+        ReservationDetails.CreerReservation(8, new Reservation("RES0009", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU009"));
+        ReservationDetails.CreerReservation(9, new Reservation("RES0010", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU010"));
+        ReservationDetails.CreerReservation(10, new Reservation("RES0011", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU011"));
+        ReservationDetails.CreerReservation(11, new Reservation("RES0012", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU012"));
+        ReservationDetails.CreerReservation(12, new Reservation("RES0013", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU013"));
+        ReservationDetails.CreerReservation(13, new Reservation("RES0014", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU014"));
+        ReservationDetails.CreerReservation(14, new Reservation("RES0015", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU0015"));
+        ReservationDetails.CreerReservation(15, new Reservation("RES0016", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU016"));
+        ReservationDetails.CreerReservation(16, new Reservation("RES0017", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU017"));
+        ReservationDetails.CreerReservation(17, new Reservation("RES0018", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU018"));
+        ReservationDetails.CreerReservation(18, new Reservation("RES0019", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU019"));
+        ReservationDetails.CreerReservation(19, new Reservation("RES0020", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU020"));
+        ReservationDetails.CreerReservation(20, new Reservation("RES0021", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU021"));
+        ReservationDetails.CreerReservation(21, new Reservation("RES0022", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU022"));
+        ReservationDetails.CreerReservation(22, new Reservation("RES0023", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU023"));
+        ReservationDetails.CreerReservation(23, new Reservation("RES0024", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU024"));
+        ReservationDetails.CreerReservation(24, new Reservation("RES0025", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU025"));
+        ReservationDetails.CreerReservation(25, new Reservation("RES0026", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU026"));
+        ReservationDetails.CreerReservation(26, new Reservation("RES0027", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU027"));
+        ReservationDetails.CreerReservation(27, new Reservation("RES0028", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU028"));
+        ReservationDetails.CreerReservation(28, new Reservation("RES0029", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Auto", "P001", "AU029"));
+        ReservationDetails.CreerReservation(29, new Reservation("RES0030", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M01"));
+        ReservationDetails.CreerReservation(30, new Reservation("RES0031", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M02"));
+        ReservationDetails.CreerReservation(31, new Reservation("RES0032", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M03"));
+        ReservationDetails.CreerReservation(32, new Reservation("RES0033", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M04"));
+        ReservationDetails.CreerReservation(33, new Reservation("RES0034", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M05"));
+        ReservationDetails.CreerReservation(34, new Reservation("RES0035", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M06"));
+        ReservationDetails.CreerReservation(35, new Reservation("RES0036", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M07"));
+        ReservationDetails.CreerReservation(36, new Reservation("RES0037", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V01"));
+        ReservationDetails.CreerReservation(37, new Reservation("RES0038", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V02"));
+        ReservationDetails.CreerReservation(38, new Reservation("RES0039", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V03"));
+        ReservationDetails.CreerReservation(39, new Reservation("RES0040", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V04"));
+        ReservationDetails.CreerReservation(40, new Reservation("RES0041", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V05"));
+        ReservationDetails.CreerReservation(41, new Reservation("RES0042", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V06"));
+        ReservationDetails.CreerReservation(42, new Reservation("RES0043", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V07"));
+        ReservationDetails.CreerReservation(43, new Reservation("RES0044", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V08"));
+        ReservationDetails.CreerReservation(44, new Reservation("RES0045", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V09"));
+        ReservationDetails.CreerReservation(45, new Reservation("RES0046", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V10"));
+        ReservationDetails.CreerReservation(46, new Reservation("RES0047", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Velo", "P001", "V12"));
+        ReservationDetails.CreerReservation(47, new Reservation("RES0048", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M08"));
+        ReservationDetails.CreerReservation(48, new Reservation("RES0049", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M09"));
+        ReservationDetails.CreerReservation(49, new Reservation("RES0050", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M12"));
+
+        // Past Reservations
+        ReservationDetails.CreerReservation(0, new Reservation("RES0001", "MEM001", new DateTime(2025,03,11,10,30,0), new DateTime(2025, 03, 11, 11, 30, 0), "Auto", "P001", "AU001"));
+        
 
         int length = Vehicules.Count;
         for (int i = 0; i < length; i++)
