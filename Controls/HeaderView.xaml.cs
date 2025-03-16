@@ -7,8 +7,8 @@ namespace RentARide.Controls;
 
 public partial class HeaderView : ContentView
 {
-    private ReservationSearchViewModel vm = new();
-    public HeaderView()
+    //private ReservationSearchViewModel vm = new ();
+    public HeaderView(ReservationSearchViewModel vm)
 	{
         BindingContext = vm;
         InitializeComponent();

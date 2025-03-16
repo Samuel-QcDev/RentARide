@@ -10,6 +10,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using RentARide.Views;
 using RentARide.Models;
 using RentARide.ViewModel;
+using System.Collections.ObjectModel;
 
 namespace RentARide.ViewModel;
 
@@ -22,6 +23,11 @@ public partial class MainViewModel : LocalBaseViewModel
     [ObservableProperty] private string memberEmail;
     [ObservableProperty] private string memberPassword;
     [ObservableProperty] private string memberFirstName;
+
+    public ReservationResult ResultDetails { get; set; }
+    public ReservationSearchViewModel SearchViewModel { get; set; }
+    public ObservableCollection<Reservation> ReservationsResult { get; } = new();
+
 
     [RelayCommand]
         private async Task Reservation()

@@ -24,8 +24,8 @@ public partial class ReservationSearchPage : ContentPage
     public string StationId { get; set; }
     //public Enum Options { get; set; }
 
-    private ReservationSearchViewModel vm = new ();
-    public ReservationSearchPage()
+  
+    public ReservationSearchPage(ReservationSearchViewModel vm)
         {
             InitializeComponent();
             BindingContext = vm;
@@ -34,6 +34,9 @@ public partial class ReservationSearchPage : ContentPage
             StartDate = StartDate.Date;  // Use .Date to reset the time to midnight
                                          // When DatePicker value changes, process the date
             EndDate = EndDate.Date;  // Use .Date to reset the time to midnight
+
+        //var button = myButton;
+        //button.BindingContext = new ReservationViewModel();
         }
 
     // This method is called when the page is about to appear

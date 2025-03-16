@@ -2,6 +2,8 @@
 using RentARide.ViewModel;
 using RentARide.Views;
 using RentARide.Models;
+using RentARide.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RentARide;
 
@@ -20,7 +22,9 @@ public static class MauiProgram
 			});
 
         // Services
-       // builder.Services.AddSingleton<ApplicationDbContext>();
+        // builder.Services.AddSingleton<ApplicationDbContext>();
+        builder.Services.AddSingleton<ReservationService>();
+        builder.Services.AddSingleton<ReservationSearchViewModel>();
 
         // Views
         builder.Services.AddTransient<LoginPage>();

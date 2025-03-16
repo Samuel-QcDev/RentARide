@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System.Reflection;
 
 namespace RentARide.Models
 {
@@ -33,14 +35,51 @@ namespace RentARide.Models
             this.StationId = stationID;
             this.VehiculeID = vehiculeId;
         }
+        public Reservation(string id, string memberid, DateTime requestedStartTime, DateTime requestedEndTime, Vehicule vehicule)
+        {
+            this.ReservationID = id;
+            this.MemberID = memberid;
+            this.StartTime = requestedStartTime;
+            this.EndTime = requestedEndTime;
+            this.TypeVehicule = vehicule.type;
+            this.StationId = vehicule.vehiculeStationId;
+            this.VehiculeID = vehicule.vehiculeId;
+        }
 
-        Reservation[] myReservations = new Reservation[100];
+        public Reservation[] myReservations = new Reservation[100];
 
         public void CreerReservation(int index, Reservation reservation)
         {
             myReservations[index] = reservation;
             Reservations.Add(myReservations[index]);
         }
+        public void CreerReservation(int index, Vehicule currentVehicule, Reservation reservation)
+        {
+            myReservations[index] = reservation;
+            Reservations.Add(myReservations[index]);
+
+        }
+
+        //[RelayCommand]
+        //private async Task Reserve()
+        //{
+        //    int indexRes = Reservations.Count;
+        //    string resID;
+        //    // ID for Logged in member, will need to be changed to retrieve MemberID from MembreDetails
+        //    string currentMemberID = "MEM007";
+            
+        //    if (indexRes < 100)
+        //    {
+        //        resID = "RES00" + (indexRes).ToString();
+        //    }
+        //    else
+        //    {
+        //        resID = "RES0" + (indexRes).ToString();
+        //    }
+
+        //    CreerReservation(indexRes, new Reservation(resID, currentMemberID, requestedStartTime, requestedEndTime, );
+        //    await Shell.Current.GoToAsync("Mainpage");//Change this code for a method to add current reservation to MyReservationsList
+        //}
 
         //public Reservation(DateTime date, int hreDebut, int minsDebut, 
         //    int hreFin, int minsFin, string type, string station, 
