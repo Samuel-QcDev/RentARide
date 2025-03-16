@@ -19,7 +19,7 @@
     <ScrollView>
         <VerticalStackLayout>
 
-            <controls:HeaderView Greeting="{Binding Greeting}" />
+            <!--<controls:HeaderView Greeting="{Binding Greeting}" />-->
 
             <Grid
             Margin="10,10,0,0"
