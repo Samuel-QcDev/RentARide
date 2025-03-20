@@ -11,7 +11,7 @@ namespace RentARide.Models
     public partial class ReservationResult : Reservation_BASE
     {
         public string ReservationResultsID { get; set; }
-
+        public ObservableCollection<Reservation> ReservationsResult { get; } = new();
 
 
     }

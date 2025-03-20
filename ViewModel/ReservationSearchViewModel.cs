@@ -66,6 +66,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     public Station StationDetails { get; set; }
     public Reservation ReservationDetails {  get; set; }
     public Membre MembreDetails { get; set; }
+    public ReservationResult ResultDetails { get; set; }
     //public ReservationResult ResultDetails { get; set; }
     //private Membre _membreDetails;
 
@@ -87,7 +88,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     //public ObservableCollection<Reservation> ReservationsResult { get; }
     //public ObservableCollection<Reservation> Reservations { get; } = new();
 
-    private ReservationService _reservationService;
+    public ReservationService ReservationService => ReservationService.Instance;
 
     public Vehicule VehiculeDetails { get; set; }
     public ICommand OnVehicleTypeChangedCommand { get; }
@@ -176,7 +177,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     }
     public ReservationSearchViewModel(ReservationService reservationService)
     {
-        _reservationService = reservationService;
+
 
         Console.WriteLine($"MemberEmail: {MemberEmail}, MemberPassword: {MemberPassword}, MemberFirstName: {MemberFirstName}");
 
@@ -198,6 +199,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             VehiculeDetails = new Vehicule();
             StationDetails = new Station();
             ReservationDetails = new Reservation();
+            ResultDetails = new ReservationResult();
             LoadData();
         }
 
@@ -1618,16 +1620,16 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
 
         foreach (Reservation reservation in ReservationDetails.Reservations)
         {
-            if ((reservation != null) && (reservation.MemberID == "MEM007"))
+            if ((reservation != null) && (reservation.MemberID == "MEM007") && (!ReservationService.ReservationsResult.Contains(reservation)))
             {
-               _reservationService.ReservationsResult.Add(reservation);
+                ReservationService.ReservationsResult.Add(reservation);
             }
         }
     }
     private async void Reserve(Vehicule vehicule)
     {
         Console.WriteLine("Reserve called for vehicule: " + vehicule.vehiculeId);
-        Console.WriteLine("# of items in ReservationResults collection: " + _reservationService.ReservationsResult.Count);
+        Console.WriteLine("# of items in ReservationResults collection: " );
         Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
         int indexRes = ReservationDetails.myReservations.Length-1;
         string resID;
@@ -1643,13 +1645,22 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             resID = "RES0" + (indexRes).ToString();
         }
 
+        //_reservationService.AddReservation(new Reservation(resID, currentMemberID, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime, vehicule));
         ReservationDetails.CreerReservation(indexRes, new Reservation(resID, currentMemberID, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime, vehicule));
         OnReservationAdded();
-        Console.WriteLine("# of items in ReservationResults collection: " + _reservationService.ReservationsResult.Count);
+        Console.WriteLine("# of items in ReservationResults collection: " + ReservationService.ReservationsResult.Count);
         Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
+        foreach (Reservation result in ReservationService.ReservationsResult)
+        {
+            Console.WriteLine(result.VehiculeID);
+        }
         await Shell.Current.GoToAsync("Mainpage");//Change this code for a method to add current reservation to MyReservationsList
-        Console.WriteLine("# of items in ReservationResults collection: " + _reservationService.ReservationsResult.Count);
+        Console.WriteLine("# of items in ReservationResults collection: " + ReservationService.ReservationsResult.Count);
         Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
+        foreach (Reservation result in ReservationService.ReservationsResult)
+        {
+            Console.WriteLine(result.VehiculeID);
+        }
     }
 
     //[RelayCommand]

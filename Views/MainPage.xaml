@@ -3,10 +3,10 @@
     x:Class="RentARide.Views.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:viewModel="clr-namespace:RentARide.ViewModel"
     xmlns:Model="clr-namespace:RentARide.Models"
     xmlns:controls="clr-namespace:RentARide.Controls"
-    x:DataType="viewModel:MainViewModel">
+    xmlns:viewmodel="clr-namespace:RentARide.ViewModel"
+    x:DataType="viewmodel:MainViewModel">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False" />
     </Shell.BackButtonBehavior>
@@ -53,36 +53,29 @@
             </Button.Shadow>
         </Button>
 
-        <BoxView HeightRequest="1" Color="DarkGreen" HorizontalOptions="FillAndExpand" />
-        <CollectionView 
-            VerticalOptions="FillAndExpand"
+        <BoxView
+            HeightRequest="1"
             HorizontalOptions="FillAndExpand"
-            BindingContext="{Binding }"
-            ItemsSource="{Binding }"
-            SelectionMode="Single">
+            Color="DarkGreen" />
+        <CollectionView
+    HorizontalOptions="FillAndExpand"
+    ItemsSource="{Binding ReservationsResult}"
+    SelectionMode="Single"
+    VerticalOptions="FillAndExpand">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="Model:Reservation">
-                    <Frame BorderColor="DarkGreen" Padding="10" Margin="10">
-                        <VerticalStackLayout>
-                            <HorizontalStackLayout Padding="10"
-                                                       Spacing="10">
-                                <Label Text="Test Text"/>
-                                <!--<Label Text="{Binding VehiculeID}"/>-->
-                                <!--<Button Text="Reserve" 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ReservationSearchViewModel}}, Path=ReserveCommand}" 
-                                            CommandParameter="{Binding .}" />-->
-                                <!--<Label Text="{Binding VehiculeDetails.vehiculeId}"/>
-                                    <Label Text="{Binding VehiculeDetails.vehiculeStationId}"/>
-                                    <Label Text="{Binding VehiculeDetails.type}"/>
-                                    <Label Text="{Binding VehiculeDetails.autoOptions}"/>-->
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
+                    <Frame Margin="10" Padding="10" BorderColor="DarkGreen">
+                        <HorizontalStackLayout Padding="10" Spacing="10">
+                            <!-- Binding to the VehiculeID property of Reservation -->
+                            <Label FontSize="Large" Text="{Binding VehiculeID}" />
+                        </HorizontalStackLayout>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <Label FontSize="Large" Text="TEST" />
     </VerticalStackLayout>
 
-    
+
 </ContentPage>

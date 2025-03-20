@@ -334,7 +334,23 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <CollectionView
+    HorizontalOptions="FillAndExpand"
+    ItemsSource="{Binding ResultDetails.ReservationsResult}"
+    SelectionMode="Single"
+    VerticalOptions="FillAndExpand">
 
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Reservation">
+                        <Frame Margin="10" Padding="10" BorderColor="DarkGreen">
+                            <HorizontalStackLayout Padding="10" Spacing="10">
+                                <!-- Binding to the VehiculeID property of Reservation -->
+                                <Label FontSize="Large" Text="{Binding VehiculeID}" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <!--<CollectionView VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand">
                 <CollectionView.ItemsSource>

@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace RentARide.Models
 {
@@ -18,6 +19,7 @@ namespace RentARide.Models
         private DateTime startTime;
         [ObservableProperty]
         private DateTime endTime;
+
 
 
 

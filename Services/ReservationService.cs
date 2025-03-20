@@ -10,12 +10,28 @@ namespace RentARide.Services
 {
     public class ReservationService
     {
+        private static ReservationService _instance;
         public ObservableCollection<Reservation> ReservationsResult { get; set; }
         public ReservationService() 
         {
             ReservationsResult = new ObservableCollection<Reservation>();
         }
         List<ReservationSearch> reservationsList;
+        public static ReservationService Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new ReservationService();
+                }
+                return _instance;
+            }
+        }
+        public void AddReservation(Reservation reservation)
+        {
+            ReservationsResult.Add(reservation);
+        }
         public async Task<List<ReservationSearch>> GetReservations()
         {
             if (reservationsList?.Count > 0)
