@@ -1,4 +1,5 @@
-﻿using RentARide.Models;
+﻿using CommunityToolkit.Mvvm.Input;
+using RentARide.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,6 +32,10 @@ namespace RentARide.Services
         public void AddReservation(Reservation reservation)
         {
             ReservationsResult.Add(reservation);
+        }
+        public void CancelReservation(Reservation reservation)
+        {
+            ReservationsResult.Remove(reservation);
         }
         public async Task<List<ReservationSearch>> GetReservations()
         {

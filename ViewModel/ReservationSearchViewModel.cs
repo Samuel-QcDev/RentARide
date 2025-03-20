@@ -67,26 +67,9 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     public Reservation ReservationDetails {  get; set; }
     public Membre MembreDetails { get; set; }
     public ReservationResult ResultDetails { get; set; }
-    //public ReservationResult ResultDetails { get; set; }
-    //private Membre _membreDetails;
 
-    //public Membre MembreDetails
-    //{
-    //    get => _membreDetails;
-    //    set
-    //    {
-    //        if (_membreDetails != value)
-    //        {
-    //            _membreDetails = value;
-    //            OnPropertyChanged(nameof(MembreDetails));
-    //            OnPropertyChanged(nameof(Greeting)); // Update Greeting when Member changes
-    //        }
-    //    }
-    //}
     public ObservableCollection<Vehicule> Vehicules { get; } = new();
     public ObservableCollection<Station> Stations { get; } = new();
-    //public ObservableCollection<Reservation> ReservationsResult { get; }
-    //public ObservableCollection<Reservation> Reservations { get; } = new();
 
     public ReservationService ReservationService => ReservationService.Instance;
 
@@ -98,6 +81,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     public ICommand OnStartDateChangedCommand { get; }
     public ICommand OnEndDateChangedCommand { get; }
     public IRelayCommand<Vehicule> ReserveCommand { get; }
+    public IRelayCommand<Reservation> CancelCommand { get; }
     private TimeSpan _startTime;
 
     public TimeSpan StartTime
@@ -191,6 +175,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         OnStartDateChangedCommand = new RelayCommand(OnStartDateChanged);
         OnEndDateChangedCommand = new RelayCommand(OnEndDateChanged);
         ReserveCommand = new RelayCommand<Vehicule>(Reserve);
+        CancelCommand = new RelayCommand<Reservation>(Cancel);
 
         if (Vehicules.Count < 1)
         {
@@ -1662,7 +1647,12 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             Console.WriteLine(result.VehiculeID);
         }
     }
-
+    private void Cancel(Reservation reservation)
+    {
+        Console.WriteLine(ReservationService.ReservationsResult.Count);
+        ReservationService.CancelReservation(reservation);
+        Console.WriteLine(ReservationService.ReservationsResult.Count);
+    }
     //[RelayCommand]
     //private async Task Reserve()
     //{

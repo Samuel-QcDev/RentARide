@@ -56,10 +56,10 @@
 
         </HorizontalStackLayout>
         <HorizontalStackLayout Margin="10,10,10,0" HorizontalOptions="Center">
-            <Button
+            <!--<Button
                 Margin="5"
                 Clicked="Forgot_Clicked"
-                Text="Forgot Password" />
+                Text="Forgot Password" />-->
 
         </HorizontalStackLayout>
 

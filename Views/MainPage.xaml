@@ -6,6 +6,7 @@
     xmlns:Model="clr-namespace:RentARide.Models"
     xmlns:controls="clr-namespace:RentARide.Controls"
     xmlns:viewmodel="clr-namespace:RentARide.ViewModel"
+    xmlns:services="clr-namespace:RentARide.Services"
     x:DataType="viewmodel:MainViewModel">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False" />
@@ -66,15 +67,31 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="Model:Reservation">
                     <Frame Margin="10" Padding="10" BorderColor="DarkGreen">
-                        <HorizontalStackLayout Padding="10" Spacing="10">
-                            <!-- Binding to the VehiculeID property of Reservation -->
-                            <Label FontSize="Large" Text="{Binding VehiculeID}" />
+                        <HorizontalStackLayout Padding="5" Spacing="5">
+
+                            <VerticalStackLayout Padding="10" Spacing="10">
+                                <Label FontSize="Medium" Text="{Binding TypeVehicule}"/>
+                                <Label FontSize="Small" Text="Station : "/>
+                                <Label FontSize="Small" Text="Start : "/>
+                                <Label FontSize="Small" Text="End : "/>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Padding="10" Spacing="10">
+                                <Label FontSize="Small" Text="{Binding VehiculeID}" />
+                                <Label FontSize="Small" Text="{Binding StationId}" />
+                                <Label FontSize="Small" Text="{Binding StartTime}" />
+                                <Label FontSize="Small" Text="{Binding EndTime}" />
+                            </VerticalStackLayout>
+
+                            <Button Text="Cancel" 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ReservationSearchViewModel}}, Path=CancelCommand}"   
+                                    CommandParameter="{Binding .}" />
+
                         </HorizontalStackLayout>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Label FontSize="Large" Text="TEST" />
     </VerticalStackLayout>
 
 

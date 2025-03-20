@@ -18,8 +18,8 @@ public partial class LoginPage : ContentPage
         LoginStackLayout.Children.Add(LoginProgressBar);
     }
     // Temporary method for Submit button, will be changed to a command
-    private void Forgot_Clicked(object sender, EventArgs e)
-    {
-        Navigation.PushAsync(new MainPage());
-    }
+    //private void Forgot_Clicked(object sender, EventArgs e)
+    //{
+    //    Navigation.PushAsync(new MainPage());
+    //}
 }

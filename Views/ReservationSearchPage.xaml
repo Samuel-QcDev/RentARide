@@ -312,7 +312,7 @@
                             HorizontalOptions="FillAndExpand"
                             ItemsSource="{Binding Vehicules}"
                             SelectionMode="Single">
- 
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Vehicule">
                         <Frame BorderColor="DarkGreen" Padding="10" Margin="10">
@@ -323,63 +323,12 @@
                                     <Button Text="Reserve" 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ReservationSearchViewModel}}, Path=ReserveCommand}" 
                                             CommandParameter="{Binding .}" />
-                                    <!--<Label Text="{Binding VehiculeDetails.vehiculeId}"/>
-                                    <Label Text="{Binding VehiculeDetails.vehiculeStationId}"/>
-                                    <Label Text="{Binding VehiculeDetails.type}"/>
-                                    <Label Text="{Binding VehiculeDetails.autoOptions}"/>-->
                                 </HorizontalStackLayout>
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-            <CollectionView
-    HorizontalOptions="FillAndExpand"
-    ItemsSource="{Binding ResultDetails.ReservationsResult}"
-    SelectionMode="Single"
-    VerticalOptions="FillAndExpand">
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Reservation">
-                        <Frame Margin="10" Padding="10" BorderColor="DarkGreen">
-                            <HorizontalStackLayout Padding="10" Spacing="10">
-                                <!-- Binding to the VehiculeID property of Reservation -->
-                                <Label FontSize="Large" Text="{Binding VehiculeID}" />
-                            </HorizontalStackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <!--<CollectionView VerticalOptions="FillAndExpand"
-                            HorizontalOptions="FillAndExpand">
-                <CollectionView.ItemsSource>
-                    <x:Array Type="{x:Type model:ReservationSearch}">
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
-                        <model:ReservationSearch TypeVehicule="Car"
-                                                 CategorieAuto="Essence"
-                                                 StationId="P001"/>
- \
-                    </x:Array>
-                </CollectionView.ItemsSource>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:ReservationSearch">
-                        <VerticalStackLayout>
-                            <HorizontalStackLayout Padding="10"
-                                                   Spacing="10">
-                                <Label Text="{Binding StationId}"/>
-                                <Label Text="{Binding TypeVehicule}"/>
-                                <Label Text="{Binding CategorieAuto}"/>
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>-->
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
