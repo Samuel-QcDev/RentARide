@@ -27,20 +27,20 @@ public static class MauiProgram
         builder.Services.AddSingleton<ReservationSearchViewModel>();
 
         // Views
-        builder.Services.AddTransient<LoginPage>();
-        builder.Services.AddTransient<MainPage>();
-        builder.Services.AddTransient<HistoriqueReservationPage>();
-        builder.Services.AddTransient<ReservationSearchPage>();
-        builder.Services.AddTransient<ResultPage>();
-        builder.Services.AddTransient<MembreDetails>();
+        builder.Services.AddSingleton<LoginPage>();
+        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<HistoriqueReservationPage>();
+        builder.Services.AddSingleton<ReservationSearchPage>();
+        builder.Services.AddSingleton<ResultPage>();
+        builder.Services.AddSingleton<MembreDetails>();
 
         // View Models
-        builder.Services.AddTransient<LoginViewModel>();
-        builder.Services.AddTransient<MainViewModel>(); 
-        builder.Services.AddTransient<HistoriqueReservationViewModel>();
-        builder.Services.AddTransient<ReservationSearchViewModel>();
-        builder.Services.AddTransient<ReservationResultViewModel>();
-        builder.Services.AddTransient<MembreViewModel>();
+        builder.Services.AddSingleton<LoginViewModel>();
+        builder.Services.AddSingleton<MainViewModel>(); 
+        builder.Services.AddSingleton<HistoriqueReservationViewModel>();
+        builder.Services.AddSingleton<ReservationSearchViewModel>();
+        builder.Services.AddSingleton<ReservationResultViewModel>();
+        builder.Services.AddSingleton<MembreViewModel>();
 
         return builder.Build();
 	}

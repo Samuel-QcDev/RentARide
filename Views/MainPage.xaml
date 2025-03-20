@@ -57,7 +57,7 @@
         <CollectionView 
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
-            BindingContext="{Binding }}"
+            BindingContext="{Binding }"
             ItemsSource="{Binding }"
             SelectionMode="Single">
 
