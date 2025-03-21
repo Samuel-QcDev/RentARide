@@ -418,42 +418,21 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         }
     }
     
-    public void CheckInitialStateMP3()
+    public void CheckInitialStateAutoOption(string optionChecked)
     {
-        if (IsCheckedMP3)
+        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+
+        for (int i = Vehicules.Count - 1; i >= 0; i--)
         {
-            return;
+            bool containsNoOption = Vehicules[i].AutoOptions.Count == 0;
+            if (!Vehicules[i].AutoOptions.Contains(optionChecked) && !containsNoOption)
+            {
+                ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+            }
         }
-        else
+        foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
         {
-            if (AutoDetails.AutoOptions.Contains("MP3"))
-            {
-                AutoDetails.AutoOptions.Remove("MP3");
-            }
-            else
-            {
-                int lenght = Vehicules.Count;
-                for (int i = lenght - 1; i >= 0; i--)
-                {
-                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                    {
-                        for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                        {
-                            if (Vehicules[i].AutoOptions[j] == "MP3")
-                            {
-                                ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                            }
-                        }
-                    }
-                }
-                Console.WriteLine("# of vehicules before Removing MP3: " + Vehicules.Count);
-                foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                {
-                    Vehicules.Remove(Vehicules[index]);
-                }
-                Console.WriteLine("# of vehicules after Removing MP3: " + Vehicules.Count);
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-            }
+            Vehicules.Remove(Vehicules[index]);
         }
     }
     public void CheckInitialStateAC()
@@ -596,14 +575,14 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         CheckOtherProperties("RadioButtonEssence");
     }
 
-    private void OnVehicleTypeChanged(string selectedType)
-    {
-        // Your logic for when the TypeVehicule changes
-        // For example, you can display the selected type or trigger other actions.
-        Console.WriteLine($"Selected Vehicle Type: {selectedType}");
+    //private void OnVehicleTypeChanged(string selectedType)
+    //{
+    //    // Your logic for when the TypeVehicule changes
+    //    // For example, you can display the selected type or trigger other actions.
+    //    Console.WriteLine($"Selected Vehicle Type: {selectedType}");
 
-        // Perform any other necessary actions when the vehicle type changes.
-    }
+    //    // Perform any other necessary actions when the vehicle type changes.
+    //}
 
     partial void OnIsCheckedMP3Changed(bool value)
     {
@@ -658,14 +637,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
                     }
                     Console.WriteLine("# of vehicules before adding MP3: " + Vehicules.Count);
-                    //foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                    //{
-                    //    Vehicules.Remove(Vehicules[index]);
-                    //}
-                    //foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                    //{
-                    //    Vehicules.Add(myVehicules[index]);
-                    //}
                     ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     for (int i = 0; i < Vehicules.Count; i++)
                     {
@@ -705,7 +676,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                                 {
                                     if (containsNoOption)
                                     {
-                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                        {
+                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        }
                                     }
                                 }
                             }
@@ -752,7 +726,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                                 {
                                     if (containsNoOption)
                                     {
-                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                        {
+                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        }
                                     }
                                 }
                             }
@@ -846,7 +823,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                                 {
                                     if (containsNoOption)
                                     {
-                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                        {
+                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        }
                                     }
                                 }
                             }
@@ -893,7 +873,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                                 {
                                     if (containsNoOption)
                                     {
-                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                        {
+                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        }
                                     }
                                 }
                             }
@@ -987,7 +970,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                                 {
                                     if (containsNoOption)
                                     {
-                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                        {
+                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        }
                                     }
                                 }
                             }
@@ -1034,7 +1020,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                                 {
                                     if (containsNoOption)
                                     {
-                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                        {
+                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        }
                                     }
                                 }
                             }
@@ -1127,7 +1116,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                                 {
                                     if (containsNoOption)
                                     {
-                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                        {
+                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        }
                                     }
                                 }
                             }
@@ -1174,7 +1166,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                                 {
                                     if (containsNoOption)
                                     {
-                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                        {
+                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        }
                                     }
                                 }
                             }
@@ -1217,7 +1212,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 {
                     if (AccessCategorieAutoMyVehicules(i) == selectedCategory)
                     {
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                        {
+                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        }
                     }
                 }
             }
@@ -1239,10 +1237,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             {
                 Vehicules.Add(myVehicules[index]);
             }
-            CheckOtherProperties("MP3");
-            CheckOtherProperties("GPS");
-            CheckOtherProperties("AC");
-            CheckOtherProperties("ChildSeat");
+            //CheckOtherProperties("MP3");
+            //CheckOtherProperties("GPS");
+            //CheckOtherProperties("AC");
+            //CheckOtherProperties("ChildSeat");
         }
     }
     private void AddVehiculeBasedOnCheckbox(string optionChecked, HashSet<string> removalOpts, HashSet<string> addOpts)
@@ -1251,15 +1249,19 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
             {
+                bool allValuesInList = addOpts.All(item => myVehicules[i].AutoOptions.Contains(item));
+                bool containsAnyValue = removalOpts.Any(item => myVehicules[i].AutoOptions.Contains(item));
+                bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
                 bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
                 if ((!Vehicules.Contains(myVehicules[i])))
                 {
-                    bool allValuesInList = addOpts.All(item => myVehicules[i].AutoOptions.Contains(item));
-                    bool containsAnyValue = removalOpts.Any(item => myVehicules[i].AutoOptions.Contains(item));
-                    bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
                     if (containsValueChecked)
                     {
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        //if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                        //{
+                        //    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                        //}
+                        OnStationChanged();
                     }
                 }
             }
@@ -1267,7 +1269,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         for (int i = Vehicules.Count - 1; i >= 0; i--)
         {
             bool containsNoOption = Vehicules[i].AutoOptions.Count == 0;
-            if (containsNoOption)
+            if (containsNoOption || !Vehicules[i].AutoOptions.Contains(optionChecked) || !(StationDetails.selectedStationID.Contains(Vehicules[i].vehiculeStationId)))
             {
                 ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
             }
@@ -1375,7 +1377,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
         }
     }
-
     private void OnStationChanged()
     {
         ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
@@ -1406,10 +1407,12 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                             foreach (string station in StationDetails.selectedStationID)
                             {
                                 if ((!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
+                                {
                                     if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
                                     {
                                         ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
                                     }
+                                }
                             }
                         }
                     }
@@ -1418,10 +1421,13 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                         foreach (string station in StationDetails.selectedStationID)
                         {
                             if ((!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
+                            {
                                 if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
                                 {
                                     ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
                                 }
+                            }
+
                         }
                     }
 
@@ -1489,6 +1495,13 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             }
             ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
         }
+        //if (ReservationSearchDetails.TypeVehicule == "Auto")
+        //{
+        //    CheckInitialStateAutoOption("MP3");
+        //    CheckInitialStateAutoOption("GPS");
+        //    CheckInitialStateAutoOption("AC");
+        //    CheckInitialStateAutoOption("ChildSeat");
+        //}
     }
     private void OnVehicleTypeChanged()
     {
@@ -1578,15 +1591,13 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             }
             ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
         }
-        if (ReservationSearchDetails.TypeVehicule=="Auto")
-        {
-            //CheckOtherProperties("MP3");
-            //CheckOtherProperties("GPS");
-            //CheckOtherProperties("AC");
-            //CheckOtherProperties("ChildSeat");
-        }
-
-       
+        //if (ReservationSearchDetails.TypeVehicule=="Auto")
+        //{
+        //    CheckOtherProperties("MP3");
+        //    CheckOtherProperties("GPS");
+        //    CheckOtherProperties("AC");
+        //    CheckOtherProperties("ChildSeat");
+        //}
     }
     [RelayCommand]
     private static async Task Search()
