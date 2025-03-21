@@ -18,6 +18,7 @@ using System.Windows.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Platform;
 using RentARide.Controls;
+using RentARide.Tools;
 
 namespace RentARide.ViewModel;
 
@@ -221,7 +222,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         //Console.WriteLine(Vehicules.Count);
         DateChangedFlag = 0;
     }
-
     public void  LoadData()
     {
         Vehicules.Clear();

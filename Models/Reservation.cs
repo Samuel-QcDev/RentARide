@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Reflection;
 using System.Collections.ObjectModel;
+using RentARide.Tools;
 
 namespace RentARide.Models
 {
@@ -31,8 +32,8 @@ namespace RentARide.Models
         {
             this.ReservationID = id;
             this.MemberID = memberid;
-            this.StartTime = requestedStartTime;
-            this.EndTime = requestedEndTime;
+            this.StartTime = Utils.RoundToNearest30Minutes(requestedStartTime);
+            this.EndTime = Utils.RoundToNearest30Minutes(requestedEndTime);
             this.TypeVehicule = typeVehicule;
             this.StationId = stationID;
             this.VehiculeID = vehiculeId;
@@ -41,8 +42,8 @@ namespace RentARide.Models
         {
             this.ReservationID = id;
             this.MemberID = memberid;
-            this.StartTime = requestedStartTime;
-            this.EndTime = requestedEndTime;
+            this.StartTime = Utils.RoundToNearest30Minutes(requestedStartTime);
+            this.EndTime = Utils.RoundToNearest30Minutes(requestedEndTime);
             this.TypeVehicule = vehicule.type;
             this.StationId = vehicule.vehiculeStationId;
             this.VehiculeID = vehicule.vehiculeId;
@@ -59,7 +60,6 @@ namespace RentARide.Models
         {
             myReservations[index] = reservation;
             Reservations.Add(myReservations[index]);
-
         }
 
         //[RelayCommand]
