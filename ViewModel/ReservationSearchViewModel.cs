@@ -143,8 +143,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             }
         }
     }
-
-
     public bool IsCarAvailable(ObservableCollection<Reservation> reservations, string vehiculeID, DateTime newStartTime, DateTime newEndTime)
     {
         // Check for overlap with existing reservations for the same car
@@ -419,7 +417,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             Console.WriteLine(myVehicules[i].ToString());
         }
     }
-    
     public void CheckInitialStateAutoOption(string optionChecked)
     {
         ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
@@ -455,120 +452,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             Vehicules.Add(myVehicules[index]);
         }
     }
-    public void CheckInitialStateAC()
-    {
-        if (IsCheckedAC)
-        {
-            return;
-        }
-        else
-        {
-            if (AutoDetails.AutoOptions.Contains("AC"))
-            {
-                AutoDetails.AutoOptions.Remove("AC");
-            }
-            else
-            {
-                int lenght = Vehicules.Count;
-                for (int i = lenght - 1; i >= 0; i--)
-                {
-                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                    {
-                        for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                        {
-                            if (Vehicules[i].AutoOptions[j] == "AC")
-                            {
-                                ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                            }
-                        }
-                    }
-                }
-                Console.WriteLine("# of vehicules before Removing AC: " + Vehicules.Count);
-                foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                {
-                    Vehicules.Remove(Vehicules[index]);
-                }
-                Console.WriteLine("# of vehicules after Removing AC: " + Vehicules.Count);
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-            }
-        }
-    }
-    public void CheckInitialStateGPS()
-    {
-        if (IsCheckedGPS)
-        {
-            return;
-        }
-        else 
-        {
-            if (AutoDetails.AutoOptions.Contains("GPS"))
-            {
-                AutoDetails.AutoOptions.Remove("GPS");
-            }
-            else
-            {
-                int lenght = Vehicules.Count;
-                for (int i = lenght - 1; i >= 0; i--)
-                {
-                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                    {
-                        for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                        {
-                            if (Vehicules[i].AutoOptions[j] == "GPS")
-                            {
-                                ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                            }
-                        }
-                    }
-                }
-                Console.WriteLine("# of vehicules before Removing GPS: " + Vehicules.Count);
-                foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                {
-                    Vehicules.Remove(Vehicules[index]);
-                }
-                Console.WriteLine("# of vehicules after Removing GPS: " + Vehicules.Count);
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-            }
-        }
-    }
-    public void CheckInitialStateChildSeat()
-    {
-        if (IsCheckedChildSeat)
-        {
-            return;
-        }
-        else
-        {
-            if (AutoDetails.AutoOptions.Contains("ChildSeat"))
-            {
-                AutoDetails.AutoOptions.Remove("ChildSeat");
-            }
-            else
-            {
-                int lenght = Vehicules.Count;
-                for (int i = lenght - 1; i >= 0; i--)
-                {
-                    if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                    {
-                        for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                        {
-                            if (Vehicules[i].AutoOptions[j] == "ChildSeat")
-                            {
-                                ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                            }
-                        }
-                    }
-                }
-                Console.WriteLine("# of vehicules before Removing ChildSeat: " + Vehicules.Count);
-                foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                {
-                    Vehicules.Remove(Vehicules[index]);
-                }
-                Console.WriteLine("# of vehicules after Removing ChildSeat: " + Vehicules.Count);
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-            }
-        }
-    }
 
     Vehicule[] myVehicules = new Vehicule[110];
     
@@ -594,16 +477,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     {
         CheckOtherProperties("RadioButtonEssence");
     }
-
-    //private void OnVehicleTypeChanged(string selectedType)
-    //{
-    //    // Your logic for when the TypeVehicule changes
-    //    // For example, you can display the selected type or trigger other actions.
-    //    Console.WriteLine($"Selected Vehicle Type: {selectedType}");
-
-    //    // Perform any other necessary actions when the vehicle type changes.
-    //}
-
     partial void OnIsCheckedMP3Changed(bool value)
     {
         CheckOtherProperties("MP3");
@@ -627,584 +500,468 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             if (IsCheckedMP3)
             {
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-                if (AutoDetails.AutoOptions.Contains("MP3"))
-                {
-                    HashSet<string> removalOptions = new HashSet<string> { "MP3" };
-                    HashSet<string> addOptions = new HashSet<string> {  };
-                    AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
-                }
-                else
-                {
-                    AutoDetails.AutoOptions.Add("MP3");
-                    // Only add the vehicle if other checkboxes conditions are met
-                    if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { "MP3" };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
-                    }
-                    else
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { "MP3" };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
-                    }
-                    Console.WriteLine("# of vehicules before adding MP3: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-                    for (int i = 0; i < Vehicules.Count; i++)
-                    {
-                        Console.WriteLine(Vehicules[i].ToString());
-                    }
-                    Console.WriteLine("# of vehicules after adding MP3: " + Vehicules.Count);
-                }
+                AddVehiculeBasedOnCheckbox("MP3");
             }
             else
             {
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-                if (AutoDetails.AutoOptions.Contains("MP3"))
-                {
-                    AutoDetails.AutoOptions.Remove("MP3");
-                    for (int i = Vehicules.Count - 1; i >= 0; i--)
-                    {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                        {
-                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                            {
-                                if (Vehicules[i].AutoOptions[j] == "MP3")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                                }
-                            }
-                        }
-                    }
-                    if (AutoDetails.AutoOptions.Count == 0)
-                    {
-                        for (int i = myVehicules.Length - 1; i >= 0; i--)
-                        {
-                            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                            {
-                                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                                if ((!Vehicules.Contains(myVehicules[i])))
-                                {
-                                    if (containsNoOption)
-                                    {
-                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                        {
-                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Console.WriteLine("# of vehicules before Removing MP3: " + Vehicules.Count);
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                    {
-                        Vehicules.Remove(Vehicules[index]);
-                    }
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                    {
-                        Vehicules.Add(myVehicules[index]);
-                    }
-                    Console.WriteLine("# of vehicules after Removing MP3: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                }
-                else
-                {
-                    int lenght = Vehicules.Count;
-                    for (int i = lenght - 1; i >= 0; i--)
-                    {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                        {
-                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                            {
-                                if (Vehicules[i].AutoOptions[j] == "MP3")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                                }
-                            }
-                        }
-                    }
-                    if (AutoDetails.AutoOptions.Count == 0)
-                    {
-                        for (int i = myVehicules.Length - 1; i >= 0; i--)
-                        {
-                            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                            {
-                                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                                if ((!Vehicules.Contains(myVehicules[i])))
-                                {
-                                    if (containsNoOption)
-                                    {
-                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                        {
-                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Console.WriteLine("# of vehicules before Removing MP3: " + Vehicules.Count);
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                    {
-                        Vehicules.Remove(Vehicules[index]);
-                    }
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                    {
-                        Vehicules.Add(myVehicules[index]);
-                    }
-                    Console.WriteLine("# of vehicules after Removing MP3: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                }
+                RemoveVehiculeBasedOnCheckbox("MP3");
+                //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+                //if (AutoDetails.AutoOptions.Contains("MP3"))
+                //{
+                //    AutoDetails.AutoOptions.Remove("MP3");
+                //    for (int i = Vehicules.Count - 1; i >= 0; i--)
+                //    {
+                //        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                //        {
+                //            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                //            {
+                //                if (Vehicules[i].AutoOptions[j] == "MP3")
+                //                {
+                //                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                //                }
+                //            }
+                //        }
+                //    }
+                //    if (AutoDetails.AutoOptions.Count == 0)
+                //    {
+                //        for (int i = myVehicules.Length - 1; i >= 0; i--)
+                //        {
+                //            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                //            {
+                //                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                //                if ((!Vehicules.Contains(myVehicules[i])))
+                //                {
+                //                    if (containsNoOption)
+                //                    {
+                //                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                //                        {
+                //                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //    Console.WriteLine("# of vehicules before Removing MP3: " + Vehicules.Count);
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                //    {
+                //        Vehicules.Remove(Vehicules[index]);
+                //    }
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                //    {
+                //        Vehicules.Add(myVehicules[index]);
+                //    }
+                //    Console.WriteLine("# of vehicules after Removing MP3: " + Vehicules.Count);
+                //    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //}
+                //else
+                //{
+                //    int lenght = Vehicules.Count;
+                //    for (int i = lenght - 1; i >= 0; i--)
+                //    {
+                //        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                //        {
+                //            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                //            {
+                //                if (Vehicules[i].AutoOptions[j] == "MP3")
+                //                {
+                //                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                //                }
+                //            }
+                //        }
+                //    }
+                //    if (AutoDetails.AutoOptions.Count == 0)
+                //    {
+                //        for (int i = myVehicules.Length - 1; i >= 0; i--)
+                //        {
+                //            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                //            {
+                //                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                //                if ((!Vehicules.Contains(myVehicules[i])))
+                //                {
+                //                    if (containsNoOption)
+                //                    {
+                //                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                //                        {
+                //                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //    Console.WriteLine("# of vehicules before Removing MP3: " + Vehicules.Count);
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                //    {
+                //        Vehicules.Remove(Vehicules[index]);
+                //    }
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                //    {
+                //        Vehicules.Add(myVehicules[index]);
+                //    }
+                //    Console.WriteLine("# of vehicules after Removing MP3: " + Vehicules.Count);
+                //    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //}
             }
         }
         else if (changedProp == "AC")
         {
             if (IsCheckedAC)
             {
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-                if (AutoDetails.AutoOptions.Contains("AC"))
-                {
-                    HashSet<string> removalOptions = new HashSet<string> { "AC" };
-                    HashSet<string> addOptions = new HashSet<string> {  };
-                    AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
-                }
-                else
-                {
-                    AutoDetails.AutoOptions.Add("AC");
-                    // Only add the vehicle if other checkboxes conditions are met
-                    if (!IsCheckedMP3 && !IsCheckedGPS && !IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { "AC" };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
-                    }
-                    else
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { "AC" };
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
-                    }
-                    Console.WriteLine("# of vehicules before adding AC: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-
-                    for (int i = 0; i < Vehicules.Count; i++)
-                    {
-                        Console.WriteLine(Vehicules[i].ToString());
-                    }
-                    Console.WriteLine("# of vehicules after adding AC: " + Vehicules.Count);
-                }
+                AddVehiculeBasedOnCheckbox("AC");
             }
             else
             {
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-                if (AutoDetails.AutoOptions.Contains("AC"))
-                {
-                    AutoDetails.AutoOptions.Remove("AC");
-                    int lenght = Vehicules.Count;
-                    for (int i = lenght - 1; i >= 0; i--)
-                    {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                        {
-                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                            {
-                                if (Vehicules[i].AutoOptions[j] == "AC")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                                }
-                            }
-                        }
-                    }
-                    if (AutoDetails.AutoOptions.Count == 0)
-                    {
-                        for (int i = myVehicules.Length - 1; i >= 0; i--)
-                        {
-                            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                            {
-                                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                                if ((!Vehicules.Contains(myVehicules[i])))
-                                {
-                                    if (containsNoOption)
-                                    {
-                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                        {
-                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Console.WriteLine("# of vehicules before Removing AC: " + Vehicules.Count);
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                    {
-                        Vehicules.Remove(Vehicules[index]);
-                    }
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                    {
-                        Vehicules.Add(myVehicules[index]);
-                    }
-                    Console.WriteLine("# of vehicules after Removing AC: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                }
-                else
-                {
-                    int lenght = Vehicules.Count;
-                    for (int i = lenght - 1; i >= 0; i--)
-                    {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                        {
-                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                            {
-                                if (Vehicules[i].AutoOptions[j] == "AC")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                                }
-                            }
-                        }
-                    }
-                    if (AutoDetails.AutoOptions.Count == 0)
-                    {
-                        for (int i = myVehicules.Length - 1; i >= 0; i--)
-                        {
-                            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                            {
-                                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                                if ((!Vehicules.Contains(myVehicules[i])))
-                                {
-                                    if (containsNoOption)
-                                    {
-                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                        {
-                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Console.WriteLine("# of vehicules before Removing AC: " + Vehicules.Count);
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                    {
-                        Vehicules.Remove(Vehicules[index]);
-                    }
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                    {
-                        Vehicules.Add(myVehicules[index]);
-                    }
-                    Console.WriteLine("# of vehicules after Removing AC: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                }
+                RemoveVehiculeBasedOnCheckbox("AC");                //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+                //if (AutoDetails.AutoOptions.Contains("AC"))
+                //{
+                //    AutoDetails.AutoOptions.Remove("AC");
+                //    int lenght = Vehicules.Count;
+                //    for (int i = lenght - 1; i >= 0; i--)
+                //    {
+                //        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                //        {
+                //            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                //            {
+                //                if (Vehicules[i].AutoOptions[j] == "AC")
+                //                {
+                //                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                //                }
+                //            }
+                //        }
+                //    }
+                //    if (AutoDetails.AutoOptions.Count == 0)
+                //    {
+                //        for (int i = myVehicules.Length - 1; i >= 0; i--)
+                //        {
+                //            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                //            {
+                //                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                //                if ((!Vehicules.Contains(myVehicules[i])))
+                //                {
+                //                    if (containsNoOption)
+                //                    {
+                //                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                //                        {
+                //                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //    Console.WriteLine("# of vehicules before Removing AC: " + Vehicules.Count);
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                //    {
+                //        Vehicules.Remove(Vehicules[index]);
+                //    }
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                //    {
+                //        Vehicules.Add(myVehicules[index]);
+                //    }
+                //    Console.WriteLine("# of vehicules after Removing AC: " + Vehicules.Count);
+                //    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //}
+                //else
+                //{
+                //    int lenght = Vehicules.Count;
+                //    for (int i = lenght - 1; i >= 0; i--)
+                //    {
+                //        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                //        {
+                //            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                //            {
+                //                if (Vehicules[i].AutoOptions[j] == "AC")
+                //                {
+                //                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                //                }
+                //            }
+                //        }
+                //    }
+                //    if (AutoDetails.AutoOptions.Count == 0)
+                //    {
+                //        for (int i = myVehicules.Length - 1; i >= 0; i--)
+                //        {
+                //            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                //            {
+                //                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                //                if ((!Vehicules.Contains(myVehicules[i])))
+                //                {
+                //                    if (containsNoOption)
+                //                    {
+                //                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                //                        {
+                //                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //    Console.WriteLine("# of vehicules before Removing AC: " + Vehicules.Count);
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                //    {
+                //        Vehicules.Remove(Vehicules[index]);
+                //    }
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                //    {
+                //        Vehicules.Add(myVehicules[index]);
+                //    }
+                //    Console.WriteLine("# of vehicules after Removing AC: " + Vehicules.Count);
+                //    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //}
             }
         }
         else if (changedProp == "GPS")
         {
             if (IsCheckedGPS)
             {
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-                if (AutoDetails.AutoOptions.Contains("GPS"))
-                {
-                    HashSet<string> removalOptions = new HashSet<string> { "GPS" };
-                    HashSet<string> addOptions = new HashSet<string> {  };
-                    AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
-                }
-                else
-                {
-                    AutoDetails.AutoOptions.Add("GPS");
-                    // Only add the vehicle if other checkboxes conditions are met
-                    if (!IsCheckedMP3 && !IsCheckedAC && !IsCheckedChildSeat)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { "GPS" };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
-                    }
-                    else
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
-                    }
-                    Console.WriteLine("# of vehicules before adding GPS: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-
-                    for (int i = 0; i < Vehicules.Count; i++)
-                    {
-                        Console.WriteLine(Vehicules[i].ToString());
-                    }
-                    Console.WriteLine("# of vehicules after adding GPS: " + Vehicules.Count);
-                }
+                AddVehiculeBasedOnCheckbox("GPS");
             }
-            else
+           else
             {
-
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-                if (AutoDetails.AutoOptions.Contains("GPS"))
-                {
-                    AutoDetails.AutoOptions.Remove("GPS");
-                    int lenght = Vehicules.Count;
-                    for (int i = lenght - 1; i >= 0; i--)
-                    {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                        {
-                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                            {
-                                if (Vehicules[i].AutoOptions[j] == "GPS")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                                }
-                            }
-                        }
-                    }
-                    if (AutoDetails.AutoOptions.Count == 0)
-                    {
-                        for (int i = myVehicules.Length - 1; i >= 0; i--)
-                        {
-                            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                            {
-                                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                                if ((!Vehicules.Contains(myVehicules[i])))
-                                {
-                                    if (containsNoOption)
-                                    {
-                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                        {
-                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Console.WriteLine("# of vehicules before Removing GPS: " + Vehicules.Count);
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                    {
-                        Vehicules.Remove(Vehicules[index]);
-                    }
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                    {
-                        Vehicules.Add(myVehicules[index]);
-                    }
-                    Console.WriteLine("# of vehicules after Removing GPS: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                }
-                else
-                {
-                    int lenght = Vehicules.Count;
-                    for (int i = lenght - 1; i >= 0; i--)
-                    {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                        {
-                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                            {
-                                if (Vehicules[i].AutoOptions[j] == "GPS")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                                }
-                            }
-                        }
-                    }
-                    if (AutoDetails.AutoOptions.Count == 0)
-                    {
-                        for (int i = myVehicules.Length - 1; i >= 0; i--)
-                        {
-                            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                            {
-                                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                                if ((!Vehicules.Contains(myVehicules[i])))
-                                {
-                                    if (containsNoOption)
-                                    {
-                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                        {
-                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Console.WriteLine("# of vehicules before Removing GPS: " + Vehicules.Count);
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                    {
-                        Vehicules.Remove(Vehicules[index]);
-                    }
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                    {
-                        Vehicules.Add(myVehicules[index]);
-                    }
-                    Console.WriteLine("# of vehicules after Removing GPS: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                }
+                RemoveVehiculeBasedOnCheckbox("GPS");
+                //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+                //if (AutoDetails.AutoOptions.Contains("GPS"))
+                //{
+                //    AutoDetails.AutoOptions.Remove("GPS");
+                //    int lenght = Vehicules.Count;
+                //    for (int i = lenght - 1; i >= 0; i--)
+                //    {
+                //        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                //        {
+                //            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                //            {
+                //                if (Vehicules[i].AutoOptions[j] == "GPS")
+                //                {
+                //                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                //                }
+                //            }
+                //        }
+                //    }
+                //    if (AutoDetails.AutoOptions.Count == 0)
+                //    {
+                //        for (int i = myVehicules.Length - 1; i >= 0; i--)
+                //        {
+                //            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                //            {
+                //                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                //                if ((!Vehicules.Contains(myVehicules[i])))
+                //                {
+                //                    if (containsNoOption)
+                //                    {
+                //                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                //                        {
+                //                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //    Console.WriteLine("# of vehicules before Removing GPS: " + Vehicules.Count);
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                //    {
+                //        Vehicules.Remove(Vehicules[index]);
+                //    }
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                //    {
+                //        Vehicules.Add(myVehicules[index]);
+                //    }
+                //    Console.WriteLine("# of vehicules after Removing GPS: " + Vehicules.Count);
+                //    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //}
+                //else
+                //{
+                //    int lenght = Vehicules.Count;
+                //    for (int i = lenght - 1; i >= 0; i--)
+                //    {
+                //        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                //        {
+                //            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                //            {
+                //                if (Vehicules[i].AutoOptions[j] == "GPS")
+                //                {
+                //                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                //                }
+                //            }
+                //        }
+                //    }
+                //    if (AutoDetails.AutoOptions.Count == 0)
+                //    {
+                //        for (int i = myVehicules.Length - 1; i >= 0; i--)
+                //        {
+                //            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                //            {
+                //                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                //                if ((!Vehicules.Contains(myVehicules[i])))
+                //                {
+                //                    if (containsNoOption)
+                //                    {
+                //                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                //                        {
+                //                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //    Console.WriteLine("# of vehicules before Removing GPS: " + Vehicules.Count);
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                //    {
+                //        Vehicules.Remove(Vehicules[index]);
+                //    }
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                //    {
+                //        Vehicules.Add(myVehicules[index]);
+                //    }
+                //    Console.WriteLine("# of vehicules after Removing GPS: " + Vehicules.Count);
+                //    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //}
             }
         }
         else if (changedProp == "ChildSeat")
         {
             if (IsCheckedChildSeat)
             {
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-                if (AutoDetails.AutoOptions.Contains("ChildSeat"))
-                {
-                    HashSet<string> removalOptions = new HashSet<string> { "ChildSeat" };
-                    HashSet<string> addOptions = new HashSet<string> { };
-                    AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
-                }
-                else
-                {
-                    AutoDetails.AutoOptions.Add("ChildSeat");
-                    // Only add the vehicle if other checkboxes conditions are met
-                    if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedMP3)
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> { };
-                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
-                    }
-                    else
-                    {
-                        HashSet<string> removalOptions = new HashSet<string> { "ChildSeat" };
-                        HashSet<string> addOptions = new HashSet<string> {  };
-                        AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
-                    }
-                    Console.WriteLine("# of vehicules before adding ChildSeat: " + Vehicules.Count);
-
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-
-                    for (int i = 0; i < Vehicules.Count; i++)
-                    {
-                        Console.WriteLine(Vehicules[i].ToString());
-                    }
-                    Console.WriteLine("# of vehicules after adding ChildSeat: " + Vehicules.Count);
-                }
+                AddVehiculeBasedOnCheckbox("ChildSeat");
             }
             else
             {
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                if (AutoDetails.AutoOptions.Contains("ChildSeat"))
-                {
-                    AutoDetails.AutoOptions.Remove("ChildSeat");
-                    int lenght = Vehicules.Count;
-                    for (int i = lenght - 1; i >= 0; i--)
-                    {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                        {
-                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                            {
-                                if (Vehicules[i].AutoOptions[j] == "ChildSeat")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                                }
-                            }
-                        }
-                    }
-                    if (AutoDetails.AutoOptions.Count == 0)
-                    {
-                        for (int i = myVehicules.Length - 1; i >= 0; i--)
-                        {
-                            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                            {
-                                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                                if ((!Vehicules.Contains(myVehicules[i])))
-                                {
-                                    if (containsNoOption)
-                                    {
-                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                        {
-                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Console.WriteLine("# of vehicules before Removing ChildSeat: " + Vehicules.Count);
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                    {
-                        Vehicules.Remove(Vehicules[index]);
-                    }
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                    {
-                        Vehicules.Add(myVehicules[index]);
-                    }
-                    Console.WriteLine("# of vehicules after Removing ChildSeat: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                }
-                else
-                {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-                    int lenght = Vehicules.Count;
-                    for (int i = lenght - 1; i >= 0; i--)
-                    {
-                        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                        {
-                            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                            {
-                                if (Vehicules[i].AutoOptions[j] == "ChildSeat")
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                                }
-                            }
-                        }
-                    }
-                    if (AutoDetails.AutoOptions.Count == 0)
-                    {
-                        for (int i = myVehicules.Length - 1; i >= 0; i--)
-                        {
-                            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                            {
-                                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                                if ((!Vehicules.Contains(myVehicules[i])))
-                                {
-                                    if (containsNoOption)
-                                    {
-                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                        {
-                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Console.WriteLine("# of vehicules before Removing ChildSeat: " + Vehicules.Count);
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-                    {
-                        Vehicules.Remove(Vehicules[index]);
-                    }
-                    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-                    {
-                        Vehicules.Add(myVehicules[index]);
-                    }
-                    Console.WriteLine("# of vehicules after Removing ChildSeat: " + Vehicules.Count);
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                }
+                RemoveVehiculeBasedOnCheckbox("ChildSeat");
+                //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //if (AutoDetails.AutoOptions.Contains("ChildSeat"))
+                //{
+                //    AutoDetails.AutoOptions.Remove("ChildSeat");
+                //    int lenght = Vehicules.Count;
+                //    for (int i = lenght - 1; i >= 0; i--)
+                //    {
+                //        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                //        {
+                //            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                //            {
+                //                if (Vehicules[i].AutoOptions[j] == "ChildSeat")
+                //                {
+                //                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                //                }
+                //            }
+                //        }
+                //    }
+                //    if (AutoDetails.AutoOptions.Count == 0)
+                //    {
+                //        for (int i = myVehicules.Length - 1; i >= 0; i--)
+                //        {
+                //            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                //            {
+                //                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                //                if ((!Vehicules.Contains(myVehicules[i])))
+                //                {
+                //                    if (containsNoOption)
+                //                    {
+                //                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                //                        {
+                //                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //    Console.WriteLine("# of vehicules before Removing ChildSeat: " + Vehicules.Count);
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                //    {
+                //        Vehicules.Remove(Vehicules[index]);
+                //    }
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                //    {
+                //        Vehicules.Add(myVehicules[index]);
+                //    }
+                //    Console.WriteLine("# of vehicules after Removing ChildSeat: " + Vehicules.Count);
+                //    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //}
+                //else
+                //{
+                //    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+                //    int lenght = Vehicules.Count;
+                //    for (int i = lenght - 1; i >= 0; i--)
+                //    {
+                //        if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                //        {
+                //            for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                //            {
+                //                if (Vehicules[i].AutoOptions[j] == "ChildSeat")
+                //                {
+                //                    ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                //                }
+                //            }
+                //        }
+                //    }
+                //    if (AutoDetails.AutoOptions.Count == 0)
+                //    {
+                //        for (int i = myVehicules.Length - 1; i >= 0; i--)
+                //        {
+                //            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                //            {
+                //                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                //                if ((!Vehicules.Contains(myVehicules[i])))
+                //                {
+                //                    if (containsNoOption)
+                //                    {
+                //                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                //                        {
+                //                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //    Console.WriteLine("# of vehicules before Removing ChildSeat: " + Vehicules.Count);
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+                //    {
+                //        Vehicules.Remove(Vehicules[index]);
+                //    }
+                //    foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+                //    {
+                //        Vehicules.Add(myVehicules[index]);
+                //    }
+                //    Console.WriteLine("# of vehicules after Removing ChildSeat: " + Vehicules.Count);
+                //    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                //}
             }
         }
         else if (changedProp == "RadioButtonEssence" || changedProp == "RadioButtonElectric")
         {
             //Console.WriteLine(ReservationSearchDetails.CategorieAuto);
-            ReservationSearchDetails.indexVehiculesToBeRemoved.Clear ();
-            ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-
             string selectedCategory = CategorieAuto;
-            if (selectedCategory == "Essence")
+            //if (selectedCategory == "Essence")
+            //{
+            //    IsCheckedEssence = true;
+            //    IsCheckedElectric = false;
+            //}
+            //else
+            //{
+            //    IsCheckedEssence = false;
+            //    IsCheckedElectric = true;
+            //}
+            ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+            ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+            for (int i = myStations.Length - 1; i >= 0; i--)
             {
-                IsCheckedEssence = true;
-                IsCheckedElectric = false;
-            }
-            else
-            {
-                IsCheckedEssence = false;
-                IsCheckedElectric = true;
+                if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
+                {
+                    StationDetails.selectedStationID.Add(myStations[i].StationId);
+                }
+                else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
+                {
+                    StationDetails.selectedStationID.Add(myStations[i].StationId);
+                }
             }
             for (int i = myVehicules.Length - 1; i >= 0; i--)
             {
@@ -1212,9 +969,15 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 {
                     if (AccessCategorieAutoMyVehicules(i) == selectedCategory)
                     {
-                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                        foreach (string station in StationDetails.selectedStationID)
                         {
-                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                            if ((!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
+                            {
+                                if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                }
+                            }
                         }
                     }
                 }
@@ -1237,33 +1000,56 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             {
                 Vehicules.Add(myVehicules[index]);
             }
-            //CheckOtherProperties("MP3");
-            //CheckOtherProperties("GPS");
-            //CheckOtherProperties("AC");
-            //CheckOtherProperties("ChildSeat");
         }
     }
-    private void AddVehiculeBasedOnCheckbox(string optionChecked, HashSet<string> removalOpts, HashSet<string> addOpts)
+    private void AddVehiculeBasedOnCheckbox(string optionChecked)
     {
+        if (!AutoDetails.AutoOptions.Contains(optionChecked))
+        {
+            AutoDetails.AutoOptions.Add(optionChecked);
+        }
+
+        // Verify Which Station is selected by User
+        for (int i = myStations.Length - 1; i >= 0; i--)
+        {
+            if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
+            {
+                StationDetails.selectedStationID.Add(myStations[i].StationId);
+            }
+            else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
+            {
+                StationDetails.selectedStationID.Add(myStations[i].StationId);
+            }
+        }
+        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+        HashSet<string> removalOptions = new HashSet<string> { optionChecked };
+        HashSet<string> addOptions = new HashSet<string> { };
+        //
         for (int i = myVehicules.Length - 1; i >= 0; i--)
         {
             if ((myVehicules[i] != null) && (myVehicules[i].type == "Auto"))
             {
                 if (AccessCategorieAutoMyVehicules(i) == CategorieAuto)
                 {
-                    bool allValuesInList = addOpts.All(item => myVehicules[i].AutoOptions.Contains(item));
-                    bool containsAnyValue = removalOpts.Any(item => myVehicules[i].AutoOptions.Contains(item));
+                    bool allValuesInList = addOptions.All(item => myVehicules[i].AutoOptions.Contains(item));
+                    bool containsAnyValue = removalOptions.Any(item => myVehicules[i].AutoOptions.Contains(item));
                     bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
                     bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
                     if ((!Vehicules.Contains(myVehicules[i])))
                     {
                         if (containsValueChecked)
                         {
-                            if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                            foreach (string station in StationDetails.selectedStationID)
                             {
-                                ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                if ((!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
+                                {
+                                    if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                    {
+                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                    }
+                                }
                             }
-                            //OnStationChanged();
                         }
                     }
                 }  
@@ -1284,6 +1070,118 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
         {
             Vehicules.Add(myVehicules[index]);
+        }
+    }
+    private void RemoveVehiculeBasedOnCheckbox(string optionChecked)
+    {
+        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+        for (int i = myStations.Length - 1; i >= 0; i--)
+        {
+            if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
+            {
+                StationDetails.selectedStationID.Add(myStations[i].StationId);
+            }
+            else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
+            {
+                StationDetails.selectedStationID.Add(myStations[i].StationId);
+            }
+        }
+        if (AutoDetails.AutoOptions.Contains(optionChecked))
+        {
+            AutoDetails.AutoOptions.Remove(optionChecked);
+            for (int i = Vehicules.Count - 1; i >= 0; i--)
+            {
+                if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                {
+                    for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                    {
+                        if (Vehicules[i].AutoOptions[j] == optionChecked)
+                        {
+                            ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                        }
+                    }
+                }
+            }
+            if (AutoDetails.AutoOptions.Count == 0)
+            {
+                for (int i = myVehicules.Length - 1; i >= 0; i--)
+                {
+                    if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                    {
+                        bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                        if ((!Vehicules.Contains(myVehicules[i])))
+                        {
+                            if (containsNoOption)
+                            {
+                                foreach (string station in StationDetails.selectedStationID)
+                                {
+                                    if ((!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
+                                    {
+                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                        {
+                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+            {
+                Vehicules.Remove(Vehicules[index]);
+            }
+            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            {
+                Vehicules.Add(myVehicules[index]);
+            }
+        }
+        else
+        {
+            int lenght = Vehicules.Count;
+            for (int i = lenght - 1; i >= 0; i--)
+            {
+                if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
+                {
+                    for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
+                    {
+                        if (Vehicules[i].AutoOptions[j] == optionChecked)
+                        {
+                            ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+                        }
+                    }
+                }
+            }
+            if (AutoDetails.AutoOptions.Count == 0)
+            {
+                for (int i = myVehicules.Length - 1; i >= 0; i--)
+                {
+                    if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+                    {
+                        bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                        if ((!Vehicules.Contains(myVehicules[i])))
+                        {
+                            if (containsNoOption)
+                            {
+                                if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                                {
+                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
+            {
+                Vehicules.Remove(Vehicules[index]);
+            }
+            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+            {
+                Vehicules.Add(myVehicules[index]);
+            }
         }
     }
     // Method to handle the event in the ViewModel
