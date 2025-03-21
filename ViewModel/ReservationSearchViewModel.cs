@@ -184,6 +184,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             ReservationDetails = new Reservation();
             ResultDetails = new ReservationResult();
             LoadData();
+            OnReservationAdded();
         }
 
         // Check initial state of properties
@@ -1622,7 +1623,8 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     }
     private async void OnReservationAdded()
     {
-
+        ReservationService.ReservationsResultPast.Clear();
+        ReservationService.ReservationsResultCurrent.Clear();
         foreach (Reservation reservation in ReservationDetails.Reservations)
         {
             if ((reservation != null) && (reservation.MemberID == "MEM007") && (!(ReservationService.ReservationsResultPast.Contains(reservation))|| !(ReservationService.ReservationsResultCurrent.Contains(reservation))))
