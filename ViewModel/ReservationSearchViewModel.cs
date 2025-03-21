@@ -425,14 +425,32 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         for (int i = Vehicules.Count - 1; i >= 0; i--)
         {
             bool containsNoOption = Vehicules[i].AutoOptions.Count == 0;
-            if (!Vehicules[i].AutoOptions.Contains(optionChecked) && !containsNoOption)
+            if (Vehicules[i] != null && !(Vehicules[i].AutoOptions.Contains(optionChecked)) && !containsNoOption)
             {
                 ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
+            }
+        }
+        for (int i = myVehicules.Length - 1; i >= 0; i--)
+        {
+            if (myVehicules[i] != null)
+            {
+                bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
+                if (containsValueChecked)
+                {
+                    if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                    {
+                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                    }
+                }
             }
         }
         foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
         {
             Vehicules.Remove(Vehicules[index]);
+        }
+        foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
+        {
+            Vehicules.Add(myVehicules[index]);
         }
     }
     public void CheckInitialStateAC()
@@ -608,10 +626,12 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             if (IsCheckedMP3)
             {
+                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                 if (AutoDetails.AutoOptions.Contains("MP3"))
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+                    //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     HashSet<string> removalOptions = new HashSet<string> { "MP3" };
                     HashSet<string> addOptions = new HashSet<string> {  };
                     AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
@@ -619,8 +639,8 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 else
                 {
                     AutoDetails.AutoOptions.Add("MP3");
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+                    //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     // Only add the vehicle if other checkboxes conditions are met
                     if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedChildSeat)
                     {
@@ -630,8 +650,8 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     }
                     else
                     {
-                        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+                        //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                        //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                         HashSet<string> removalOptions = new HashSet<string> { "MP3" };
                         HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
@@ -647,11 +667,13 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             }
             else
             {
+                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                 if (AutoDetails.AutoOptions.Contains("MP3"))
                 {
                     AutoDetails.AutoOptions.Remove("MP3");
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+                    //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     for (int i = Vehicules.Count - 1; i >= 0; i--)
                     {
                         if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
@@ -699,8 +721,8 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 }
                 else
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
+                    //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                    //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -1247,29 +1269,32 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     {
         for (int i = myVehicules.Length - 1; i >= 0; i--)
         {
-            if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
+            if ((myVehicules[i] != null) && (myVehicules[i].type == "Auto"))
             {
-                bool allValuesInList = addOpts.All(item => myVehicules[i].AutoOptions.Contains(item));
-                bool containsAnyValue = removalOpts.Any(item => myVehicules[i].AutoOptions.Contains(item));
-                bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
-                bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                if ((!Vehicules.Contains(myVehicules[i])))
+                if (AccessCategorieAutoMyVehicules(i) == CategorieAuto)
                 {
-                    if (containsValueChecked)
+                    bool allValuesInList = addOpts.All(item => myVehicules[i].AutoOptions.Contains(item));
+                    bool containsAnyValue = removalOpts.Any(item => myVehicules[i].AutoOptions.Contains(item));
+                    bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
+                    bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
+                    if ((!Vehicules.Contains(myVehicules[i])))
                     {
-                        //if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                        //{
-                        //    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                        //}
-                        OnStationChanged();
+                        if (containsValueChecked)
+                        {
+                            if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                            {
+                                ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                            }
+                            //OnStationChanged();
+                        }
                     }
-                }
+                }  
             }
         }
         for (int i = Vehicules.Count - 1; i >= 0; i--)
         {
             bool containsNoOption = Vehicules[i].AutoOptions.Count == 0;
-            if (containsNoOption || !Vehicules[i].AutoOptions.Contains(optionChecked) || !(StationDetails.selectedStationID.Contains(Vehicules[i].vehiculeStationId)))
+            if (containsNoOption || !Vehicules[i].AutoOptions.Contains(optionChecked) )
             {
                 ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
             }

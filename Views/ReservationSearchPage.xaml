@@ -222,21 +222,21 @@
                     </RadioButton>
                 </Grid>
 
-                <Label
+                <!--<Label
                 Grid.Row="4"
                 Grid.RowSpan="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 FontSize="Medium"
                 Text="Selected : " />
-                <!--Test label below to check Binding-->
+                Test label below to check Binding
                 <Label
                 Grid.Row="4"
                 Grid.RowSpan="1"
                 Grid.Column="3"
                 Grid.ColumnSpan="3"
                 FontSize="Medium"
-                Text="{Binding CategorieAuto}" />
+                Text="{Binding CategorieAuto}" />-->
 
                 <CheckBox
                 x:Name="Mp3"
@@ -320,10 +320,11 @@
                                 <HorizontalStackLayout Padding="10"
                                                        Spacing="10">
                                     <Label Text="{Binding }"/>
-                                    <Button Text="Reserve" 
+
+                                </HorizontalStackLayout>
+                                <Button Text="Reserve" 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ReservationSearchViewModel}}, Path=ReserveCommand}" 
                                             CommandParameter="{Binding .}" />
-                                </HorizontalStackLayout>
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>
