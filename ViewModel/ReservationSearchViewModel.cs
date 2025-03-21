@@ -67,6 +67,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     public Reservation ReservationDetails {  get; set; }
     public Membre MembreDetails { get; set; }
     public ReservationResult ResultDetails { get; set; }
+    public int DateChangedFlag { get; set; } = 0;
 
     public ObservableCollection<Vehicule> Vehicules { get; } = new();
     public ObservableCollection<Station> Stations { get; } = new();
@@ -161,10 +162,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     }
     public ReservationSearchViewModel(ReservationService reservationService)
     {
-
-
         Console.WriteLine($"MemberEmail: {MemberEmail}, MemberPassword: {MemberPassword}, MemberFirstName: {MemberFirstName}");
-
 
         OnVehicleTypeChangedCommand = new RelayCommand(OnVehicleTypeChanged);
         OnStationChangedCommand = new RelayCommand(OnStationChanged);
@@ -199,8 +197,8 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         // Initialize some options
         StartDate = DateTime.Now.Date;
         EndDate = DateTime.Now.Date;
-        ReservationSearchDetails.RequestedStartTime = ReservationSearchDetails.StartDate.Add(StartTime);
-        ReservationSearchDetails.RequestedEndTime = ReservationSearchDetails.EndDate.Add(EndTime);
+        ReservationSearchDetails.RequestedStartTime = StartDate.Add(StartTime);
+        ReservationSearchDetails.RequestedEndTime = EndDate.Add(EndTime);
         ReservationSearchDetails.TypeVehicule = "Auto";
         IsAutoSelected = true;
         ReservationSearchDetails.StationAddress = "All Stations";
@@ -217,10 +215,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             Greeting = "Hello User!";
         }
 
-        Console.WriteLine(Greeting);
+        //Console.WriteLine(Greeting);
 
         //Console.WriteLine(Vehicules.Count);
-
+        DateChangedFlag = 0;
     }
 
     public void  LoadData()
@@ -404,7 +402,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         ReservationDetails.CreerReservation(49, new Reservation("RES0050", "MEM001", DateTime.Today.AddDays(0).AddHours(14), DateTime.Today.AddDays(0).AddHours(17).AddMinutes(0), "Moto", "P001", "M12"));
 
         // Past Reservations
-        ReservationDetails.CreerReservation(0, new Reservation("RES0001", "MEM001", new DateTime(2025,03,11,10,30,0), new DateTime(2025, 03, 11, 11, 30, 0), "Auto", "P001", "AU001"));
+        ReservationDetails.CreerReservation(0, new Reservation("RES0001", "MEM007", new DateTime(2025,03,11,10,30,0), new DateTime(2025, 03, 11, 11, 30, 0), "Auto", "P001", "AU001"));
         
 
         int length = Vehicules.Count;
@@ -618,7 +616,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     {
         CheckOtherProperties("ChildSeat");
     }
-
     //Method to check all checkboxes to Add a vehicule depending on related states
     private void CheckOtherProperties(string changedProp)
     {
@@ -630,8 +627,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                 if (AutoDetails.AutoOptions.Contains("MP3"))
                 {
-                    //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     HashSet<string> removalOptions = new HashSet<string> { "MP3" };
                     HashSet<string> addOptions = new HashSet<string> {  };
                     AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
@@ -639,8 +634,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 else
                 {
                     AutoDetails.AutoOptions.Add("MP3");
-                    //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     // Only add the vehicle if other checkboxes conditions are met
                     if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedChildSeat)
                     {
@@ -650,8 +643,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     }
                     else
                     {
-                        //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                        //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                         HashSet<string> removalOptions = new HashSet<string> { "MP3" };
                         HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("MP3", removalOptions, addOptions);
@@ -672,8 +663,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 if (AutoDetails.AutoOptions.Contains("MP3"))
                 {
                     AutoDetails.AutoOptions.Remove("MP3");
-                    //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     for (int i = Vehicules.Count - 1; i >= 0; i--)
                     {
                         if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
@@ -721,8 +710,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 }
                 else
                 {
-                    //ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    //ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -775,10 +762,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             if (IsCheckedAC)
             {
+                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                 if (AutoDetails.AutoOptions.Contains("AC"))
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     HashSet<string> removalOptions = new HashSet<string> { "AC" };
                     HashSet<string> addOptions = new HashSet<string> {  };
                     AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
@@ -789,16 +776,12 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     // Only add the vehicle if other checkboxes conditions are met
                     if (!IsCheckedMP3 && !IsCheckedGPS && !IsCheckedChildSeat)
                     {
-                        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                         HashSet<string> removalOptions = new HashSet<string> { "AC" };
                         HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
                     }
                     else
                     {
-                        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                         HashSet<string> removalOptions = new HashSet<string> { "AC" };
                         HashSet<string> addOptions = new HashSet<string> { };
                         AddVehiculeBasedOnCheckbox("AC", removalOptions, addOptions);
@@ -815,11 +798,11 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             }
             else
             {
+                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                 if (AutoDetails.AutoOptions.Contains("AC"))
                 {
                     AutoDetails.AutoOptions.Remove("AC");
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -868,8 +851,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 }
                 else
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -922,10 +903,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             if (IsCheckedGPS)
             {
+                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                 if (AutoDetails.AutoOptions.Contains("GPS"))
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     HashSet<string> removalOptions = new HashSet<string> { "GPS" };
                     HashSet<string> addOptions = new HashSet<string> {  };
                     AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
@@ -933,8 +914,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 else
                 {
                     AutoDetails.AutoOptions.Add("GPS");
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     // Only add the vehicle if other checkboxes conditions are met
                     if (!IsCheckedMP3 && !IsCheckedAC && !IsCheckedChildSeat)
                     {
@@ -944,8 +923,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                     }
                     else
                     {
-                        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                         HashSet<string> removalOptions = new HashSet<string> { };
                         HashSet<string> addOptions = new HashSet<string> {  };
                         AddVehiculeBasedOnCheckbox("GPS", removalOptions, addOptions);
@@ -962,11 +939,12 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             }
             else
             {
+
+                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                 if (AutoDetails.AutoOptions.Contains("GPS"))
                 {
                     AutoDetails.AutoOptions.Remove("GPS");
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -1015,8 +993,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 }
                 else
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -1069,10 +1045,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             if (IsCheckedChildSeat)
             {
+                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                 if (AutoDetails.AutoOptions.Contains("ChildSeat"))
                 {
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     HashSet<string> removalOptions = new HashSet<string> { "ChildSeat" };
                     HashSet<string> addOptions = new HashSet<string> { };
                     AddVehiculeBasedOnCheckbox("ChildSeat", removalOptions, addOptions);
@@ -1080,8 +1056,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 else
                 {
                     AutoDetails.AutoOptions.Add("ChildSeat");
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
                     // Only add the vehicle if other checkboxes conditions are met
                     if (!IsCheckedAC && !IsCheckedGPS && !IsCheckedMP3)
                     {
@@ -1108,11 +1082,11 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             }
             else
             {
+                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+                ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                 if (AutoDetails.AutoOptions.Contains("ChildSeat"))
                 {
                     AutoDetails.AutoOptions.Remove("ChildSeat");
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-                    ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
                     int lenght = Vehicules.Count;
                     for (int i = lenght - 1; i >= 0; i--)
                     {
@@ -1337,7 +1311,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     }
     private async void OnStartTimeChanged()
     {
-        Console.WriteLine(StartTime);
+        //Console.WriteLine(StartTime);
         ReservationSearchDetails.RequestedStartTime = StartDate.Add(StartTime);
         await Task.Yield();
         if (ReservationSearchDetails.RequestedStartTime < DateTime.Now)
@@ -1351,8 +1325,11 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         Console.WriteLine(EndTime);
         ReservationSearchDetails.RequestedEndTime = EndDate.Add(EndTime);
         TimeSpan interval = ReservationSearchDetails.RequestedEndTime - ReservationSearchDetails.RequestedStartTime;
-        TimeSpan threshold = TimeSpan.FromHours(6);
+        TimeSpan threshold6Hours = TimeSpan.FromHours(6);
+        TimeSpan threshold30Mins = TimeSpan.FromMinutes(30);
         await Task.Yield();
+        if (DateChangedFlag != 1)
+            DateChangedFlag = 1;
         if (ReservationSearchDetails.RequestedEndTime < ReservationSearchDetails.RequestedStartTime)
         {
             string message = "The End Time cannot be BEFORE the Start Time! \n\n Please enter a valid time.";
@@ -1368,12 +1345,17 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             string message = "The End Date cannot be BEFORE the Start Date! \n\n Please enter a valid Date.";
             await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
         }
-        else if (interval > threshold)
+        else if (interval > threshold6Hours)
         {
             {
                 string message = "RentARide only provides short-time rentals! \n\n Please enter a time interval of less than 6 hours.";
                 await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
             }
+        }
+        else if (interval < threshold30Mins)
+        {
+            string message = "The minimum rental period is 30 minutes! \n\n Please enter a valid interval.";
+            await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
         }
         else
         {
@@ -1396,6 +1378,8 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         Console.WriteLine(EndDate);
         ReservationSearchDetails.RequestedEndTime = EndDate.Add(EndTime);
         await Task.Yield();
+        if (DateChangedFlag != 1)
+            DateChangedFlag = 1;
         if (EndDate < StartDate)
         {
             string message = "The End Date cannot be BEFORE the Start Date! \n\n Please enter a valid Date.";
@@ -1641,9 +1625,17 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
 
         foreach (Reservation reservation in ReservationDetails.Reservations)
         {
-            if ((reservation != null) && (reservation.MemberID == "MEM007") && (!ReservationService.ReservationsResult.Contains(reservation)))
+            if ((reservation != null) && (reservation.MemberID == "MEM007") && (!(ReservationService.ReservationsResultPast.Contains(reservation))|| !(ReservationService.ReservationsResultCurrent.Contains(reservation))))
             {
-                ReservationService.ReservationsResult.Add(reservation);
+                if (reservation.EndTime < DateTime.Now)
+                {
+                    ReservationService.ReservationsResultPast.Add(reservation);
+                }
+                else
+                {
+                    ReservationService.ReservationsResultCurrent.Add(reservation);
+                }
+
             }
         }
     }
@@ -1665,29 +1657,38 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             resID = "RES0" + (indexRes).ToString();
         }
-
         //_reservationService.AddReservation(new Reservation(resID, currentMemberID, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime, vehicule));
-        ReservationDetails.CreerReservation(indexRes, new Reservation(resID, currentMemberID, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime, vehicule));
-        OnReservationAdded();
-        Console.WriteLine("# of items in ReservationResults collection: " + ReservationService.ReservationsResult.Count);
-        Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
-        foreach (Reservation result in ReservationService.ReservationsResult)
+        if (DateChangedFlag == 1)
         {
-            Console.WriteLine(result.VehiculeID);
+            ReservationDetails.CreerReservation(indexRes, new Reservation(resID, currentMemberID, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime, vehicule));
+            OnReservationAdded();
         }
-        await Shell.Current.GoToAsync("Mainpage");//Change this code for a method to add current reservation to MyReservationsList
-        Console.WriteLine("# of items in ReservationResults collection: " + ReservationService.ReservationsResult.Count);
-        Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
-        foreach (Reservation result in ReservationService.ReservationsResult)
+        else
         {
-            Console.WriteLine(result.VehiculeID);
+            string message = "Please select the date and time interval before trying to reserve the vehicule!";
+            await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
         }
+ 
+        //Console.WriteLine("# of items in ReservationResults collection: " + ReservationService.ReservationsResult.Count);
+        //Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
+        //foreach (Reservation result in ReservationService.ReservationsResultCurrent)
+        //{
+        //    Console.WriteLine(result.VehiculeID);
+        //}
+        await Shell.Current.GoToAsync("Mainpage");
+        OnVehicleTypeChanged(); 
+        //Console.WriteLine("# of items in ReservationResults collection: " + ReservationService.ReservationsResult.Count);
+        //Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
+        //foreach (Reservation result in ReservationService.ReservationsResult)
+        //{
+        //    Console.WriteLine(result.VehiculeID);
+        //}
     }
     private void Cancel(Reservation reservation)
     {
-        Console.WriteLine(ReservationService.ReservationsResult.Count);
+        Console.WriteLine(ReservationService.ReservationsResultCurrent.Count);
         ReservationService.CancelReservation(reservation);
-        Console.WriteLine(ReservationService.ReservationsResult.Count);
+        Console.WriteLine(ReservationService.ReservationsResultCurrent.Count);
     }
     //[RelayCommand]
     //private async Task Reserve()

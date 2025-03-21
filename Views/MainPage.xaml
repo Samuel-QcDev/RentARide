@@ -62,7 +62,7 @@
 
             <CollectionView
             HorizontalOptions="FillAndExpand"
-            ItemsSource="{Binding ReservationsResult}"
+            ItemsSource="{Binding ReservationsResultCurrent}"
             SelectionMode="Single"
             VerticalOptions="FillAndExpand">
 

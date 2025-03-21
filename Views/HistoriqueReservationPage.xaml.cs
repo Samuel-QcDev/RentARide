@@ -1,17 +1,20 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using RentARide.ViewModel;
+using RentARide.Services;
 
 namespace RentARide.Views;
 
 public partial class HistoriqueReservationPage : ContentPage
 {
-	public Array reservationsArray;
+    private readonly ReservationService _reservationService;
 
-    private HistoriqueReservationViewModel vm = new HistoriqueReservationViewModel();
     public HistoriqueReservationPage()
 	{
 		InitializeComponent();
-		BindingContext = vm;
+
+		var reservationService = ReservationService.Instance;
+        HistoriqueReservationViewModel vm = new HistoriqueReservationViewModel(_reservationService);
+        BindingContext = vm;
 	}
 
 }

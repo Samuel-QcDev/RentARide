@@ -12,10 +12,12 @@ namespace RentARide.Services
     public class ReservationService
     {
         private static ReservationService _instance;
-        public ObservableCollection<Reservation> ReservationsResult { get; set; }
+        public ObservableCollection<Reservation> ReservationsResultPast { get; set; }
+        public ObservableCollection<Reservation> ReservationsResultCurrent { get; set; }
         public ReservationService() 
         {
-            ReservationsResult = new ObservableCollection<Reservation>();
+            ReservationsResultPast = new ObservableCollection<Reservation>();
+            ReservationsResultCurrent = new ObservableCollection<Reservation>();
         }
         List<ReservationSearch> reservationsList;
         public static ReservationService Instance
@@ -31,11 +33,11 @@ namespace RentARide.Services
         }
         public void AddReservation(Reservation reservation)
         {
-            ReservationsResult.Add(reservation);
+            ReservationsResultCurrent.Add(reservation);
         }
         public void CancelReservation(Reservation reservation)
         {
-            ReservationsResult.Remove(reservation);
+            ReservationsResultCurrent.Remove(reservation);
         }
         public async Task<List<ReservationSearch>> GetReservations()
         {

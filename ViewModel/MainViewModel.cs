@@ -24,7 +24,7 @@ public partial class MainViewModel : LocalBaseViewModel
     private readonly ReservationService _reservationService;
 
     private ObservableCollection<Reservation> _reservationsResult;
-    public ObservableCollection<Reservation> ReservationsResult => _reservationService.ReservationsResult;
+    public ObservableCollection<Reservation> ReservationsResultCurrent => _reservationService.ReservationsResultCurrent;
 
 
     [ObservableProperty] private string memberEmail;
@@ -34,7 +34,6 @@ public partial class MainViewModel : LocalBaseViewModel
     public MainViewModel(ReservationService reservationService)
     {
         _reservationService = ReservationService.Instance;
-
     }
     public ReservationResult ResultDetails { get; set; }
     public ReservationSearchViewModel SearchViewModel { get; set; }
