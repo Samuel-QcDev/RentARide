@@ -55,6 +55,14 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <Button
+                x:Name="Submit"
+                Command="{Binding BackToMainPageCommand}"
+                CornerRadius="15"
+                FontSize="Medium"
+                Text="Back to Main Page"
+                WidthRequest="200" />
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

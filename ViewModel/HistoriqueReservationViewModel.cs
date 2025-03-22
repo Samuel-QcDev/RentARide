@@ -1,10 +1,11 @@
-﻿using RentARide.Models;
+﻿using CommunityToolkit.Mvvm.Input;
+using RentARide.Models;
 using RentARide.Services;
 using System.Collections.ObjectModel;
 
 namespace RentARide.ViewModel;
 
-public class HistoriqueReservationViewModel : LocalBaseViewModel
+public partial class HistoriqueReservationViewModel : LocalBaseViewModel
 {
     private readonly ReservationService _reservationService;
 
@@ -14,6 +15,13 @@ public class HistoriqueReservationViewModel : LocalBaseViewModel
     public HistoriqueReservationViewModel(ReservationService reservationService)
     {
         _reservationService = ReservationService.Instance;
+    }
+
+    [RelayCommand]
+    private async Task BackToMainPage()
+    {
+
+        await Shell.Current.GoToAsync("Mainpage");
     }
 
 
