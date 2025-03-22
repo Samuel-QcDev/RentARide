@@ -161,38 +161,25 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     }
     public ReservationSearchViewModel(ReservationService reservationService)
     {
-        Console.WriteLine($"MemberEmail: {MemberEmail}, MemberPassword: {MemberPassword}, MemberFirstName: {MemberFirstName}");
+        //Console.WriteLine($"MemberEmail: {MemberEmail}, MemberPassword: {MemberPassword}, MemberFirstName: {MemberFirstName}");
 
+        // Initialize the Commands for UI inputs
         OnVehicleTypeChangedCommand = new RelayCommand(OnVehicleTypeChanged);
         OnStationChangedCommand = new RelayCommand(OnStationChanged);
         OnStartTimeChangedCommand = new RelayCommand(OnStartTimeChanged);
-        //Console.WriteLine("OnStartTimeChangedCommand initialized: " + (OnStartTimeChangedCommand != null));
-
         OnEndTimeChangedCommand = new RelayCommand(OnEndTimeChanged);
         OnStartDateChangedCommand = new RelayCommand(OnStartDateChanged);
         OnEndDateChangedCommand = new RelayCommand(OnEndDateChanged);
         ReserveCommand = new RelayCommand<Vehicule>(Reserve);
         CancelCommand = new RelayCommand<Reservation>(Cancel);
 
-        if (Vehicules.Count < 1)
-        {
-            ReservationSearchDetails = new ReservationSearch();
-            AutoDetails = new Auto();
-            VehiculeDetails = new Vehicule();
-            StationDetails = new Station();
-            ReservationDetails = new Reservation();
-            ResultDetails = new ReservationResult();
-            LoadData();
-            OnReservationAdded();
-        }
-
-        // Check initial state of properties
-        OnVehicleTypeChanged();
-        OnStationChanged();
-        CheckOtherProperties("MP3");
-        CheckOtherProperties("GPS");
-        CheckOtherProperties("AC");
-        CheckOtherProperties("ChildSeat");
+        // Create an instance of some required Classes
+        ReservationSearchDetails = new ReservationSearch();
+        AutoDetails = new Auto();
+        VehiculeDetails = new Vehicule();
+        StationDetails = new Station();
+        ReservationDetails = new Reservation();
+        ResultDetails = new ReservationResult();
 
         // Initialize some options
         StartDate = DateTime.Now.Date;
@@ -204,21 +191,25 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         ReservationSearchDetails.StationAddress = "All Stations";
         ReservationSearchDetails.CategorieAuto = "Essence";
 
-        Console.WriteLine(MemberFirstName);
+        LoadData();  // Load all the data (Vehicules, stations, reservations)
+        AddVehiculesBasedOnAllUserInputs();     // Populate the CollectionView with vehicules according to initial conditions
+        OnReservationAdded(); // Add the reservations to the correct CollectionView to display on MainPage or HistoriquePage 
 
-        if (MemberFirstName != null)
-        {
-            Greeting = $"Hello, {MemberFirstName}!";
-        }
-        else
-        {
-            Greeting = "Hello User!";
-        }
+        //Console.WriteLine(MemberFirstName);
+
+        //if (MemberFirstName != null)
+        //{
+        //    Greeting = $"Hello, {MemberFirstName}!";
+        //}
+        //else
+        //{
+        //    Greeting = "Hello User!";
+        //}
 
         //Console.WriteLine(Greeting);
 
         //Console.WriteLine(Vehicules.Count);
-        DateChangedFlag = 0;
+        //DateChangedFlag = 0;
     }
     public void  LoadData()
     {
@@ -406,89 +397,24 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         ReservationDetails.CreerReservation(0, new Reservation("RES0053", "MEM007", new DateTime(2025, 03, 17, 10, 00, 0), new DateTime(2025, 03, 17, 11, 30, 0), "Moto", "P015", "M15"));
         ReservationDetails.CreerReservation(0, new Reservation("RES0054", "MEM001", new DateTime(2025, 03, 19, 10, 30, 0), new DateTime(2025, 03, 11, 11, 30, 0), "Auto", "P001", "AU001"));
         ReservationDetails.CreerReservation(0, new Reservation("RES0055", "MEM005", new DateTime(2025, 03, 20, 10, 30, 0), new DateTime(2025, 03, 11, 11, 30, 0), "Auto", "P001", "AU001"));
-
-        int length = Vehicules.Count;
-        for (int i = 0; i < length; i++)
-        {
-            Console.WriteLine(Vehicules[i].ToString());
-        }
-        for (int i = 0; i < length; i++)
-        {
-            Console.WriteLine(myVehicules[i].ToString());
-        }
-    }
-    public void CheckInitialStateAutoOption(string optionChecked)
-    {
-        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        //// Verify which Station is selected
-        //for (int i = myStations.Length - 1; i >= 0; i--)
-        //{
-        //    if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
-        //    {
-        //        StationDetails.selectedStationID.Add(myStations[i].StationId);
-        //    }
-        //    else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
-        //    {
-        //        StationDetails.selectedStationID.Add(myStations[i].StationId);
-        //    }
-        //}
-
-        // Iterate over current Vehicules and remove the ones that don't have the checked option
-        for (int i = Vehicules.Count - 1; i >= 0; i--)
-        {
-            bool containsNoOption = Vehicules[i].AutoOptions.Count == 0;
-            if (Vehicules[i] != null && !(Vehicules[i].AutoOptions.Contains(optionChecked)) && !containsNoOption)
-            {
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-            }
-        }
-        // Iterate over list of all Vehicules and add all 
-        for (int i = myVehicules.Length - 1; i >= 0; i--)
-        {
-            if (myVehicules[i] != null)
-            {
-                bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
-                if (containsValueChecked && !Vehicules.Contains(myVehicules[i]))
-                {
-                    foreach (string station in StationDetails.selectedStationID)
-                    {
-                        if (myVehicules[i].vehiculeStationId == station)
-                        {
-                            if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                            {
-                                ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-        {
-            Vehicules.Remove(Vehicules[index]);
-        }
-        foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-        {
-            Vehicules.Add(myVehicules[index]);
-        }
     }
 
+   //List of all vehicules
     Vehicule[] myVehicules = new Vehicule[110];
-    
+
+     // Method Create a Vehicule and add it to list of all vehicules
     public void CreerVehicule(int index, Vehicule vehicule)
     {
         myVehicules[index] = vehicule;
-        Vehicules.Add(myVehicules[index]);
+        //Vehicules.Add(myVehicules[index]);
     }
     public static void creerMembre(int memberId, string name, string password, string level)
     {
         return;
     }
-
+    //List of all stations
     Station[] myStations = new Station[20];
-    private int index;
-
+    // Method to create a Station and add it to list of all stations
     public void CreerStation(int index, string id, string address, int spaces, int bikeSpaces)
     {
         myStations[index] = new Station(index, id, address, spaces, bikeSpaces);
@@ -496,344 +422,37 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
 
     partial void OnCategorieAutoChanged(string value)
     {
-        CheckOtherProperties("RadioButtonEssence");
+        AddVehiculesBasedOnAllUserInputs();
     }
     partial void OnIsCheckedMP3Changed(bool value)
     {
-        CheckOtherProperties("MP3");
+        if (!IsCheckedMP3) AddVehiculesBasedOnAllUserInputs("MP3");
+        else AddVehiculesBasedOnAllUserInputs();
     }
     partial void OnIsCheckedACChanged(bool value)
     {
-        CheckOtherProperties("AC");
+        if (!IsCheckedAC) AddVehiculesBasedOnAllUserInputs("AC");
+        else AddVehiculesBasedOnAllUserInputs();
     }
     partial void OnIsCheckedGPSChanged(bool value)
     {
-        CheckOtherProperties("GPS");
+        if (!IsCheckedGPS) AddVehiculesBasedOnAllUserInputs("GPS");
+        else AddVehiculesBasedOnAllUserInputs();
     }
     partial void OnIsCheckedChildSeatChanged(bool value)
     {
-        CheckOtherProperties("ChildSeat");
+        if (!IsCheckedChildSeat) AddVehiculesBasedOnAllUserInputs("ChildSeat");
+        else AddVehiculesBasedOnAllUserInputs();
     }
-    //Method to check all checkboxes to Add a vehicule depending on related states
-    private void CheckOtherProperties(string changedProp)
+    private void OnStationChanged()
     {
-        if (changedProp == "MP3")
-        {
-            if (IsCheckedMP3)
-            {
-                AddVehiculeBasedOnCheckbox("MP3");
-            }
-            else
-            {
-                RemoveVehiculeBasedOnCheckbox("MP3");
-            }
-        }
-        else if (changedProp == "AC")
-        {
-            if (IsCheckedAC)
-            {
-                AddVehiculeBasedOnCheckbox("AC");
-            }
-            else
-            {
-                RemoveVehiculeBasedOnCheckbox("AC");
-            }
-        }
-        else if (changedProp == "GPS")
-        {
-            if (IsCheckedGPS)
-            {
-                AddVehiculeBasedOnCheckbox("GPS");
-            }
-           else
-            {
-                RemoveVehiculeBasedOnCheckbox("GPS");
-            }
-        }
-        else if (changedProp == "ChildSeat")
-        {
-            if (IsCheckedChildSeat)
-            {
-                AddVehiculeBasedOnCheckbox("ChildSeat");
-            }
-            else
-            {
-                RemoveVehiculeBasedOnCheckbox("ChildSeat");
-            }
-        }
-        else if (changedProp == "RadioButtonEssence" || changedProp == "RadioButtonElectric")
-        {
-            //Console.WriteLine(ReservationSearchDetails.CategorieAuto);
-            ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-            ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-            for (int i = myStations.Length - 1; i >= 0; i--)
-            {
-                if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
-                {
-                    StationDetails.selectedStationID.Add(myStations[i].StationId);
-                }
-                else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
-                {
-                    StationDetails.selectedStationID.Add(myStations[i].StationId);
-                }
-            }
-            string selectedCategory = CategorieAuto;
-            if (selectedCategory == "Essence")
-            {
-                IsCheckedEssence = true;
-                IsCheckedElectric = false;
-            }
-            else
-            {
-                IsCheckedEssence = false;
-                IsCheckedElectric = true;
-            }
-            for (int i = myVehicules.Length - 1; i >= 0; i--)
-            {
-                if (myVehicules[i] != null && !Vehicules.Contains(myVehicules[i]))
-                {
-                    if (AccessCategorieAutoMyVehicules(i) == selectedCategory)
-                    {
-                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                        {
-                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                        }
-                    }
-                }
-            }
-            for (int i = Vehicules.Count - 1; i >= 0; i--)
-            {
-                if (Vehicules[i] != null && Vehicules[i].type == "Auto")
-                {
-                    if (AccessCategorieAutoVehicules(i) != selectedCategory)
-                    {
-                        ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                    }
-                }
-            }
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-            {
-                Vehicules.Remove(Vehicules[index]);
-            }
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-            {
-                Vehicules.Add(myVehicules[index]);
-            }
-            //CheckInitialStateAutoOption("MP3");
-            //CheckInitialStateAutoOption("AC");
-            //CheckInitialStateAutoOption("GPS");
-            //CheckInitialStateAutoOption("ChildSeat");
-        }
+        AddVehiculesBasedOnAllUserInputs();
     }
-    private void AddVehiculeBasedOnCheckbox(string optionChecked)
+    private void OnVehicleTypeChanged()
     {
-        if (!AutoDetails.AutoOptions.Contains(optionChecked))
-        {
-            AutoDetails.AutoOptions.Add(optionChecked);
-        }
-
-        // Verify Which Station is selected by User
-        for (int i = myStations.Length - 1; i >= 0; i--)
-        {
-            if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
-            {
-                StationDetails.selectedStationID.Add(myStations[i].StationId);
-            }
-            else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
-            {
-                StationDetails.selectedStationID.Add(myStations[i].StationId);
-            }
-        }
-        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        HashSet<string> removalOptions = new HashSet<string> { optionChecked };
-        HashSet<string> addOptions = new HashSet<string> { };
-        //
-        for (int i = myVehicules.Length - 1; i >= 0; i--)
-        {
-            if ((myVehicules[i] != null) && (myVehicules[i].type == "Auto"))
-            {
-                if (AccessCategorieAutoMyVehicules(i) == CategorieAuto)
-                {
-                    bool allValuesInList = addOptions.All(item => myVehicules[i].AutoOptions.Contains(item));
-                    bool containsAnyValue = removalOptions.Any(item => myVehicules[i].AutoOptions.Contains(item));
-                    bool containsValueChecked = myVehicules[i].AutoOptions.Contains(optionChecked);
-                    bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                    if ((!Vehicules.Contains(myVehicules[i])))
-                    {
-                        if (containsValueChecked)
-                        {
-                            foreach (string station in StationDetails.selectedStationID)
-                            {
-                                if ((!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
-                                {
-                                    if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                    {
-                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }  
-            }
-        }
-        for (int i = Vehicules.Count - 1; i >= 0; i--)
-        {
-            bool containsNoOption = Vehicules[i].AutoOptions.Count == 0;
-            if (containsNoOption || !Vehicules[i].AutoOptions.Contains(optionChecked) )
-            {
-                ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-            }
-        }
-        foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-        {
-            Vehicules.Remove(Vehicules[index]);
-        }
-        foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-        {
-            Vehicules.Add(myVehicules[index]);
-        }
-    }
-    private void RemoveVehiculeBasedOnCheckbox(string optionChecked)
-    {
-        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        for (int i = myStations.Length - 1; i >= 0; i--)
-        {
-            if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
-            {
-                StationDetails.selectedStationID.Add(myStations[i].StationId);
-            }
-            else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
-            {
-                StationDetails.selectedStationID.Add(myStations[i].StationId);
-            }
-        }
-        if (AutoDetails.AutoOptions.Contains(optionChecked))
-        {
-            AutoDetails.AutoOptions.Remove(optionChecked);
-            for (int i = Vehicules.Count - 1; i >= 0; i--)
-            {
-                if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                {
-                    for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                    {
-                        if (Vehicules[i].AutoOptions[j] == optionChecked)
-                        {
-                            ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                        }
-                    }
-                }
-            }
-            if (AutoDetails.AutoOptions.Count == 0)
-            {
-                for (int i = myVehicules.Length - 1; i >= 0; i--)
-                {
-                    if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                    {
-                        bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                        if ((!Vehicules.Contains(myVehicules[i])))
-                        {
-                            if (containsNoOption)
-                            {
-                                foreach (string station in StationDetails.selectedStationID)
-                                {
-                                    if ((!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
-                                    {
-                                        if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                        {
-                                            ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-            {
-                Vehicules.Remove(Vehicules[index]);
-            }
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-            {
-                Vehicules.Add(myVehicules[index]);
-            }
-        }
-        else
-        {
-            int lenght = Vehicules.Count;
-            for (int i = lenght - 1; i >= 0; i--)
-            {
-                if (Vehicules[i] != null && (Vehicules[i].type == "Auto"))
-                {
-                    for (int j = Vehicules[i].AutoOptions.Count - 1; j >= 0; j--)
-                    {
-                        if (Vehicules[i].AutoOptions[j] == optionChecked)
-                        {
-                            ReservationSearchDetails.indexVehiculesToBeRemoved.Add(i);
-                        }
-                    }
-                }
-            }
-            if (AutoDetails.AutoOptions.Count == 0)
-            {
-                for (int i = myVehicules.Length - 1; i >= 0; i--)
-                {
-                    if ((myVehicules[i] != null) && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                    {
-                        bool containsNoOption = myVehicules[i].AutoOptions.Count == 0;
-                        if ((!Vehicules.Contains(myVehicules[i])))
-                        {
-                            if (containsNoOption)
-                            {
-                                if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-            {
-                Vehicules.Remove(Vehicules[index]);
-            }
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-            {
-                Vehicules.Add(myVehicules[index]);
-            }
-        }
+        AddVehiculesBasedOnAllUserInputs();
     }
 
-    public string AccessCategorieAutoVehicules(int index)
-    {
-        // Check if the object at the specified index is an Auto
-        if (Vehicules[index] is Auto autoVehicule)
-        {
-            // Now you can access the CategorieAuto property
-            return autoVehicule.categorieAuto;
-        }
-        else
-        {
-            return "The object at the specified index is not an Auto.";
-        }
-    }
-    public string AccessCategorieAutoMyVehicules(int index)
-    {
-        // Check if the object at the specified index is an Auto
-        if (myVehicules[index] is Auto autoVehicule)
-        {
-            // Now you can access the CategorieAuto property
-            return autoVehicule.categorieAuto;
-        }
-        else
-        {
-            return "The object at the specified index is not an Auto.";
-        }
-    }
     private async void OnStartTimeChanged()
     {
         //Console.WriteLine(StartTime);
@@ -884,7 +503,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         }
         else
         {
-            OnVehicleTypeChanged();
+            AddVehiculesBasedOnAllUserInputs();
         }
     }
     private async void OnStartDateChanged()
@@ -911,23 +530,52 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
         }
     }
-    private void AddVehiculesBasedOnAllUserInputs()
+
+    // Main method to filter vehicules based on criteria
+    private void AddVehiculesBasedOnAllUserInputs(string optionsChecked = "")
     {
+        Vehicules.Clear(); // Clear the Vehicules CollectionView
+        StationDetails.selectedStationID.Clear();
+        // Iterate over all stations to verify selected station(s)
+        for (int i = myStations.Length - 1; i >= 0; i--)
+        {
+            if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
+            {
+                StationDetails.selectedStationID.Add(myStations[i].StationId);
+            }
+            else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
+            {
+                StationDetails.selectedStationID.Add(myStations[i].StationId);
+            }
+        }
+
+        // Iterate over all vehhicules to check if it meets the criteria set by user
         for (int i = myVehicules.Length - 1; i >= 0; i--)
         {
-            if (myVehicules[i] != null && myVehicules[i].type == "Auto")
+            if (myVehicules[i] != null)
             {
-                if(CheckCategorieAuto(myVehicules[i]))
+                if (ReservationSearchDetails.TypeVehicule == "Auto")
                 {
-                    if (CheckOptions(myVehicules[i]))
+                    IsAutoSelected = true;
+                    if (myVehicules[i].type == "Auto")
+                    {
+                        if (CheckCategorieAuto(myVehicules[i]))
+                        {
+                            if (CheckOptions(myVehicules[i], i, optionsChecked))
+                            {
+                                CheckStation(myVehicules[i]);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    IsAutoSelected = false;
+                    if (ReservationSearchDetails.TypeVehicule == myVehicules[i].type)
                     {
                         CheckStation(myVehicules[i]);
                     }
                 }
-            }
-            else
-            {
-                CheckStation(myVehicules[i]);
             }
         }
     }
@@ -950,23 +598,31 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             return (autoVehicule.categorieAuto == selectedCategory);
         return false;
     }
-    private bool CheckOptions(Vehicule vehicule)
+    private bool CheckOptions(Vehicule vehicule, int index, string checkedOption = "")
     {
+        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
+
         HashSet<string> addOptions = new HashSet<string> { };
+        HashSet<string> removalOptions = new HashSet<string> { };
+
+        if (IsCheckedMP3) addOptions.Add("MP3");
+        if (IsCheckedAC) addOptions.Add("AC");
+        if (IsCheckedGPS) addOptions.Add("GPS");
+        if (IsCheckedChildSeat) addOptions.Add("ChildSeat");
+
+        if (checkedOption != "")
+            removalOptions.Add(checkedOption);
+
         bool allValuesInList = addOptions.All(item => vehicule.AutoOptions.Contains(item));
         bool AnyValueInList = addOptions.Any(item => vehicule.AutoOptions.Contains(item));
-        //bool containsAnyValue = removalOptions.Any(item => myVehicules[i].AutoOptions.Contains(item));
+        bool containsAnyValue = removalOptions.Any(item => vehicule.AutoOptions.Contains(item));
+
         //bool containsValueChecked = vehicule.AutoOptions.Contains(optionsChecked);
         bool containsNoOption = vehicule.AutoOptions.Count == 0;
 
-        if (IsCheckedMP3)
-            addOptions.Add("MP3");
-        if (IsCheckedAC)
-            addOptions.Add("AC");
-        if (IsCheckedGPS)
-            addOptions.Add("GPS");
-        if (IsCheckedChildSeat)
-            addOptions.Add("ChildSeat");
+        if (containsAnyValue)
+            return false;
+
         // If vehicule has one of the options checked, it is added
         if (addOptions.Count == 0 && containsNoOption)
         {
@@ -983,22 +639,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     }
     private void CheckStation(Vehicule vehicule)
     {
-        // Iterate over all stations and add the selected station(s)
-        for (int i = myStations.Length - 1; i >= 0; i--)
-        {
-            if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
-            {
-                StationDetails.selectedStationID.Add(myStations[i].StationId);
-            }
-            else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
-            {
-                StationDetails.selectedStationID.Add(myStations[i].StationId);
-            }
-        }
         // Check if vehicule (from myVehicules[i] above) is at a selected station & if it is available
         foreach (string station in StationDetails.selectedStationID)
         {
-            if (vehicule != null && vehicule.vehiculeStationId == station)
+            if (vehicule.vehiculeStationId == station)
             {
                 if (IsCarAvailable(ReservationDetails.Reservations, vehicule.vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
                 {
@@ -1010,242 +654,13 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         }
     }
 
-
-    private void OnStationChanged()
-    {
-        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        StationDetails.selectedStationID.Clear();
-        Vehicules.Clear();
-        if (ReservationSearchDetails.TypeVehicule != "")
-        {
-            for (int i = myStations.Length - 1; i >= 0; i--)
-            {
-                if ( (myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
-                {
-                    StationDetails.selectedStationID.Add(myStations[i].StationId);
-                }
-                else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
-                {
-                    StationDetails.selectedStationID.Add(myStations[i].StationId);
-                }
-            }
-            for (int i = myVehicules.Length - 1; i >= 0; i--)
-            {
-                if ((myVehicules[i] != null) && (myVehicules[i].type == ReservationSearchDetails.TypeVehicule))
-                {
-                    if (myVehicules[i].type == "Auto")
-                    {
-                        if (AccessCategorieAutoMyVehicules(i) == CategorieAuto)
-                        {
-                            foreach (string station in StationDetails.selectedStationID)
-                            {
-                                if ((!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
-                                {
-                                    if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                    {
-                                        ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        foreach (string station in StationDetails.selectedStationID)
-                        {
-                            if ((!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
-                            {
-                                if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                }
-                            }
-
-                        }
-                    }
-
-                }
-
-            }
-        }
-        else
-        {
-            for (int i = myStations.Length - 1; i >= 0; i--)
-            {
-                if (myStations[i] != null && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress) == "All Stations")
-                {
-                    StationDetails.selectedStationID.Add(myStations[i].StationId);
-                }
-                else if (myStations[i] != null && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
-                {
-                    StationDetails.selectedStationID.Add(myStations[i].StationId);
-                }
-            }
-            for (int i = myVehicules.Length - 1; i >= 0; i--)
-            {
-                if ((myVehicules[i] != null) && (myVehicules[i].type == ReservationSearchDetails.TypeVehicule))
-                {
-                    if (myVehicules[i].type == "Auto" && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                    {
-                        foreach (string station in StationDetails.selectedStationID)
-                        {
-                            if (myVehicules[i] != null && (!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
-                                if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                }
-                        }
-                    }
-                    else
-                    {
-                        foreach (string station in StationDetails.selectedStationID)
-                        {
-                            if (myVehicules[i] != null && (!Vehicules.Contains(myVehicules[i])) && (myVehicules[i].vehiculeStationId == station))
-                                if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                }
-                        }
-                    }
-
-                }
-
-            }
-        }
-        if (ReservationSearchDetails.indexVehiculesToBeRemoved.Count > 0)
-        {
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-            {
-                Vehicules.Remove(Vehicules[index]);
-            }
-            ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-        }
-        if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
-        {
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-            {
-                Vehicules.Add(myVehicules[index]);
-            }
-            ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        }
-        //if (ReservationSearchDetails.TypeVehicule == "Auto")
-        //{
-        //    CheckInitialStateAutoOption("MP3");
-        //    CheckInitialStateAutoOption("GPS");
-        //    CheckInitialStateAutoOption("AC");
-        //    CheckInitialStateAutoOption("ChildSeat");
-        //}
-    }
-    private void OnVehicleTypeChanged()
-    {
-        // Implement the logic that should happen when the picker selection changes
-        ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-        ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        StationDetails.selectedStationID.Clear();
-        Vehicules.Clear();
-
-        for (int i = myStations.Length - 1; i >= 0; i--)
-        {
-            if ((myStations[i] != null) && (!Stations.Contains(myStations[i])))
-            {
-                if (ReservationSearchDetails.StationAddress == "All Stations")
-                {
-                    StationDetails.selectedStationID.Add(myStations[i].StationId);
-                }
-                else if (myStations[i].StationAddress == ReservationSearchDetails.StationAddress)
-                {
-                    StationDetails.selectedStationID.Add(myStations[i].StationId);
-                }
-            }
-        }
-        for (int i = myVehicules.Length - 1; i >= 0; i--)
-        {
-            if ((myVehicules[i] != null) && (myVehicules[i].type == ReservationSearchDetails.TypeVehicule))
-            {
-                if (myVehicules[i].type == "Auto" && (AccessCategorieAutoMyVehicules(i) == CategorieAuto))
-                {
-                    IsAutoSelected = true;
-                    foreach (string station in StationDetails.selectedStationID)
-                    {
-                        if (myVehicules[i].vehiculeStationId == station)
-                        {
-                            if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId,ReservationSearchDetails.RequestedStartTime,ReservationSearchDetails.RequestedEndTime))
-                            {
-                                ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                            }
-                        }
-                    }
-                }
-                else if (myVehicules[i].type == "Moto")
-                {
-                    IsAutoSelected = false;
-                    foreach (string station in StationDetails.selectedStationID)
-                    {
-                        if (myVehicules[i].vehiculeStationId == station)
-                            if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                            {
-                                if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                }
-                            }
-                    }
-                }
-                else if (myVehicules[i].type == "Velo")
-                {
-                    IsAutoSelected = false;
-                    foreach (string station in StationDetails.selectedStationID)
-                    {
-                        if (myVehicules[i].vehiculeStationId == station)
-                            if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                            {
-                                if (IsCarAvailable(ReservationDetails.Reservations, myVehicules[i].vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
-                                {
-                                    ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
-                                }
-                            }
-                    }
-                }
-            }
-        }
-        if (ReservationSearchDetails.indexVehiculesToBeRemoved.Count > 0)
-        {
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeRemoved)
-            {
-                Vehicules.Remove(Vehicules[index]);
-            }
-            ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();
-        }
-        if (ReservationSearchDetails.indexVehiculesToBeAdded.Count > 0)
-        {
-            foreach (int index in ReservationSearchDetails.indexVehiculesToBeAdded)
-            {
-                Vehicules.Add(myVehicules[index]);
-            }
-            ReservationSearchDetails.indexVehiculesToBeAdded.Clear();
-        }
-        //if (ReservationSearchDetails.TypeVehicule=="Auto")
-        //{
-        //    CheckOtherProperties("MP3");
-        //    CheckOtherProperties("GPS");
-        //    CheckOtherProperties("AC");
-        //    CheckOtherProperties("ChildSeat");
-        //}
-    }
-    [RelayCommand]
-    private static async Task Search()
-    {
-        //if (true)
-        //{
-
-        //}else
-        //{
-
-        //}
-        await Shell.Current.GoToAsync("Resultpage");
-    }
-    private async void OnReservationAdded()
+    // Unused
+    //[RelayCommand]
+    //private static async Task Search()
+    //{
+    //    await Shell.Current.GoToAsync("Resultpage");
+    //}
+    private void OnReservationAdded()
     {
         ReservationService.ReservationsResultPast.Clear();
         ReservationService.ReservationsResultCurrent.Clear();
@@ -1261,7 +676,6 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
                 {
                     ReservationService.ReservationsResultCurrent.Add(reservation);
                 }
-
             }
         }
     }
@@ -1288,27 +702,15 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             ReservationDetails.CreerReservation(indexRes, new Reservation(resID, currentMemberID, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime, vehicule));
             OnReservationAdded();
+            AddVehiculesBasedOnAllUserInputs();
         }
         else
         {
             string message = "Please select the date and time interval before trying to reserve the vehicule!";
             await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
         }
- 
-        //Console.WriteLine("# of items in ReservationResults collection: " + ReservationService.ReservationsResult.Count);
-        //Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
-        //foreach (Reservation result in ReservationService.ReservationsResultCurrent)
-        //{
-        //    Console.WriteLine(result.VehiculeID);
-        //}
+
         await Shell.Current.GoToAsync("Mainpage");
-        OnVehicleTypeChanged(); 
-        //Console.WriteLine("# of items in ReservationResults collection: " + ReservationService.ReservationsResult.Count);
-        //Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
-        //foreach (Reservation result in ReservationService.ReservationsResult)
-        //{
-        //    Console.WriteLine(result.VehiculeID);
-        //}
     }
     private void Cancel(Reservation reservation)
     {
@@ -1316,9 +718,4 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         ReservationService.CancelReservation(reservation);
         Console.WriteLine(ReservationService.ReservationsResultCurrent.Count);
     }
-    //[RelayCommand]
-    //private async Task Reserve()
-    //{
-    //    await Shell.Current.GoToAsync("Mainpage");//Change this code for a method to add current reservation to MyReservationsList
-    //}
 }
