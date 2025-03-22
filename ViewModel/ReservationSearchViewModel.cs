@@ -807,7 +807,7 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             }
         }
     }
-    // Method to handle the event in the ViewModel
+
     public string AccessCategorieAutoVehicules(int index)
     {
         // Check if the object at the specified index is an Auto
@@ -911,6 +911,106 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
             await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
         }
     }
+    private void AddVehiculesBasedOnAllUserInputs()
+    {
+        for (int i = myVehicules.Length - 1; i >= 0; i--)
+        {
+            if (myVehicules[i] != null && myVehicules[i].type == "Auto")
+            {
+                if(CheckCategorieAuto(myVehicules[i]))
+                {
+                    if (CheckOptions(myVehicules[i]))
+                    {
+                        CheckStation(myVehicules[i]);
+                    }
+                }
+            }
+            else
+            {
+                CheckStation(myVehicules[i]);
+            }
+        }
+    }
+
+    private bool CheckCategorieAuto(Vehicule vehicule)
+    {
+        string selectedCategory = CategorieAuto;
+        if (selectedCategory == "Essence")
+        {
+            IsCheckedEssence = true;
+            IsCheckedElectric = false;
+        }
+        else
+        {
+            IsCheckedEssence = false;
+            IsCheckedElectric = true;
+        }
+        if (vehicule is Auto autoVehicule)
+            // Returns true if CategorieAuto of vehicule is same as selected one
+            return (autoVehicule.categorieAuto == selectedCategory);
+        return false;
+    }
+    private bool CheckOptions(Vehicule vehicule)
+    {
+        HashSet<string> addOptions = new HashSet<string> { };
+        bool allValuesInList = addOptions.All(item => vehicule.AutoOptions.Contains(item));
+        bool AnyValueInList = addOptions.Any(item => vehicule.AutoOptions.Contains(item));
+        //bool containsAnyValue = removalOptions.Any(item => myVehicules[i].AutoOptions.Contains(item));
+        //bool containsValueChecked = vehicule.AutoOptions.Contains(optionsChecked);
+        bool containsNoOption = vehicule.AutoOptions.Count == 0;
+
+        if (IsCheckedMP3)
+            addOptions.Add("MP3");
+        if (IsCheckedAC)
+            addOptions.Add("AC");
+        if (IsCheckedGPS)
+            addOptions.Add("GPS");
+        if (IsCheckedChildSeat)
+            addOptions.Add("ChildSeat");
+        // If vehicule has one of the options checked, it is added
+        if (addOptions.Count == 0 && containsNoOption)
+        {
+            return true;
+        }
+        else if (AnyValueInList)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private void CheckStation(Vehicule vehicule)
+    {
+        // Iterate over all stations and add the selected station(s)
+        for (int i = myStations.Length - 1; i >= 0; i--)
+        {
+            if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (ReservationSearchDetails.StationAddress == "All Stations"))
+            {
+                StationDetails.selectedStationID.Add(myStations[i].StationId);
+            }
+            else if ((myStations[i] != null) && (!Stations.Contains(myStations[i])) && (myStations[i].StationAddress == ReservationSearchDetails.StationAddress))
+            {
+                StationDetails.selectedStationID.Add(myStations[i].StationId);
+            }
+        }
+        // Check if vehicule (from myVehicules[i] above) is at a selected station & if it is available
+        foreach (string station in StationDetails.selectedStationID)
+        {
+            if (vehicule != null && vehicule.vehiculeStationId == station)
+            {
+                if (IsCarAvailable(ReservationDetails.Reservations, vehicule.vehiculeId, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime))
+                {
+                    // Add the vehicule directly to the CollectionView
+                    Vehicules.Add(vehicule);
+                    //ReservationSearchDetails.indexVehiculesToBeAdded.Add(i);
+                }
+            }
+        }
+    }
+
+
     private void OnStationChanged()
     {
         ReservationSearchDetails.indexVehiculesToBeRemoved.Clear();

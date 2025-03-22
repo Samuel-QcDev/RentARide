@@ -11,13 +11,12 @@ namespace RentARide.Tools
         public static DateTime RoundToNearest30Minutes(DateTime dateTime)
         {
             int totalMinutes = (int)(dateTime.Minute / 30) * 30;
-            int totalHours = dateTime.Hour;
+
             if (dateTime.Minute >= 30)
             {
                 totalMinutes = (dateTime.Minute / 30) * 30;
-                totalHours = dateTime.Hour + 1;
             }
-            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, totalHours, totalMinutes, 0);
+            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, totalMinutes, 0);
         }
     }
 }
