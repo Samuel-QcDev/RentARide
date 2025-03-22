@@ -7,10 +7,10 @@
     xmlns:views="clr-namespace:RentARide.Views"
     Shell.FlyoutBehavior="Disabled">
 
+    <!-- Define the initial page (LoginPage) -->
     <ShellContent
-        Title="Home"
+        Title="Login"
         ContentTemplate="{DataTemplate views:LoginPage}"
         Route="LoginPage" />
-
 
 </Shell>

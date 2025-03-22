@@ -628,7 +628,9 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             return true;
         }
-        else if (AnyValueInList)
+        // allValuesInList : each vehicule must have ALL checked options, or
+        // AnyValueInList : each vehicule must have ONE of the checked options
+        else if (allValuesInList)
         {
             return true;
         }
