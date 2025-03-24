@@ -10,13 +10,21 @@
     xmlns:controls="clr-namespace:RentARide.Controls"
     Title="Reservation Search"
     x:DataType="viewmodel:ReservationSearchViewModel">
+
     <ContentPage.Resources>
         <ResourceDictionary 
                     xmlns:local="clr-namespace:RentARide.Models">
             <local:RadioButtonValueConverter x:Key="RadioButtonValueConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
+    <!-- Toolbar with a button -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem                  
+            IconImageSource="home.png" 
+            Command="{Binding BackToMainPageCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
         <VerticalStackLayout>
 

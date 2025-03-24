@@ -9,7 +9,15 @@
     xmlns:services="clr-namespace:RentARide.Services"
     Title="HistoriqueReservationPage"
     x:DataType="viewmodel:HistoriqueReservationViewModel">
-    <ScrollView>
+
+        <!-- Toolbar with a button -->
+        <ContentPage.ToolbarItems>
+            <ToolbarItem 
+                IconImageSource="home.png" 
+                Command="{Binding BackToMainPageCommand}"/>
+        </ContentPage.ToolbarItems>
+        
+        <ScrollView>
         <VerticalStackLayout Padding="10" Spacing="50">
 
             <CollectionView

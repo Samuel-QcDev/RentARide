@@ -720,4 +720,10 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         ReservationService.CancelReservation(reservation);
         Console.WriteLine(ReservationService.ReservationsResultCurrent.Count);
     }
+    [RelayCommand]
+    private async Task BackToMainPage()
+    {
+
+        await Shell.Current.GoToAsync("Mainpage");
+    }
 }
