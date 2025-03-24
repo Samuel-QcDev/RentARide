@@ -10,13 +10,21 @@
     xmlns:controls="clr-namespace:RentARide.Controls"
     Title="Reservation Search"
     x:DataType="viewmodel:ReservationSearchViewModel">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
     <ContentPage.Resources>
         <ResourceDictionary 
                     xmlns:local="clr-namespace:RentARide.Models">
             <local:RadioButtonValueConverter x:Key="RadioButtonValueConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Click Me"
+                     IconImageSource="home.png"
+                     Command="{Binding BackToMainPageCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
         <VerticalStackLayout>
 

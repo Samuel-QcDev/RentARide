@@ -7,8 +7,17 @@
     xmlns:controls="clr-namespace:RentARide.Controls"
     xmlns:viewmodel="clr-namespace:RentARide.ViewModel"
     xmlns:services="clr-namespace:RentARide.Services"
-    Title="HistoriqueReservationPage"
+    Title="Historique"
     x:DataType="viewmodel:HistoriqueReservationViewModel">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+    <!-- Toolbar with a button -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Click Me"
+                     IconImageSource="home.png"
+                     Command="{Binding BackToMainPageCommand}"/>
+    </ContentPage.ToolbarItems>
     <ScrollView>
         <VerticalStackLayout Padding="10" Spacing="50">
 
