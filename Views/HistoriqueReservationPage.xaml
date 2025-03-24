@@ -5,37 +5,38 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Model="clr-namespace:RentARide.Models"
     xmlns:controls="clr-namespace:RentARide.Controls"
-    xmlns:viewmodel="clr-namespace:RentARide.ViewModel"
     xmlns:services="clr-namespace:RentARide.Services"
-    Title="HistoriqueReservationPage"
+    xmlns:viewmodel="clr-namespace:RentARide.ViewModel"
+    Title="Historique"
     x:DataType="viewmodel:HistoriqueReservationViewModel">
 
-        <!-- Toolbar with a button -->
-        <ContentPage.ToolbarItems>
-            <ToolbarItem 
-                IconImageSource="home.png" 
-                Command="{Binding BackToMainPageCommand}"/>
-        </ContentPage.ToolbarItems>
-        
-        <ScrollView>
+    <!--  Toolbar with a button  -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding BackToMainPageCommand}" IconImageSource="home.png" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
         <VerticalStackLayout Padding="10" Spacing="50">
 
             <CollectionView
-            HorizontalOptions="FillAndExpand"
-            ItemsSource="{Binding ReservationsResultPast}"
-            SelectionMode="Single"
-            VerticalOptions="FillAndExpand">
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding ReservationsResultPast}"
+                SelectionMode="Single"
+                VerticalOptions="FillAndExpand">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="Model:Reservation">
-                        <Frame Margin="10" Padding="8" BorderColor="DarkGreen">
+                        <Frame
+                            Margin="10"
+                            Padding="8"
+                            BorderColor="DarkGreen">
                             <HorizontalStackLayout Padding="0" Spacing="2">
 
                                 <VerticalStackLayout Padding="0" Spacing="2">
-                                    <Label FontSize="Small" Text="{Binding TypeVehicule}"/>
-                                    <Label FontSize="Small" Text="Station : "/>
-                                    <Label FontSize="Small" Text="Start : "/>
-                                    <Label FontSize="Small" Text="End : "/>
+                                    <Label FontSize="Small" Text="{Binding TypeVehicule}" />
+                                    <Label FontSize="Small" Text="Station : " />
+                                    <Label FontSize="Small" Text="Start : " />
+                                    <Label FontSize="Small" Text="End : " />
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Padding="0" Spacing="2">
@@ -53,8 +54,8 @@
                                 <Label FontSize="Small" Text="{Binding AutoOptions}" />
 
                             </VerticalStackLayout>-->
-                                <!--<Button Text="Cancel" 
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ReservationSearchViewModel}}, Path=CancelCommand}"   
+                                <!--<Button Text="Cancel"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ReservationSearchViewModel}}, Path=CancelCommand}"
                                     CommandParameter="{Binding .}" />-->
 
                             </HorizontalStackLayout>
@@ -63,13 +64,13 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Button
+            <!--<Button
                 x:Name="Submit"
                 Command="{Binding BackToMainPageCommand}"
                 CornerRadius="15"
                 FontSize="Medium"
                 Text="Back to Main Page"
-                WidthRequest="200" />
+                WidthRequest="200" />-->
 
         </VerticalStackLayout>
     </ScrollView>
