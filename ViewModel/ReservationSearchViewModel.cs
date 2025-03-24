@@ -683,9 +683,9 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
     }
     private async void Reserve(Vehicule vehicule)
     {
-        Console.WriteLine("Reserve called for vehicule: " + vehicule.vehiculeId);
-        Console.WriteLine("# of items in ReservationResults collection: " );
-        Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
+        //Console.WriteLine("Reserve called for vehicule: " + vehicule.vehiculeId);
+        //Console.WriteLine("# of items in ReservationResults collection: " );
+        //Console.WriteLine("# of items in Reservations collection: " + ReservationDetails.Reservations.Count);
         int indexRes = ReservationDetails.myReservations.Length-1;
         string resID;
         // ID for Logged in member, will need to be changed to retrieve MemberID from MembreDetails
@@ -699,20 +699,45 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         {
             resID = "RES0" + (indexRes).ToString();
         }
-        //_reservationService.AddReservation(new Reservation(resID, currentMemberID, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime, vehicule));
-        if (DateChangedFlag == 1)
+        ReservationSearchDetails.RequestedEndTime = EndDate.Add(EndTime);
+        TimeSpan interval = ReservationSearchDetails.RequestedEndTime - ReservationSearchDetails.RequestedStartTime;
+        TimeSpan threshold6Hours = TimeSpan.FromHours(6);
+        TimeSpan threshold30Mins = TimeSpan.FromMinutes(30);
+        await Task.Yield();
+        if (ReservationSearchDetails.RequestedEndTime < ReservationSearchDetails.RequestedStartTime)
+        {
+            string message = "The End Time cannot be BEFORE the Start Time! \n\n Please enter a valid time.";
+            await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
+        }
+        else if (ReservationSearchDetails.RequestedStartTime < DateTime.Now)
+        {
+            string message = "The Start time cannot be before now! \n\n Please also enter a valid time interval.";
+            await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
+        }
+        else if (EndDate < StartDate)
+        {
+            string message = "The End Date cannot be BEFORE the Start Date! \n\n Please enter a valid Date.";
+            await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
+        }
+        else if (interval > threshold6Hours)
+        {
+            {
+                string message = "RentARide only provides short-time rentals! \n\n Please enter a time interval of less than 6 hours.";
+                await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
+            }
+        }
+        else if (interval < threshold30Mins)
+        {
+            string message = "The minimum rental period is 30 minutes! \n\n Please enter a valid interval.";
+            await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
+        }
+        else
         {
             ReservationDetails.CreerReservation(indexRes, new Reservation(resID, currentMemberID, ReservationSearchDetails.RequestedStartTime, ReservationSearchDetails.RequestedEndTime, vehicule));
             OnReservationAdded();
             AddVehiculesBasedOnAllUserInputs();
+            await Shell.Current.GoToAsync("Mainpage");
         }
-        else
-        {
-            string message = "Please select the date and time interval before trying to reserve the vehicule!";
-            await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
-        }
-
-        await Shell.Current.GoToAsync("Mainpage");
     }
     private void Cancel(Reservation reservation)
     {
