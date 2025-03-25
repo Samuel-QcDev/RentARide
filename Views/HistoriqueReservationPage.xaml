@@ -6,10 +6,7 @@
     xmlns:Model="clr-namespace:RentARide.Models"
     xmlns:controls="clr-namespace:RentARide.Controls"
     xmlns:services="clr-namespace:RentARide.Services"
-<<<<<<< HEAD
     xmlns:viewmodel="clr-namespace:RentARide.ViewModel"
-=======
->>>>>>> parent of f684e4d (minor change)
     Title="Historique"
     x:DataType="viewmodel:HistoriqueReservationViewModel">
 
