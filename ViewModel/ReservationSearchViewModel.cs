@@ -620,24 +620,24 @@ public partial class ReservationSearchViewModel : LocalBaseViewModel
         //bool containsValueChecked = vehicule.AutoOptions.Contains(optionsChecked);
         bool containsNoOption = vehicule.AutoOptions.Count == 0;
 
+        // If option was just unchecked, don't add cars with that option
         if (containsAnyValue)
             return false;
 
-        // If vehicule has one of the options checked, it is added
-        if (addOptions.Count == 0 && containsNoOption)
+        // If vehicule has no options and no option is checked, it is added
+        if (addOptions.Count == 0)
         {
-            return true;
+            if (containsNoOption) return true;
+            return false;
+
         }
         // allValuesInList : each vehicule must have ALL checked options, or
         // AnyValueInList : each vehicule must have ONE of the checked options
-        else if (allValuesInList)
+        if (allValuesInList && !containsNoOption)
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
     private void CheckStation(Vehicule vehicule)
     {
